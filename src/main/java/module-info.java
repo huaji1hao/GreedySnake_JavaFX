@@ -7,6 +7,6 @@ module snake {
     // 其他模块依赖
 
     opens snake to javafx.fxml;
-    exports snake.controller to javafx.fxml;
+//    exports snake.controller to javafx.fxml;
     exports snake to javafx.graphics;
 }
