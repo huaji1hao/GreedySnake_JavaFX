@@ -1,6 +1,6 @@
-package example.ui;
+package com.simplesnake.ui;
 
-import example.controller.GameController;
+import com.simplesnake.controller.GameController;
 
 import javax.swing.JFrame;
 import java.awt.Toolkit;

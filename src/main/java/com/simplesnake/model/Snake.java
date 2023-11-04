@@ -1,11 +1,9 @@
-package example.model;
+package com.simplesnake.model;
 
-import example.movable;
-import example.utils.ImageUtil;
-import example.utils.GameUtil;
+import com.simplesnake.utils.GameUtil;
+import com.simplesnake.utils.ImageUtil;
 
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -41,7 +39,7 @@ public class Snake extends SnakeObject implements movable {
         return length;
     }
 
-    public void changeLength(int length) {
+    public void setLength(int length) {
         this.length = length;
     }
 
@@ -97,23 +95,36 @@ public class Snake extends SnakeObject implements movable {
         outOfBounds();
         eatBody();
 
-        bodyPoints.add(new Point(x, y));
+        // Draw the body first
+        drawBody(g);
 
-        if (bodyPoints.size() > (length * num)) {
+        // Only add a new body point if the snake has moved enough distance
+        if (bodyPoints.isEmpty() || !bodyPoints.get(bodyPoints.size() - 1).equals(new Point(x, y))) {
+            bodyPoints.add(new Point(x, y));
+        }
+
+        // Remove the oldest segment if the body is longer than the snake's length
+        while (bodyPoints.size() > length) {
             bodyPoints.remove(0);
         }
 
+        // Draw the head last so it's on top
         g.drawImage(newImgSnakeHead, x, y, null);
-        drawBody(g);
+
         move();
     }
 
+
+
     private void eatBody() {
-        for (int i = 0; i < bodyPoints.size() - 1; i++) {
-            Point point = bodyPoints.get(i);
-            if (x == point.x && y == point.y) {
-                alive = false;
-                break;
+        // Check for self-collision only if the snake has a body (New condition added)
+        if (length > 0) {
+            for (int i = 0; i < bodyPoints.size() - 1; i++) {
+                Point point = bodyPoints.get(i);
+                if (x == point.x && y == point.y) {
+                    alive = false;
+                    break;
+                }
             }
         }
     }
@@ -126,7 +137,7 @@ public class Snake extends SnakeObject implements movable {
     }
 
     private void outOfBounds() {
-        if (x < 0 || x >= (870 - width) || y < 40 || y >= (560 - height)) {
+        if (x < 0 || x >= (870 - width) || y < 0 || y >= (560 - height)) {
             alive = false;
         }
     }

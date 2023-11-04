@@ -1,4 +1,4 @@
-package example.utils;
+package com.simplesnake.utils;
 
 import java.awt.Image;
 import java.util.HashMap;

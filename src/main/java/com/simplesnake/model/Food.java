@@ -1,6 +1,6 @@
-package example.model;
+package com.simplesnake.model;
 
-import example.utils.ImageUtil;
+import com.simplesnake.utils.ImageUtil;
 
 import java.awt.Graphics;
 import java.util.Random;
@@ -23,7 +23,7 @@ public class Food extends SnakeObject {
     public void eaten(Snake snake) {
         if (snake.getRectangle().intersects(this.getRectangle()) && alive && snake.isAlive()) {
             this.alive = false; // Use 'alive' instead of 'l'
-            snake.changeLength(snake.getLength() + 1); // Use 'setLength' instead of 'changeLength'
+            snake.setLength(snake.getLength() + 3); // Use 'setLength' instead of 'changeLength'
             snake.score += 521;
         }
     }

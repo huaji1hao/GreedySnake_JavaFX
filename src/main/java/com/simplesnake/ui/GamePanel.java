@@ -1,4 +1,4 @@
-package example.ui;
+package com.simplesnake.ui;
 
 
 import javax.swing.JPanel;

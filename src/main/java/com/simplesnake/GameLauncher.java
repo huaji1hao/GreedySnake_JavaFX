@@ -1,6 +1,6 @@
-package example;
+package com.simplesnake;
 
-import example.controller.GameController;
+import com.simplesnake.controller.GameController;
 
 public class GameLauncher {
 

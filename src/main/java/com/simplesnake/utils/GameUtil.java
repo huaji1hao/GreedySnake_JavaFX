@@ -1,4 +1,4 @@
-package example.utils;
+package com.simplesnake.utils;
 
 import java.awt.Graphics2D;
 import java.awt.Image;

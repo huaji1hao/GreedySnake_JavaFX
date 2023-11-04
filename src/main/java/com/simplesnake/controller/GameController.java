@@ -1,11 +1,11 @@
-package example.controller;
+package com.simplesnake.controller;
 
-import example.ui.GamePanel;
-import example.ui.GameWindow;
-import example.model.Food;
-import example.model.Snake;
-import example.utils.ImageUtil;
-import example.audio.MusicPlayer;
+import com.simplesnake.audio.MusicPlayer;
+import com.simplesnake.model.Food;
+import com.simplesnake.model.Snake;
+import com.simplesnake.ui.GamePanel;
+import com.simplesnake.ui.GameWindow;
+import com.simplesnake.utils.ImageUtil;
 
 import java.awt.Color;
 import java.awt.Font;

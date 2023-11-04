@@ -1,4 +1,4 @@
-package example.model;
+package com.simplesnake.model;
 
 import java.awt.Graphics;
 import java.awt.Image;

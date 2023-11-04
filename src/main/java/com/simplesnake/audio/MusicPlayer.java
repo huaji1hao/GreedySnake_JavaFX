@@ -1,4 +1,4 @@
-package example.audio;
+package com.simplesnake.audio;
 
 import javazoom.jl.player.Player;
 
