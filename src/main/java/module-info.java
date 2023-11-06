@@ -9,4 +9,8 @@ module snake {
     opens snake to javafx.fxml;
 //    exports snake.controller to javafx.fxml;
     exports snake to javafx.graphics;
+//    exports snake.ui to javafx.graphics;
+//    opens snake.ui to javafx.fxml;
+//    exports snake.controller to javafx.graphics;
+//    opens snake.controller to javafx.fxml;
 }

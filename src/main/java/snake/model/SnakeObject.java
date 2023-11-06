@@ -1,10 +1,9 @@
-package com.simplesnake.model;
+package snake.model;
 
 import javafx.geometry.Rectangle2D;
+import javafx.scene.canvas.GraphicsContext;
 
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Rectangle;
+import java.awt.*;
 
 public abstract class SnakeObject {
     protected int x;
@@ -14,10 +13,14 @@ public abstract class SnakeObject {
     protected int height;
     protected boolean alive;
 
-    public abstract void draw(Graphics g);
+    public abstract void draw(GraphicsContext gc);
 
     public Rectangle getRectangle() {
         return new Rectangle(x, y, width, height);
+    }
+
+    public Rectangle2D getRectangle2D() {
+        return new Rectangle2D(x, y, width, height);
     }
 
     // Check if the object is alive

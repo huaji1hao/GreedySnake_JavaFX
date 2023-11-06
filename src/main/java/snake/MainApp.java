@@ -1,68 +1,224 @@
 package snake;
 
-import javafx.animation.AnimationTimer;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MainApp extends Application {
 
-    private static final int WIDTH = 870;
-    private static final int HEIGHT = 560;
-    private Canvas canvas;
+    private static final int WIDTH = 800;
+    private static final int HEIGHT = WIDTH;
+    private static final int ROWS = 32;
+    private static final int COLUMNS = ROWS;
+    private static final int SQUARE_SIZE = WIDTH / ROWS;
+
+    private static final String[] FOODS_IMAGE = new String[]{"food-apple.png", "food-banana.png", "food-blueberry.png",
+            "food-cherry.png", "food-durian.png", "food-grape.png", "food-grapefruit.png", "food-kiwi.png",
+            "food-lemon.png", "food-litchi.png", "food-mango.png", "food-orange.png", "food-peach.png",
+            "food-pear.png", "food-pineapple.png", "food-pitaya.png", "food-strawberry.png", "food-watermelon.png"};
+
+    private static final int RIGHT = 0;
+    private static final int LEFT = 1;
+    private static final int UP = 2;
+    private static final int DOWN = 3;
+
+    private GraphicsContext gc;
+    private List<Point> snakeBody = new ArrayList();
+    private Point snakeHead;
+    private Image foodImage;
+    private int foodX;
+    private int foodY;
+    private boolean gameOver;
+    private int currentDirection;
+    private int score = 0;
 
     @Override
-    public void start(Stage stage) {
-        canvas = new Canvas(WIDTH, HEIGHT);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-
-        StackPane root = new StackPane();
+    public void start(Stage primaryStage) throws Exception {
+        primaryStage.setTitle("Snake");
+        Group root = new Group();
+        Canvas canvas = new Canvas(WIDTH, HEIGHT);
         root.getChildren().add(canvas);
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        gc = canvas.getGraphicsContext2D();
 
-        Scene scene = new Scene(root, WIDTH, HEIGHT);
-
-        stage.setTitle("Snakee Yipee");
-        stage.setScene(scene);
-        stage.show();
-
-        // Set up the game loop
-        AnimationTimer timer = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                // Game loop logic goes here
-                // For example, you could call a method to update game objects and then draw them
-                // updateGame();
-                // drawGame(gc);
+        scene.setOnKeyPressed(event -> {
+            KeyCode code = event.getCode();
+            if (code == KeyCode.RIGHT || code == KeyCode.D) {
+                if (currentDirection != LEFT) {
+                    currentDirection = RIGHT;
+                }
+            } else if (code == KeyCode.LEFT || code == KeyCode.A) {
+                if (currentDirection != RIGHT) {
+                    currentDirection = LEFT;
+                }
+            } else if (code == KeyCode.UP || code == KeyCode.W) {
+                if (currentDirection != DOWN) {
+                    currentDirection = UP;
+                }
+            } else if (code == KeyCode.DOWN || code == KeyCode.S) {
+                if (currentDirection != UP) {
+                    currentDirection = DOWN;
+                }
             }
-        };
-        timer.start();
+        });
 
-        // Set up key event handlers
-        scene.setOnKeyPressed(this::handleKeyPressed);
-        scene.setOnKeyReleased(this::handleKeyReleased);
+        for (int i = 0; i < 3; i++) {
+            snakeBody.add(new Point(5, ROWS / 2));
+        }
+        snakeHead = snakeBody.get(0);
+        generateFood();
 
-        // Load the snake logo as the application icon
-        stage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/snake-logo.png")));
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(110), e -> run(gc)));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
     }
 
-    private void handleKeyPressed(KeyEvent event) {
-        // Handle key pressed events
-        // For example, you could update the direction of the snake based on the key pressed
+    private void run(GraphicsContext gc) {
+        if (gameOver) {
+            gc.setFill(Color.RED);
+            gc.setFont(new Font("Digital-7", 70));
+            gc.fillText("Game Over", WIDTH / 3.5, HEIGHT / 2);
+            return;
+        }
+        drawBackground(gc);
+        drawFood(gc);
+        drawSnake(gc);
+        drawScore();
+
+        for (int i = snakeBody.size() - 1; i >= 1; i--) {
+            snakeBody.get(i).x = snakeBody.get(i - 1).x;
+            snakeBody.get(i).y = snakeBody.get(i - 1).y;
+        }
+
+        switch (currentDirection) {
+            case RIGHT:
+                moveRight();
+                break;
+            case LEFT:
+                moveLeft();
+                break;
+            case UP:
+                moveUp();
+                break;
+            case DOWN:
+                moveDown();
+                break;
+        }
+
+        gameOver();
+        eatFood();
     }
 
-    private void handleKeyReleased(KeyEvent event) {
-        // Handle key released events
+    private void drawBackground(GraphicsContext gc) {
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLUMNS; j++) {
+                if ((i + j) % 2 == 0) {
+                    gc.setFill(Color.web("AAD751"));
+                } else {
+                    gc.setFill(Color.web("A2D149"));
+                }
+                gc.fillRect(i * SQUARE_SIZE, j * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
+            }
+        }
+    }
+
+    private void generateFood() {
+        start:
+        while (true) {
+            foodX = (int) (Math.random() * ROWS);
+            foodY = (int) (Math.random() * COLUMNS);
+
+            for (Point snake : snakeBody) {
+                if (snake.getX() == foodX && snake.getY() == foodY) {
+                    continue start;
+                }
+            }
+            foodImage = new Image(FOODS_IMAGE[(int) (Math.random() * FOODS_IMAGE.length)]);
+            break;
+        }
+    }
+
+    private void drawFood(GraphicsContext gc) {
+        gc.drawImage(foodImage, foodX * SQUARE_SIZE, foodY * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
+    }
+
+    private void drawSnake(GraphicsContext gc) {
+        gc.setFill(Color.web("4674E9"));
+        gc.drawImage(new Image("snake-head-right.png"), snakeHead.getX() * SQUARE_SIZE, snakeHead.getY() * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
+//        gc.fillRoundRect(snakeHead.getX() * SQUARE_SIZE, snakeHead.getY() * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1, 35, 35);
+
+        for (int i = 1; i < snakeBody.size(); i++) {
+//            gc.fillRoundRect(snakeBody.get(i).getX() * SQUARE_SIZE, snakeBody.get(i).getY() * SQUARE_SIZE, SQUARE_SIZE - 1,
+//                    SQUARE_SIZE - 1, 20, 20);
+            gc.drawImage(new Image("snake-body.png"), snakeBody.get(i).getX() * SQUARE_SIZE, snakeBody.get(i).getY() * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
+        }
+    }
+
+    private void moveRight() {
+        snakeHead.x++;
+    }
+
+    private void moveLeft() {
+        snakeHead.x--;
+    }
+
+    private void moveUp() {
+        snakeHead.y--;
+    }
+
+    private void moveDown() {
+        snakeHead.y++;
+    }
+
+    public void gameOver() {
+        if (snakeHead.x < 0 || snakeHead.y < 0 || snakeHead.x * SQUARE_SIZE >= WIDTH || snakeHead.y * SQUARE_SIZE >= HEIGHT) {
+            gameOver = true;
+        }
+
+        //destroy itself
+        for (int i = 1; i < snakeBody.size(); i++) {
+            if (snakeHead.x == snakeBody.get(i).getX() && snakeHead.getY() == snakeBody.get(i).getY()) {
+                gameOver = true;
+                break;
+            }
+        }
+    }
+
+    private void eatFood() {
+        if (snakeHead.getX() == foodX && snakeHead.getY() == foodY) {
+            snakeBody.add(new Point(-1, -1));
+            generateFood();
+            score += 5;
+        }
+    }
+
+    private void drawScore() {
+        gc.setFill(Color.WHITE);
+        gc.setFont(new Font("Digital-7", 35));
+        gc.fillText("Score: " + score, 10, 35);
     }
 
     public static void main(String[] args) {
         launch(args);
     }
-
-    // Additional methods for game logic and rendering would go here
-    // For example, methods to update game objects, check collisions, draw the game state, etc.
 }
