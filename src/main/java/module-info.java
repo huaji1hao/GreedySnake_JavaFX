@@ -1,4 +1,4 @@
-module snake {
+module com {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.graphics;
@@ -6,9 +6,9 @@ module snake {
     requires jlayer;
     // 其他模块依赖
 
-    opens snake to javafx.fxml;
+    opens com.megasnake to javafx.fxml;
 //    exports snake.controller to javafx.fxml;
-    exports snake to javafx.graphics;
+    exports com.megasnake to javafx.graphics;
 //    exports snake.ui to javafx.graphics;
 //    opens snake.ui to javafx.fxml;
 //    exports snake.controller to javafx.graphics;

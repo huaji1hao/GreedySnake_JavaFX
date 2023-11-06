@@ -1,4 +1,4 @@
-package snake.model;
+package com.megasnake.model;
 
 /**
  * 
