@@ -33,7 +33,7 @@ public class GameView {
     public void drawSnake(GraphicsContext gc, Snake mySnake){
 
         // The fineness level of the body, used to make the body parts slightly smaller than the square size
-        int bodyFineness = 2;
+        int bodyFineness = 1;
 
         // Draw each body part of the snake, starting from the tail and moving towards the head
         for (int i = mySnake.getBodySize() - 1; i > 0; i--) {

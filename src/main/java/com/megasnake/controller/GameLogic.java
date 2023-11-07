@@ -12,7 +12,7 @@ import static com.megasnake.util.DirectionHandler.*;
 public class GameLogic {
     public static final int WIDTH = 720;
     public static final int HEIGHT = WIDTH;
-    public static final int ROWS = 24;
+    public static final int ROWS = 30;
     public static final int COLUMNS = ROWS;
     public static final int SQUARE_SIZE = WIDTH / ROWS;
 
@@ -26,11 +26,7 @@ public class GameLogic {
 
         gameview.drawAll(gc, mySnake, food);
 
-        for (int i = mySnake.getBodySize() - 1; i >= 1; i--) {
-            mySnake.getBodyPart(i).x = mySnake.getBodyPart(i-1).x;
-            mySnake.getBodyPart(i).y = mySnake.getBodyPart(i-1).y;
-        }
-
+//        mySnake.moveBody();
         switch (getCurrentDirection()) {
             case RIGHT:
                 mySnake.moveRight();
