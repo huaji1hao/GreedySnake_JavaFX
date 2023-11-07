@@ -13,7 +13,7 @@ public class Snake  {
     private Point snakeHead;
     private int score = 0;
 
-    private int slowspeed = 2;
+    private int slowspeed = 3;
     private int speedController = 0;
 
     public Snake() {
@@ -42,7 +42,7 @@ public class Snake  {
 
     public void eatFood(Food food) {
         if (snakeHead.getX() == food.getX() && snakeHead.getY() == food.getY()) {
-            insertBodyPart(new Point(-1, -1));
+            insertBodyPart(new Point(snakeBody.get(snakeBody.size()-1).x, snakeBody.get(snakeBody.size()-1).y));
             food.generateFood(this);
             score += 5;
         }

@@ -22,9 +22,9 @@ public class SnakeGame {
     Snake mySnake = new Snake();
     public void runSnakeGame(Scene scene, GraphicsContext gc){
         scene.setOnKeyPressed(directionHandler);
-//        MusicPlayer.playMusic("/frogger.mp3");
+        MusicPlayer.playMusic("/frogger.mp3");
         food.generateFood(mySnake);
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(45), e -> run(gc)));
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(32), e -> run(gc)));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }
