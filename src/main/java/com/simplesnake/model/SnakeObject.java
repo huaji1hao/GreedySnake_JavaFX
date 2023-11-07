@@ -1,5 +1,7 @@
 package com.simplesnake.model;
 
+import javafx.geometry.Rectangle2D;
+
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
