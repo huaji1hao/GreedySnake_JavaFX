@@ -3,6 +3,7 @@ package com.megasnake.controller;
 import com.megasnake.model.Food;
 import com.megasnake.model.Snake;
 import com.megasnake.ui.GameView;
+import com.megasnake.util.DirectionHandler;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.awt.*;
@@ -23,24 +24,9 @@ public class GameLogic {
             gameview.drawGameOver(gc);
             return;
         }
+        mySnake.move();
 
         gameview.drawAll(gc, mySnake, food);
-
-//        mySnake.moveBody();
-        switch (getCurrentDirection()) {
-            case RIGHT:
-                mySnake.moveRight();
-                break;
-            case LEFT:
-                mySnake.moveLeft();
-                break;
-            case UP:
-                mySnake.moveUp();
-                break;
-            case DOWN:
-                mySnake.moveDown();
-                break;
-        }
 
         gameOver(mySnake);
         mySnake.eatFood(food);
