@@ -17,7 +17,7 @@ public class Snake extends SnakeObject implements movable {
     public int score = 0;
 
     private static final BufferedImage IMG_SNAKE_HEAD = (BufferedImage) ImageUtil.images.get("snake-head-right");
-    public static List<Point> bodyPoints = new LinkedList<>();
+    public List<Point> bodyPoints = new LinkedList<>();
     private static BufferedImage newImgSnakeHead;
     private boolean up, down, left, right = true;
 

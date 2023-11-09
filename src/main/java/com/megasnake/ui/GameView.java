@@ -2,6 +2,7 @@ package com.megasnake.ui;
 
 import com.megasnake.model.Food;
 import com.megasnake.model.Snake;
+import com.megasnake.util.DirectionHandler;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -30,49 +31,65 @@ public class GameView {
         gc.drawImage(food.getFoodImage(), food.getX() * SQUARE_SIZE, food.getY() * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
     }
 
-    public void drawSnake(GraphicsContext gc, Snake mySnake){
-
+    public void drawSnake(GraphicsContext gc, Snake mySnake) {
         // The fineness level of the body, used to make the body parts slightly smaller than the square size
         int bodyFineness = 1;
 
+        // Calculate the movement frame which determines how much the snake has progressed towards the next cell
+        double moveFrame = mySnake.getMoveFrame();
+
         // Draw each body part of the snake, starting from the tail and moving towards the head
-        for (int i = mySnake.getBodySize() - 1; i > 0; i--) {
+        for (int i = mySnake.getBodySize() - 1; i > 1; i--) {
             // Get the current body part
             Point currentPart = mySnake.getBodyPart(i);
-            // Draw the current body part with a slight reduction in size for visual fineness
-            gc.drawImage(new Image("snake-body.png"), currentPart.getX() * SQUARE_SIZE, currentPart.getY() * SQUARE_SIZE, SQUARE_SIZE - bodyFineness, SQUARE_SIZE - bodyFineness);
-
-            // Get the previous body part to calculate the mid-point
             Point prevPart = mySnake.getBodyPart(i - 1);
-            // Calculate the mid-point between the current and previous body parts
-            double midX = (currentPart.getX() + prevPart.getX()) / 2.0;
-            double midY = (currentPart.getY() + prevPart.getY()) / 2.0;
-            // Draw an additional body part at the mid-point for a smoother snake body appearance
-            gc.drawImage(new Image("snake-body.png"), midX * SQUARE_SIZE, midY * SQUARE_SIZE, SQUARE_SIZE - bodyFineness, SQUARE_SIZE - bodyFineness);
+
+            // Calculate the position with the moveFrame applied
+            double partX = currentPart.getX() + (prevPart.getX() - currentPart.getX()) * moveFrame;
+            double partY = currentPart.getY() + (prevPart.getY() - currentPart.getY()) * moveFrame;
+
+            // Draw the current body part with a slight reduction in size for visual fineness
+            gc.drawImage(new Image("snake-body.png"), partX * SQUARE_SIZE, partY * SQUARE_SIZE, SQUARE_SIZE - bodyFineness, SQUARE_SIZE - bodyFineness);
         }
 
-        // Get the head part of the snake for drawing
-        Point headPart = mySnake.getSnakeHead();
+        // Get the first part of the snake for drawing
+        Point headPart = mySnake.getBodyPart(1);
+
+        // Calculate the head's new position based on the current direction and moveFrame
+        double headX = headPart.getX();
+        double headY = headPart.getY();
+        int currentDirection = getCurrentDirection();
+        if (currentDirection == RIGHT) {
+            headX += moveFrame;
+        } else if (currentDirection == LEFT) {
+            headX -= moveFrame;
+        } else if (currentDirection == UP) {
+            headY -= moveFrame;
+        } else if (currentDirection == DOWN) {
+            headY += moveFrame;
+        }
+
         // Draw the snake head with the correct orientation based on the current direction of movement
-        switch (getCurrentDirection()) {
+        switch (currentDirection) {
             case RIGHT:
                 // Draw the head facing right
-                gc.drawImage(new Image("snake-head-right.png"), headPart.getX() * SQUARE_SIZE, headPart.getY() * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
+                gc.drawImage(new Image("snake-head-right.png"), headX * SQUARE_SIZE, headY * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
                 break;
             case LEFT:
                 // Draw the head facing left
-                gc.drawImage(new Image("snake-head-left.png"), headPart.getX() * SQUARE_SIZE, headPart.getY() * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
+                gc.drawImage(new Image("snake-head-left.png"), headX * SQUARE_SIZE, headY * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
                 break;
             case UP:
                 // Draw the head facing up
-                gc.drawImage(new Image("snake-head-up.png"), headPart.getX() * SQUARE_SIZE, headPart.getY() * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
+                gc.drawImage(new Image("snake-head-up.png"), headX * SQUARE_SIZE, headY * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
                 break;
             case DOWN:
                 // Draw the head facing down
-                gc.drawImage(new Image("snake-head-down.png"), headPart.getX() * SQUARE_SIZE, headPart.getY() * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
+                gc.drawImage(new Image("snake-head-down.png"), headX * SQUARE_SIZE, headY * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
                 break;
         }
     }
+
 
 
     public void drawScore(GraphicsContext gc, int score) {

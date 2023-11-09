@@ -1,20 +1,22 @@
 package com.megasnake.model;
 
 
+import com.megasnake.util.DirectionHandler;
+
 import java.awt.*;
 import java.util.ArrayList;
 
 import java.util.List;
 
 import static com.megasnake.controller.GameLogic.*;
+import static com.megasnake.util.DirectionHandler.*;
 
 public class Snake  {
     private List<Point> snakeBody = new ArrayList();
     private Point snakeHead;
     private int score = 0;
-
-    private int slowspeed = 3;
-    private int speedController = 0;
+    private int slowspeed = 5;
+    private int speedController = slowspeed - 1;
 
     public Snake() {
         for (int i = 0; i < 3; i++) {
@@ -23,6 +25,12 @@ public class Snake  {
         snakeHead = snakeBody.get(0);
 
     }
+
+    public double getMoveFrame() {
+        return 1.0 * speedController / slowspeed;
+    }
+
+
 
     public int getBodySize() {
         return snakeBody.size();
@@ -59,55 +67,45 @@ public class Snake  {
         }
     }
 
-    public void moveRight() {
-        if (speedController == 0) {
+    public void canMove(int direction){
+        if (speedController == slowspeed - 1) {
             moveBody();
-            snakeHead.x++;
+            if(direction == RIGHT){
+                snakeHead.x++;
+                setCurrentDirection(RIGHT);
+            }
+            else if(direction == LEFT){
+                snakeHead.x--;
+                setCurrentDirection(LEFT);
+            }
+            else if(direction == UP){
+                snakeHead.y--;
+                setCurrentDirection(UP);
+            }
+            else if(direction == DOWN){
+                snakeHead.y++;
+                setCurrentDirection(DOWN);
+            }
         }
         speedController = (speedController + 1) % slowspeed;
     }
 
-    public void moveLeft() {
-        if (speedController == 0) {
-            moveBody();
-            snakeHead.x--;
 
+    public void move(){
+        switch (getNextDirection()) {
+            case RIGHT:
+                canMove(RIGHT);
+                break;
+            case LEFT:
+                canMove(LEFT);
+                break;
+            case UP:
+                canMove(UP);
+                break;
+            case DOWN:
+                canMove(DOWN);
+                break;
         }
-        speedController = (speedController + 1) % slowspeed;
     }
-
-
-
-    public void moveUp() {
-        if (speedController == 0) {
-            moveBody();
-            snakeHead.y--;
-        }
-        speedController = (speedController + 1) % slowspeed;
-    }
-
-    public void moveDown() {
-        if (speedController == 0) {
-            moveBody();
-            snakeHead.y++;
-        }
-        speedController = (speedController + 1) % slowspeed;
-    }
-
-//    public void moveRight() {
-//        snakeHead.x++;
-//    }
-//
-//    public void moveLeft() {
-//        snakeHead.x--;
-//    }
-//
-//    public void moveUp() {
-//        snakeHead.y--;
-//    }
-//
-//    public void moveDown() {
-//        snakeHead.y++;
-//    }
 
 }
