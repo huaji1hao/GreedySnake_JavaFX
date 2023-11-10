@@ -1,15 +1,6 @@
 package com.megasnake;
 
-import com.megasnake.controller.GameLogic;
 import com.megasnake.controller.SnakeGame;
-import com.megasnake.model.Food;
-import com.megasnake.model.Snake;
-import com.megasnake.ui.GameView;
-import com.megasnake.util.DirectionHandler;
-import com.simplesnake.audio.MusicPlayer;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;

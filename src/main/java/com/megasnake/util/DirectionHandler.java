@@ -6,8 +6,6 @@ import javafx.scene.input.KeyEvent;
 
 public class DirectionHandler implements EventHandler<KeyEvent> {
     private static int currentDirection;
-    private static int preDirection;
-
     private static int nextDirection;
     public static final int RIGHT = 0;
     public static final int LEFT = 1;

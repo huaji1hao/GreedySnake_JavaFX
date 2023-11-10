@@ -1,7 +1,7 @@
 package com.megasnake.model;
 
 
-import com.megasnake.util.DirectionHandler;
+import com.megasnake.controller.SpeedController;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -11,26 +11,23 @@ import java.util.List;
 import static com.megasnake.controller.GameLogic.*;
 import static com.megasnake.util.DirectionHandler.*;
 
-public class Snake  {
+public class Snake  implements movable{
     private List<Point> snakeBody = new ArrayList();
     private Point snakeHead;
+    private SpeedController speedController;
     private int score = 0;
-    private int slowspeed = 5;
-    private int speedController = slowspeed - 1;
 
     public Snake() {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             snakeBody.add(new Point(5, ROWS / 2));
         }
         snakeHead = snakeBody.get(0);
-
+        speedController = new SpeedController(5);
     }
 
     public double getMoveFrame() {
-        return 1.0 * speedController / slowspeed;
+        return speedController.getFrameRate();
     }
-
-
 
     public int getBodySize() {
         return snakeBody.size();
@@ -44,13 +41,9 @@ public class Snake  {
         return snakeHead;
     }
 
-    public void insertBodyPart(Point point) {
-        snakeBody.add(point);
-    }
-
     public void eatFood(Food food) {
         if (snakeHead.getX() == food.getX() && snakeHead.getY() == food.getY()) {
-            insertBodyPart(new Point(snakeBody.get(snakeBody.size()-1).x, snakeBody.get(snakeBody.size()-1).y));
+            snakeBody.add(new Point(snakeBody.get(snakeBody.size()-1).x, snakeBody.get(snakeBody.size()-1).y));
             food.generateFood(this);
             score += 5;
         }
@@ -67,8 +60,8 @@ public class Snake  {
         }
     }
 
-    public void canMove(int direction){
-        if (speedController == slowspeed - 1) {
+    public void judgeMoveFrame(int direction){
+        if (speedController.isMoveFrame()){
             moveBody();
             if(direction == RIGHT){
                 snakeHead.x++;
@@ -87,24 +80,16 @@ public class Snake  {
                 setCurrentDirection(DOWN);
             }
         }
-        speedController = (speedController + 1) % slowspeed;
+        speedController.updateFrame();
     }
 
 
     public void move(){
         switch (getNextDirection()) {
-            case RIGHT:
-                canMove(RIGHT);
-                break;
-            case LEFT:
-                canMove(LEFT);
-                break;
-            case UP:
-                canMove(UP);
-                break;
-            case DOWN:
-                canMove(DOWN);
-                break;
+            case RIGHT -> judgeMoveFrame(RIGHT);
+            case LEFT -> judgeMoveFrame(LEFT);
+            case UP -> judgeMoveFrame(UP);
+            case DOWN -> judgeMoveFrame(DOWN);
         }
     }
 

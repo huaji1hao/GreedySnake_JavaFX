@@ -32,19 +32,23 @@ public class Food  {
     }
 
     public void generateFood(Snake mySnake) {
-        start:
-        while (true) {
+        boolean isFoodPlaced;
+
+        do {
+            isFoodPlaced = true;
             foodX = (int) (Math.random() * ROWS);
             foodY = (int) (Math.random() * COLUMNS);
 
             for (int i = 0; i < mySnake.getBodySize(); i++) {
-                Point snake = mySnake.getBodyPart(i);
-                if (snake.getX() == foodX && snake.getY() == foodY) {
-                    continue start;
+                Point snakePart = mySnake.getBodyPart(i);
+                if (snakePart.getX() == foodX && snakePart.getY() == foodY) {
+                    isFoodPlaced = false;
+                    break;
                 }
             }
-            foodImage = new Image(FOODS_IMAGE[(int) (Math.random() * FOODS_IMAGE.length)]);
-            break;
-        }
+        } while (!isFoodPlaced);
+
+        foodImage = new Image(FOODS_IMAGE[(int) (Math.random() * FOODS_IMAGE.length)]);
     }
+
 }

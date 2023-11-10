@@ -1,10 +1,10 @@
 package com.megasnake.controller;
 
+import com.megasnake.audio.MusicPlayer;
 import com.megasnake.model.Food;
 import com.megasnake.model.Snake;
 import com.megasnake.ui.GameView;
 import com.megasnake.util.DirectionHandler;
-import com.simplesnake.audio.MusicPlayer;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
