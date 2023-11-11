@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import java.util.List;
 
-import static com.megasnake.game.controller.GameLogic.*;
+import static com.megasnake.game.controller.SnakeGameController.ROWS;
 
 public class Snake  implements movable{
     private List<Point> snakeBody = new ArrayList();
@@ -22,7 +22,15 @@ public class Snake  implements movable{
             snakeBody.add(new Point(5, ROWS / 2));
         }
         snakeHead = snakeBody.get(0);
-        speedController = new SpeedController(5);
+        speedController = new SpeedController();
+    }
+
+    public void speedUp() {
+        speedController.speedUp();
+    }
+
+    public void speedDown() {
+        speedController.speedDown();
     }
 
     public double getMoveFrame() {
@@ -45,7 +53,7 @@ public class Snake  implements movable{
         if (snakeHead.getX() == food.getX() && snakeHead.getY() == food.getY()) {
             snakeBody.add(new Point(snakeBody.get(snakeBody.size()-1).x, snakeBody.get(snakeBody.size()-1).y));
             food.generateFood(this);
-            score += 5;
+            score += 5 * speedController.getSpeedLevel();
         }
     }
 

@@ -5,8 +5,8 @@ import javafx.scene.image.Image;
 
 import java.awt.*;
 
-import static com.megasnake.game.controller.GameLogic.COLUMNS;
-import static com.megasnake.game.controller.GameLogic.ROWS;
+import static com.megasnake.game.controller.SnakeGameController.COLUMNS;
+import static com.megasnake.game.controller.SnakeGameController.ROWS;
 
 public class Food  {
     public static final String[] FOODS_IMAGE = new String[]{"food-apple.png", "food-banana.png", "food-blueberry.png",

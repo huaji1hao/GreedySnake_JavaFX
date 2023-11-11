@@ -4,11 +4,14 @@ public class SpeedController {
     private int slowspeed; // The larger the slowspeed, the slower the snake moves
     private int frame;
 
-    public SpeedController(int slowspeed) {
-        this.slowspeed = slowspeed;
+    public SpeedController() {
+        this.slowspeed = 5;
         this.frame = slowspeed - 1;
     }
 
+    public int getSpeedLevel() {
+        return 6 - slowspeed;
+    }
     public double getFrameRate() {
         return 1.0 * frame / slowspeed;
     }
@@ -22,7 +25,10 @@ public class SpeedController {
     }
 
     public void speedUp() {
-        if(slowspeed > 1) slowspeed--;
+        if(slowspeed > 1){
+            slowspeed--;
+            frame = slowspeed - 1;
+        }
     }
 
     public void speedDown() {

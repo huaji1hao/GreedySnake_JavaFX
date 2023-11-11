@@ -10,7 +10,7 @@ import javafx.scene.text.Font;
 
 import java.awt.*;
 
-import static com.megasnake.game.controller.GameLogic.*;
+import static com.megasnake.game.controller.SnakeGameController.*;
 
 public class GameView {
     public void drawBackground(GraphicsContext gc) {
