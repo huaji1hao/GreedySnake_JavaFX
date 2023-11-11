@@ -1,6 +1,6 @@
 package com.megasnake;
 
-import com.megasnake.controller.SnakeGame;
+import com.megasnake.game.controller.SnakeGame;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -9,7 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import static com.megasnake.controller.GameLogic.*;
+import static com.megasnake.game.controller.GameLogic.*;
 
 public class MainApp extends Application {
     private GraphicsContext gc;
