@@ -1,4 +1,4 @@
-package com.megasnake.model;
+package com.megasnake.game.model;
 
 /**
  * 

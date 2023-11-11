@@ -1,8 +1,8 @@
-package com.megasnake.ui;
+package com.megasnake.game.view;
 
-import com.megasnake.model.Food;
-import com.megasnake.model.Snake;
-import com.megasnake.util.DirectionHandler;
+import com.megasnake.game.model.Food;
+import com.megasnake.game.utils.DirectionHandler;
+import com.megasnake.game.model.Snake;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -10,8 +10,7 @@ import javafx.scene.text.Font;
 
 import java.awt.*;
 
-import static com.megasnake.controller.GameLogic.*;
-import static com.megasnake.util.DirectionHandler.*;
+import static com.megasnake.game.controller.GameLogic.*;
 
 public class GameView {
     public void drawBackground(GraphicsContext gc) {
@@ -58,32 +57,32 @@ public class GameView {
         // Calculate the head's new position based on the current direction and moveFrame
         double headX = headPart.getX();
         double headY = headPart.getY();
-        int currentDirection = getCurrentDirection();
-        if (currentDirection == RIGHT) {
+        int currentDirection = DirectionHandler.getCurrentDirection();
+        if (currentDirection == DirectionHandler.RIGHT) {
             headX += moveFrame;
-        } else if (currentDirection == LEFT) {
+        } else if (currentDirection == DirectionHandler.LEFT) {
             headX -= moveFrame;
-        } else if (currentDirection == UP) {
+        } else if (currentDirection == DirectionHandler.UP) {
             headY -= moveFrame;
-        } else if (currentDirection == DOWN) {
+        } else if (currentDirection == DirectionHandler.DOWN) {
             headY += moveFrame;
         }
 
         // Draw the snake head with the correct orientation based on the current direction of movement
         switch (currentDirection) {
-            case RIGHT:
+            case DirectionHandler.RIGHT:
                 // Draw the head facing right
                 gc.drawImage(new Image("snake-head-right.png"), headX * SQUARE_SIZE, headY * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
                 break;
-            case LEFT:
+            case DirectionHandler.LEFT:
                 // Draw the head facing left
                 gc.drawImage(new Image("snake-head-left.png"), headX * SQUARE_SIZE, headY * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
                 break;
-            case UP:
+            case DirectionHandler.UP:
                 // Draw the head facing up
                 gc.drawImage(new Image("snake-head-up.png"), headX * SQUARE_SIZE, headY * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
                 break;
-            case DOWN:
+            case DirectionHandler.DOWN:
                 // Draw the head facing down
                 gc.drawImage(new Image("snake-head-down.png"), headX * SQUARE_SIZE, headY * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
                 break;

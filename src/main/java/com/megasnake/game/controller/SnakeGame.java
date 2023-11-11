@@ -1,10 +1,10 @@
-package com.megasnake.controller;
+package com.megasnake.game.controller;
 
-import com.megasnake.audio.MusicPlayer;
-import com.megasnake.model.Food;
-import com.megasnake.model.Snake;
-import com.megasnake.ui.GameView;
-import com.megasnake.util.DirectionHandler;
+import com.megasnake.game.audio.MusicPlayer;
+import com.megasnake.game.model.Food;
+import com.megasnake.game.model.Snake;
+import com.megasnake.game.view.GameView;
+import com.megasnake.game.utils.DirectionHandler;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -12,7 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.util.Duration;
 
-import static com.megasnake.util.DirectionHandler.RIGHT;
+import static com.megasnake.game.utils.DirectionHandler.RIGHT;
 
 public class SnakeGame {
 

@@ -1,14 +1,11 @@
-package com.megasnake.controller;
+package com.megasnake.game.controller;
 
-import com.megasnake.model.Food;
-import com.megasnake.model.Snake;
-import com.megasnake.ui.GameView;
-import com.megasnake.util.DirectionHandler;
+import com.megasnake.game.model.Food;
+import com.megasnake.game.model.Snake;
+import com.megasnake.game.view.GameView;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.awt.*;
-
-import static com.megasnake.util.DirectionHandler.*;
 
 public class GameLogic {
     public static final int WIDTH = 720;

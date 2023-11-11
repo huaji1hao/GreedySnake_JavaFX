@@ -1,4 +1,4 @@
-package com.megasnake.controller;
+package com.megasnake.game.controller;
 
 public class SpeedController {
     private int slowspeed; // The larger the slowspeed, the slower the snake moves

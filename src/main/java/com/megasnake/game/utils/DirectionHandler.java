@@ -1,4 +1,4 @@
-package com.megasnake.util;
+package com.megasnake.game.utils;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
