@@ -1,5 +1,6 @@
 package com.megasnake.ui.controller;
 
+import com.megasnake.game.audio.BackgroundMusicPlayer;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.effect.Glow;
@@ -33,6 +34,7 @@ public class ViewController {
 
         createBackground();
 //        createLogo();
+        BackgroundMusicPlayer.repeatMusic("/audio/ui-background.mp3");
     }
 
     public Stage getMainStage() {

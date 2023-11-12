@@ -10,12 +10,23 @@ import javafx.scene.text.Font;
 
 public class SnakeButton extends Button {
     private final String FONT_PATH = "/font/kenvector_future.ttf";
-//    private final String BUTTON_PRESSED_STYLE = "-fx-background-color: transparent; -fx-background-image: url('yellow_button_pressed.png');";
-    private final String BUTTON_PRESSED_STYLE = "-fx-background-color: transparent; -fx-background-image: url('green-button.png');-fx-text-fill: white;";
-//    private final String BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('yellow_button.png');";
-    private final String BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('green-button.png');-fx-text-fill: white;";
+    private String BUTTON_PRESSED_STYLE = "-fx-background-color: transparent; -fx-background-image: url('green-button.png');";
+    private String BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('green-button.png');";
 
     public SnakeButton(String text) {
+        initializeButton(text);
+    }
+
+    public SnakeButton(String text, int color) {
+        if(color == 1) {
+            BUTTON_PRESSED_STYLE = "-fx-background-color: transparent; -fx-background-image: url('qing-button.png');";
+            BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('qing-button.png');";
+        }
+        initializeButton(text);
+
+    }
+
+    private void initializeButton(String text) {
         setText(text);
         setButtonFont();
         setPrefWidth(190);

@@ -10,7 +10,6 @@ public class SnakeSubScene extends SubScene{
 
     private final String FONT_PATH = "/font/kenvector_future.ttf";
     private final String BACKGROUND_IMAGE = "green-panel.png";
-//    private final String BACKGROUND_IMAGE = "yellow_panel.png";
 
     private boolean isHidden = true;
     public SnakeSubScene() {

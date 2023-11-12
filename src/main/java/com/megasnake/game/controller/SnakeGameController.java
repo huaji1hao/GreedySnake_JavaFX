@@ -1,6 +1,6 @@
 package com.megasnake.game.controller;
 
-import com.megasnake.game.audio.MusicPlayer;
+import com.megasnake.game.audio.BackgroundMusicPlayer;
 import com.megasnake.game.model.Food;
 import com.megasnake.game.model.Snake;
 import com.megasnake.game.view.GameView;
@@ -8,12 +8,14 @@ import com.megasnake.game.utils.DirectionHandler;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
 import java.awt.*;
@@ -59,7 +61,7 @@ public class SnakeGameController {
 
     private void run() {
         scene.setOnKeyPressed(directionHandler);
-        MusicPlayer.playMusic("/frogger.mp3");
+        BackgroundMusicPlayer.repeatMusic("/audio/frogger.mp3");
         food.generateFood(mySnake);
         gameTimer = new Timeline(new KeyFrame(Duration.millis(32), e -> mainLogic(mySnake, food)));
         gameTimer.setCycleCount(Animation.INDEFINITE);
@@ -70,6 +72,12 @@ public class SnakeGameController {
         gameStage = new Stage();
         gameStage.setTitle("MegaSnake");
         gameStage.getIcons().add(new Image("/snake-logo.png"));
+        gameStage.setOnCloseRequest((WindowEvent we) -> {
+            BackgroundMusicPlayer.stopMusic();
+            Platform.exit();
+            System.exit(0);
+        });
+
         root = new Group();
         canvas = new Canvas(WIDTH, HEIGHT);
         gc = canvas.getGraphicsContext2D();
@@ -88,6 +96,7 @@ public class SnakeGameController {
     private void mainLogic(Snake mySnake, Food food){
         if (gameOver) {
             gameview.drawGameOver(gc);
+            BackgroundMusicPlayer.repeatMusic("/audio/ui-background.mp3");
             scoreTable.add(mySnake.getScore());
             gameStage.close();
             gameTimer.stop();

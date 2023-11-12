@@ -68,9 +68,9 @@ public class SubSceneController {
     }
 
     private SnakeButton createButtonToStart(){
-        SnakeButton startButton = new SnakeButton("START");
+        SnakeButton startButton = new SnakeButton("START", 1);
         startButton.setLayoutX(350);
-        startButton.setLayoutY(300);
+        startButton.setLayoutY(280);
 
         startButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
