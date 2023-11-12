@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 public class ViewController {
     private  static final int WIDTH = 1024;
-    private  static final int HEIGHT = 675;
+    private  static final int HEIGHT = 700;
     private AnchorPane mainPane;
     private Scene mainScene;
     private Stage mainStage;
@@ -42,7 +42,7 @@ public class ViewController {
     private void createBackground(){
 //        Image backgroundImage = new Image("purple.png", 256, 256, false, true);
 //        BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
-        Image backgroundImage = new Image("background_v3.png", 1024, 675, false, true);
+        Image backgroundImage = new Image("jungle2.png", 1024, 700, false, true);
         BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, null);
         mainPane.setBackground(new Background(background));
     }
