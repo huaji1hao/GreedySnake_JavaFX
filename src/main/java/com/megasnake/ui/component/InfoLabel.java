@@ -1,4 +1,4 @@
-package com.megasnake.ui.view;
+package com.megasnake.ui.component;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;

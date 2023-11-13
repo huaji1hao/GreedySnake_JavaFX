@@ -1,7 +1,8 @@
 package com.megasnake.ui.controller;
 
 
-import com.megasnake.ui.view.SnakeButton;
+import com.megasnake.game.audio.BackgroundMusicPlayer;
+import com.megasnake.ui.component.SnakeButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.AnchorPane;
@@ -101,6 +102,7 @@ public class ButtonController {
         exitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                BackgroundMusicPlayer.stopMusic();
                 mainStage.close();
             }
         });

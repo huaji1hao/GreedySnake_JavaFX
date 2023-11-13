@@ -3,9 +3,9 @@ package com.megasnake.ui.controller;
 import com.megasnake.game.controller.SnakeGameController;
 import com.megasnake.ui.model.THEME;
 import com.megasnake.ui.model.ThemePicker;
-import com.megasnake.ui.view.InfoLabel;
-import com.megasnake.ui.view.SnakeButton;
-import com.megasnake.ui.view.SnakeSubScene;
+import com.megasnake.ui.component.InfoLabel;
+import com.megasnake.ui.component.SnakeButton;
+import com.megasnake.ui.component.SnakeSubScene;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -68,9 +68,9 @@ public class SubSceneController {
     }
 
     private SnakeButton createButtonToStart(){
-        SnakeButton startButton = new SnakeButton("START");
+        SnakeButton startButton = new SnakeButton("START", 1);
         startButton.setLayoutX(350);
-        startButton.setLayoutY(300);
+        startButton.setLayoutY(280);
 
         startButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -88,7 +88,7 @@ public class SubSceneController {
 
     private HBox createThemesToChoose() {
         HBox box = new HBox();
-        box.setSpacing(20);
+        box.setSpacing(30);
         themesList = new ArrayList<>();
 
         for(THEME THEME : THEME.values()) {

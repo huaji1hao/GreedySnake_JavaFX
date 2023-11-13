@@ -1,10 +1,10 @@
 package com.megasnake.ui.model;
 
 public enum THEME {
-    BLUE("blue_ship.png", 0),
-    GREEN("green_ship.png", 1),
-    ORANGE("orange_ship.png", 2),
-    RED("red_ship.png", 3);
+    BLUE("grass_background_small.png", 0),
+    GREEN("candy_background_small.png", 1),
+    ORANGE("lava_background_small.jpg", 2 ),
+    RED("space_background_small.jpg", 3);
 
     private String urlShip;
 
@@ -21,4 +21,5 @@ public enum THEME {
     public int getDifficulty() {
         return this.difficulty;
     }
+
 }
