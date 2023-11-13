@@ -1,6 +1,8 @@
-package com.megasnake.ui.controller;
+package com.megasnake.ui.view;
 
 import com.megasnake.game.audio.BackgroundMusicPlayer;
+import com.megasnake.ui.controller.ButtonController;
+import com.megasnake.ui.controller.SubSceneController;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.effect.Glow;
@@ -10,7 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-public class ViewController {
+public class ViewManager {
     private  static final int WIDTH = 1024;
     private  static final int HEIGHT = 700;
     private AnchorPane mainPane;
@@ -18,7 +20,7 @@ public class ViewController {
     private Stage mainStage;
     ButtonController buttonController;
     SubSceneController subSceneController;
-    public ViewController() {
+    public ViewManager() {
         mainPane = new AnchorPane();
         mainScene = new Scene(mainPane, WIDTH, HEIGHT);
         mainStage = new Stage();

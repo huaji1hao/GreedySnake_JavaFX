@@ -2,7 +2,7 @@ package com.megasnake.ui.controller;
 
 
 import com.megasnake.game.audio.BackgroundMusicPlayer;
-import com.megasnake.ui.view.SnakeButton;
+import com.megasnake.ui.component.SnakeButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.AnchorPane;

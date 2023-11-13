@@ -1,7 +1,7 @@
 package com.megasnake.ui.controller;
 
 import com.megasnake.ui.model.THEME;
-import com.megasnake.ui.view.SmallInfoLabel;
+import com.megasnake.ui.component.SmallInfoLabel;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;

@@ -5,8 +5,6 @@ import com.megasnake.game.utils.DirectionHandler;
 import com.megasnake.game.model.Snake;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
@@ -32,15 +30,11 @@ public class GameView {
                     gc.fillRect(i * SQUARE_SIZE, j * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
                 }
             }
-        }
-
-        else if(difficulty == 1){
+        } else if(difficulty == 1){
             gc.drawImage(new Image("candy_background.png"), 0, 0, WIDTH, HEIGHT);
-        }
-        else if(difficulty == 2){
+        } else if(difficulty == 2){
             gc.drawImage(new Image("lava_background.jpg"), 0, 0, WIDTH, HEIGHT);
-        }
-        else if(difficulty == 3){
+        } else if(difficulty == 3){
             scrollingBackground.draw(gc);
         }
 

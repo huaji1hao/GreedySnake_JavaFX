@@ -1,4 +1,4 @@
-package com.megasnake.ui.view;
+package com.megasnake.ui.component;
 
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;

@@ -1,4 +1,4 @@
-package com.megasnake.ui.view;
+package com.megasnake.ui.component;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

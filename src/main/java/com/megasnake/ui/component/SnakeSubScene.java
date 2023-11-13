@@ -1,4 +1,4 @@
-package com.megasnake.ui.view;
+package com.megasnake.ui.component;
 
 import javafx.animation.TranslateTransition;
 import javafx.scene.SubScene;

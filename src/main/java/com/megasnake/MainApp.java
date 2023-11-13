@@ -1,7 +1,7 @@
 package com.megasnake;
 
 import com.megasnake.game.audio.BackgroundMusicPlayer;
-import com.megasnake.ui.controller.ViewController;
+import com.megasnake.ui.view.ViewManager;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -11,8 +11,8 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage menuStage) throws Exception {
-        ViewController controller = new ViewController();
-        menuStage = controller.getMainStage();
+        ViewManager manager = new ViewManager();
+        menuStage = manager.getMainStage();
 
         menuStage.setOnCloseRequest((WindowEvent we) -> {
             BackgroundMusicPlayer.stopMusic();

@@ -1,7 +1,5 @@
 package com.megasnake.ui.model;
 
-import com.megasnake.ui.view.InfoLabel;
-import com.megasnake.ui.view.SmallInfoLabel;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
