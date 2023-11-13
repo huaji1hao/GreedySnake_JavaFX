@@ -88,7 +88,7 @@ public class SubSceneController {
 
     private HBox createThemesToChoose() {
         HBox box = new HBox();
-        box.setSpacing(20);
+        box.setSpacing(30);
         themesList = new ArrayList<>();
 
         for(THEME THEME : THEME.values()) {

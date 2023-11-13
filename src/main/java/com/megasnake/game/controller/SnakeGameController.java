@@ -35,6 +35,7 @@ public class SnakeGameController {
     Food food;
     DirectionHandler directionHandler;
     Snake mySnake;
+    int difficulty;
     private PriorityQueue<Integer> scoreTable;
 
     public static final int WIDTH = 720;
@@ -52,6 +53,7 @@ public class SnakeGameController {
         for(int i = 0; i < difficulty; i++){
             mySnake.speedUp();
         }
+        this.difficulty = difficulty;
         this.menuStage = menuStage;
         this.scoreTable = scoreTable;
         this.menuStage.hide();
@@ -104,7 +106,7 @@ public class SnakeGameController {
         }
         mySnake.move();
 
-        gameview.drawAll(gc, mySnake, food);
+        gameview.drawAll(gc, mySnake, food, difficulty);
 
         gameOver(mySnake);
         mySnake.eatFood(food);

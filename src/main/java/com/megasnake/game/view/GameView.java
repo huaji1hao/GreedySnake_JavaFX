@@ -5,6 +5,8 @@ import com.megasnake.game.utils.DirectionHandler;
 import com.megasnake.game.model.Snake;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
@@ -13,17 +15,35 @@ import java.awt.*;
 import static com.megasnake.game.controller.SnakeGameController.*;
 
 public class GameView {
-    public void drawBackground(GraphicsContext gc) {
-        for (int i = 0; i < ROWS; i++) {
-            for (int j = 0; j < COLUMNS; j++) {
-                if ((i + j) % 2 == 0) {
-                    gc.setFill(Color.web("AAD751"));
-                } else {
-                    gc.setFill(Color.web("A2D149"));
+    private ScrollingBackground scrollingBackground;
+
+    public GameView() {
+        scrollingBackground = new ScrollingBackground();
+    }
+    public void drawBackground(GraphicsContext gc, int difficulty) {
+        if(difficulty == 0){
+            for (int i = 0; i < ROWS; i++) {
+                for (int j = 0; j < COLUMNS; j++) {
+                    if ((i + j) % 2 == 0) {
+                        gc.setFill(Color.web("AAD751"));
+                    } else {
+                        gc.setFill(Color.web("A2D149"));
+                    }
+                    gc.fillRect(i * SQUARE_SIZE, j * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
                 }
-                gc.fillRect(i * SQUARE_SIZE, j * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
             }
         }
+
+        else if(difficulty == 1){
+            gc.drawImage(new Image("candy_background.png"), 0, 0, WIDTH, HEIGHT);
+        }
+        else if(difficulty == 2){
+            gc.drawImage(new Image("lava_background.jpg"), 0, 0, WIDTH, HEIGHT);
+        }
+        else if(difficulty == 3){
+            scrollingBackground.draw(gc);
+        }
+
     }
 
     public void drawFood(GraphicsContext gc, Food food){
@@ -97,8 +117,8 @@ public class GameView {
         gc.fillText("Score: " + score, 10, 35);
     }
 
-    public void drawAll(GraphicsContext gc, Snake mySnake, Food food){
-        drawBackground(gc);
+    public void drawAll(GraphicsContext gc, Snake mySnake, Food food, int difficulty){
+        drawBackground(gc, difficulty);
         drawFood(gc, food);
         drawSnake(gc, mySnake);
         drawScore(gc, mySnake.getScore());
