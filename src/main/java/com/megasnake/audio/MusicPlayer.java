@@ -1,4 +1,4 @@
-package com.megasnake.game.audio;
+package com.megasnake.audio;
 
 import javazoom.jl.player.Player;
 

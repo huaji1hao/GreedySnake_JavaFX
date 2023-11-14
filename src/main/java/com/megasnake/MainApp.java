@@ -1,6 +1,6 @@
 package com.megasnake;
 
-import com.megasnake.game.audio.BackgroundMusicPlayer;
+import com.megasnake.audio.BackgroundMusicPlayer;
 import com.megasnake.ui.view.ViewManager;
 import javafx.application.Application;
 import javafx.application.Platform;
