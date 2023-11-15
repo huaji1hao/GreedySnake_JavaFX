@@ -10,7 +10,7 @@ import java.io.InputStream;
  * A class for playing background music in a game. It extends Thread to allow music playing in the background.
  */
 public class BackgroundMusicPlayer extends Thread {
-    private final String filename; // The path to the music file
+    private static String filename; // The path to the music file
     private static Player player; // JLayer player for playing music
     private static boolean isPlaying; // Flag to control music playing
     private static boolean isMuted; // Flag for muting the music
@@ -31,7 +31,8 @@ public class BackgroundMusicPlayer extends Thread {
      */
     @Override
     public void run() {
-        while (isPlaying && !isMuted) {
+        while (isPlaying) {
+            if(isMuted) continue;
             try (InputStream is = getClass().getResourceAsStream(filename);
                  BufferedInputStream bis = new BufferedInputStream(is)) {
                 player = new Player(bis);
@@ -51,6 +52,7 @@ public class BackgroundMusicPlayer extends Thread {
      * @param filename The path to the music file.
      */
     public static void repeatMusic(String filename) {
+        if (isMuted) return;
         if (player != null) stopMusic();
 
         pause = new PauseTransition(Duration.millis(1));
@@ -84,6 +86,7 @@ public class BackgroundMusicPlayer extends Thread {
      */
     public static void unmuteMusic() {
         isMuted = false;
+        repeatMusic(filename); // Start playing music again when unmuting
     }
 
     public static boolean isMuted() {
