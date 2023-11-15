@@ -23,6 +23,7 @@ public class BackgroundMusicPlayer extends Thread {
     public BackgroundMusicPlayer(String filename) {
         this.filename = filename;
         this.isPlaying = true;
+        this.isMuted = false;
     }
 
     /**
@@ -83,5 +84,19 @@ public class BackgroundMusicPlayer extends Thread {
      */
     public static void unmuteMusic() {
         isMuted = false;
+    }
+
+    public static boolean isMuted() {
+        return isMuted;
+    }
+
+    public static void operateMute(){
+        if(isMuted){
+            isMuted = false;
+            unmuteMusic();
+        } else {
+            isMuted = true;
+            muteMusic();
+        }
     }
 }

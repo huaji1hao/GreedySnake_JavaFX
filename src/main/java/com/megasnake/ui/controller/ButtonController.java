@@ -3,6 +3,7 @@ package com.megasnake.ui.controller;
 
 import com.megasnake.audio.BackgroundMusicPlayer;
 import com.megasnake.ui.component.SnakeButton;
+import com.megasnake.ui.component.SoundButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.AnchorPane;
@@ -35,6 +36,7 @@ public class ButtonController {
         createScoresButton();
         createHelpButton();
         createCreditsButton();
+        createSoundButton();
         createExitButton();
     }
 
@@ -44,6 +46,19 @@ public class ButtonController {
         button.setLayoutY(MENU_BUTTONS_START_Y + menuButtons.size() * 100);
         menuButtons.add(button);
         mainPane.getChildren().add(button);
+    }
+
+    private void createSoundButton() {
+        SoundButton soundButton = new SoundButton();
+        soundButton.setLayoutX(900);
+        soundButton.setLayoutY(20);
+        mainPane.getChildren().add(soundButton);
+        soundButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                soundButton.changeButtonStyleAndOperateMusic();
+            }
+        });
     }
 
     private void createPlayButton() {
