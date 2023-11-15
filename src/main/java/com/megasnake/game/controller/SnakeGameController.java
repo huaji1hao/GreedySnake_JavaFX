@@ -1,6 +1,6 @@
 package com.megasnake.game.controller;
 
-import com.megasnake.game.audio.BackgroundMusicPlayer;
+import com.megasnake.audio.BackgroundMusicPlayer;
 import com.megasnake.game.model.Food;
 import com.megasnake.game.model.Snake;
 import com.megasnake.game.view.GameView;

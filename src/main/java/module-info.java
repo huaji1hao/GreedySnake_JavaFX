@@ -1,4 +1,4 @@
-module com {
+module com.megasnake {
     requires javafx.graphics;
     requires java.desktop;
     requires jlayer;

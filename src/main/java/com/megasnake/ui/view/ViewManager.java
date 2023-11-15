@@ -1,6 +1,6 @@
 package com.megasnake.ui.view;
 
-import com.megasnake.game.audio.BackgroundMusicPlayer;
+import com.megasnake.audio.BackgroundMusicPlayer;
 import com.megasnake.ui.controller.ButtonController;
 import com.megasnake.ui.controller.SubSceneController;
 import javafx.event.EventHandler;
