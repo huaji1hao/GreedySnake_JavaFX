@@ -25,13 +25,13 @@ public class SoundButton extends Button {
     }
 
     private  void setButtonPressed() {
-        setPrefHeight(BUTTON_HEIGHT - 2);
-        setLayoutY(getLayoutY() + 2);
+        setPrefHeight(BUTTON_HEIGHT - 1);
+        setLayoutY(getLayoutY() + 1);
     }
 
     private void setButtonReleased() {
         setPrefHeight(BUTTON_HEIGHT);
-        setLayoutY(getLayoutY() - 2);
+        setLayoutY(getLayoutY() - 1);
     }
 
     public void initializeButtonListeners() {
