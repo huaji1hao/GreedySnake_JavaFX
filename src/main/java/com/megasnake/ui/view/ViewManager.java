@@ -12,6 +12,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import java.io.File;
+
 public class ViewManager {
     private  static final int WIDTH = 1024;
     private  static final int HEIGHT = 700;
@@ -44,15 +46,18 @@ public class ViewManager {
     }
 
     private void createBackground(){
-//        Image backgroundImage = new Image("purple.png", 256, 256, false, true);
-//        BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
-        Image backgroundImage = new Image("jungle2.png", 1024, 700, false, true);
-        BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, null);
-        mainPane.setBackground(new Background(background));
+        try{
+            Image backgroundImage = new Image(getClass().getResource("/background/jungle2.png").toURI().toString(), 1024, 700, false, true);
+            BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, null);
+            mainPane.setBackground(new Background(background));
+        }catch (Exception e){
+            System.out.println("Error loading background image: " + e.getMessage());
+        }
+
     }
 
     private void createLogo() {
-        ImageView logo = new ImageView("logo.jpg");
+        ImageView logo = new ImageView("snake-logo.png");
         logo.setLayoutX(400);
         logo.setLayoutY(20);
         logo.setOnMouseEntered(new EventHandler<MouseEvent>() {

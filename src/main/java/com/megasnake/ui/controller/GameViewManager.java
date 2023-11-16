@@ -34,7 +34,7 @@ public class GameViewManager {
 
     private GridPane gridPane1;
     private GridPane gridPane2;
-    private final static String BACKGROUND_IMAGE = "blue.png";
+    private final static String BACKGROUND_IMAGE = "background/deep_blue_star.png";
 
     private final static String METEOR_BROWN_IMAGE = "meteor_brown.png";
     private final static String METEOR_GREY_IMAGE = "meteor_grey.png";
