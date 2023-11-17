@@ -19,7 +19,6 @@ public class MainApp extends Application {
             Platform.exit();
             System.exit(0);
         });
-
         menuStage.show();
     }
 

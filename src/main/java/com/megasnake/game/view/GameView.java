@@ -1,8 +1,11 @@
 package com.megasnake.game.view;
 
 import com.megasnake.game.model.Food;
-import com.megasnake.game.utils.DirectionHandler;
+import com.megasnake.game.utils.KeyEventHandler;
 import com.megasnake.game.model.Snake;
+import javafx.animation.Animation;
+import javafx.animation.Timeline;
+import javafx.scene.AmbientLight;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -14,6 +17,7 @@ import static com.megasnake.game.controller.SnakeGameController.*;
 
 public class GameView {
     private ScrollingBackground scrollingBackground;
+
 
     public GameView() {
         scrollingBackground = new ScrollingBackground();
@@ -41,9 +45,6 @@ public class GameView {
         }catch (Exception e){
             System.out.println("Error loading background image: " + e.getMessage());
         }
-
-
-
     }
 
     public void drawFood(GraphicsContext gc, Food food){
@@ -55,7 +56,7 @@ public class GameView {
             String snakeFolderPath;
 
             if(difficulty == 1) snakeFolderPath = "/snake/candy-snake/";
-            else if(difficulty == 2) snakeFolderPath = "/snake/plain-snake/";
+            else if(difficulty == 2) snakeFolderPath = "/snake/lava-snake/";
             else if(difficulty == 4) snakeFolderPath = "/snake/plain-snake/";
             else snakeFolderPath = "/snake/plain-snake/";
 
@@ -82,26 +83,26 @@ public class GameView {
             // Calculate the head's new position based on the current direction and moveFrame
             double headX = headPart.getX();
             double headY = headPart.getY();
-            int currentDirection = DirectionHandler.getCurrentDirection();
+            int currentDirection = KeyEventHandler.getCurrentDirection();
             switch (currentDirection) {
-                case DirectionHandler.RIGHT -> headX += moveFrame;
-                case DirectionHandler.LEFT -> headX -= moveFrame;
-                case DirectionHandler.UP -> headY -= moveFrame;
-                case DirectionHandler.DOWN -> headY += moveFrame;
+                case KeyEventHandler.RIGHT -> headX += moveFrame;
+                case KeyEventHandler.LEFT -> headX -= moveFrame;
+                case KeyEventHandler.UP -> headY -= moveFrame;
+                case KeyEventHandler.DOWN -> headY += moveFrame;
             }
 
             // Draw the snake head with the correct orientation based on the current direction of movement
             switch (currentDirection) {
-                case DirectionHandler.RIGHT ->
+                case KeyEventHandler.RIGHT ->
                     // Draw the head facing right
                         gc.drawImage(new Image(getClass().getResource(snakeFolderPath + "snake-head-right.png").toURI().toString()), headX * SQUARE_SIZE, headY * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
-                case DirectionHandler.LEFT ->
+                case KeyEventHandler.LEFT ->
                     // Draw the head facing left
                         gc.drawImage(new Image(getClass().getResource(snakeFolderPath + "snake-head-left.png").toURI().toString()), headX * SQUARE_SIZE, headY * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
-                case DirectionHandler.UP ->
+                case KeyEventHandler.UP ->
                     // Draw the head facing up
                         gc.drawImage(new Image(getClass().getResource(snakeFolderPath + "snake-head-up.png").toURI().toString()), headX * SQUARE_SIZE, headY * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
-                case DirectionHandler.DOWN ->
+                case KeyEventHandler.DOWN ->
                     // Draw the head facing down
                         gc.drawImage(new Image(getClass().getResource(snakeFolderPath + "snake-head-down.png").toURI().toString()), headX * SQUARE_SIZE, headY * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
             }

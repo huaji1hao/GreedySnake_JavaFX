@@ -4,7 +4,7 @@ import com.megasnake.audio.BackgroundMusicPlayer;
 import com.megasnake.game.model.Food;
 import com.megasnake.game.model.Snake;
 import com.megasnake.game.view.GameView;
-import com.megasnake.game.utils.DirectionHandler;
+import com.megasnake.game.utils.KeyEventHandler;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -21,7 +21,7 @@ import javafx.util.Duration;
 import java.awt.*;
 import java.util.PriorityQueue;
 
-import static com.megasnake.game.utils.DirectionHandler.RIGHT;
+import static com.megasnake.game.utils.KeyEventHandler.RIGHT;
 
 public class SnakeGameController {
     Stage menuStage;
@@ -33,7 +33,7 @@ public class SnakeGameController {
     Timeline gameTimer;
     GraphicsContext gc;
     Food food;
-    DirectionHandler directionHandler;
+    KeyEventHandler keyEventHandler;
     Snake mySnake;
     int difficulty;
     private PriorityQueue<Integer> scoreTable;
@@ -49,6 +49,7 @@ public class SnakeGameController {
     public SnakeGameController(){
         initializeGame();
     }
+
     public void runSnakeGame(Stage menuStage, PriorityQueue<Integer> scoreTable, int difficulty){
         for(int i = 0; i < difficulty; i++){
             mySnake.speedUp();
@@ -62,10 +63,9 @@ public class SnakeGameController {
     }
 
     private void run() {
-        scene.setOnKeyPressed(directionHandler);
         BackgroundMusicPlayer.repeatMusic("/audio/frogger.mp3");
         food.generateFood(mySnake);
-        gameTimer = new Timeline(new KeyFrame(Duration.millis(32), e -> mainLogic(mySnake, food)));
+        scene.setOnKeyPressed(keyEventHandler);
         gameTimer.setCycleCount(Animation.INDEFINITE);
         gameTimer.play();
     }
@@ -86,11 +86,12 @@ public class SnakeGameController {
         root.getChildren().add(canvas);
         scene = new Scene(root);
 
-
-        gameview = new GameView();
         food = new Food();
         mySnake = new Snake();
-        directionHandler = new DirectionHandler(RIGHT);
+
+        gameTimer = new Timeline(new KeyFrame(Duration.millis(32), e -> mainLogic(mySnake, food)));
+        keyEventHandler = new KeyEventHandler(RIGHT, gameTimer, gc);
+        gameview = new GameView();
 
         gameStage.setScene(scene);
     }
@@ -127,7 +128,6 @@ public class SnakeGameController {
         }
 
     }
-
 
 
 
