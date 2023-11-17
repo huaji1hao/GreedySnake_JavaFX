@@ -23,8 +23,8 @@ public class KeyEventHandler implements EventHandler<KeyEvent> {
     public static final int DOWN = 3;
 
     public KeyEventHandler(int initialDirection, Animation gameTimer, GraphicsContext gc) {
-        this.currentDirection = initialDirection;
-        this.nextDirection = initialDirection;
+        currentDirection = initialDirection;
+        nextDirection = initialDirection;
         this.gameTimer = gameTimer;
         this.gc = gc;
     }
