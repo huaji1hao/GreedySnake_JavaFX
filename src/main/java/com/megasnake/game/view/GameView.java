@@ -115,9 +115,17 @@ public class GameView {
 
 
     public void drawScore(GraphicsContext gc, int score) {
-        gc.setFill(Color.WHITE);
-        gc.setFont(new Font("Digital-7", 35));
-        gc.fillText("Score: " + score, 10, 35);
+        setFont(gc,35);
+
+        // Draw the text outline in black
+        gc.setStroke(Color.BLACK); // Set the outline color to black
+        gc.setLineWidth(2); // Set the outline width
+        gc.strokeText("Score: " + score, 10, 35); // Draw the text outline
+
+        // Draw the filled text in white at the same position
+        gc.setFill(Color.WHITE); // Set the fill color to white
+        gc.fillText("Score: " + score, 10, 35); // Draw the filled text
+
     }
 
     public void drawAll(GraphicsContext gc, Snake mySnake, Food food, int difficulty){
@@ -128,9 +136,26 @@ public class GameView {
     }
 
     public void drawGameOver(GraphicsContext gc) {
-        gc.setFill(Color.RED);
-        gc.setFont(new Font("Digital-7", 70));
-        gc.fillText("Game Over", WIDTH / 3.5, HEIGHT / 2);
+        setFont(gc, 70);
+
+        gc.setStroke(Color.RED);
+        gc.setLineWidth(2);
+        gc.strokeText("Game Over", WIDTH / 5, HEIGHT / 2);
+
+        gc.setFill(Color.WHITE);
+        gc.fillText("Game Over", WIDTH / 5, HEIGHT / 2);
+    }
+
+    private void setFont(GraphicsContext gc, int fontSize) {
+        String FONT_PATH = "/font/kenvector_future.ttf"; // Path to the custom font file
+
+        // Load the custom font
+        Font customFont = Font.loadFont(getClass().getResourceAsStream(FONT_PATH), fontSize);
+        if (customFont != null) {
+            gc.setFont(customFont); // Use the custom font if loaded successfully
+        } else {
+            gc.setFont(new Font("Arial", fontSize)); // Use a default font if custom font fails to load
+        }
     }
 
 }

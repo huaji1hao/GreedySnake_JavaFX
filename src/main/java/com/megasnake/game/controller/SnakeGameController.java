@@ -1,14 +1,20 @@
 package com.megasnake.game.controller;
 
 import com.megasnake.audio.BackgroundMusicPlayer;
+import com.megasnake.audio.MusicPlayer;
 import com.megasnake.game.model.Food;
 import com.megasnake.game.model.Snake;
 import com.megasnake.game.view.GameView;
 import com.megasnake.game.utils.KeyEventHandler;
+import com.megasnake.ui.component.SnakeButton;
+import com.megasnake.ui.component.SnakeSubScene;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
+import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -98,22 +104,18 @@ public class SnakeGameController {
 
     private void mainLogic(Snake mySnake, Food food){
         if (gameOver) {
-            gameview.drawGameOver(gc);
-            BackgroundMusicPlayer.repeatMusic("/audio/ui-background.mp3");
-            scoreTable.add(mySnake.getScore());
-            gameStage.close();
-            gameTimer.stop();
-            menuStage.show();
+            afterGameOver();
+            return;
         }
         mySnake.move();
 
         gameview.drawAll(gc, mySnake, food, difficulty);
 
-        gameOver(mySnake);
+        isGameOver(mySnake);
         mySnake.eatFood(food);
     }
 
-    private void gameOver(Snake mySnake) {
+    private void isGameOver(Snake mySnake) {
         Point snakeHead = mySnake.getSnakeHead();
         if (snakeHead.x < 0 || snakeHead.y < 0 || snakeHead.x * SQUARE_SIZE >= WIDTH || snakeHead.y * SQUARE_SIZE >= HEIGHT) {
             gameOver = true;
@@ -127,6 +129,47 @@ public class SnakeGameController {
             }
         }
 
+    }
+
+    private void afterGameOver(){
+        gameTimer.stop();
+        BackgroundMusicPlayer.stopMusic();
+        gameview.drawGameOver(gc);
+        MusicPlayer.playMusic("/audio/game-over.mp3");
+
+        scoreTable.add(mySnake.getScore());
+
+        PauseTransition pause = new PauseTransition(Duration.seconds(3));
+
+        pause.setOnFinished(event -> {
+            // create a new scene when the game is over
+            SnakeSubScene backSubScene = new SnakeSubScene();
+            root.getChildren().add(backSubScene);
+            backSubScene.moveSubSceneInGame();
+            backSubScene.getPane().getChildren().add(createButtonToBack());
+        });
+
+        pause.play();
+
+
+    }
+
+    private SnakeButton createButtonToBack(){
+        SnakeButton backButton = new SnakeButton("Go Back", 1);
+        backButton.setLayoutX(350);
+        backButton.setLayoutY(280);
+
+        backButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                gameStage.close();
+                menuStage.show();
+                BackgroundMusicPlayer.repeatMusic("/audio/ui-background.mp3");
+            }
+        });
+
+
+        return backButton;
     }
 
 

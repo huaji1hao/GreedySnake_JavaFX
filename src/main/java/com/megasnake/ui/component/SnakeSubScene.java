@@ -48,4 +48,16 @@ public class SnakeSubScene extends SubScene{
     public AnchorPane getPane() {
         return (AnchorPane) this.getRoot();
     }
+
+    public void moveSubSceneInGame() {
+        TranslateTransition transition = new TranslateTransition();
+        transition.setDuration(Duration.seconds(0.3));
+        transition.setNode(this);
+
+        transition.setToX(-956);
+
+        transition.play();
+    }
+
+
 }
