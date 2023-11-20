@@ -2,6 +2,7 @@ package com.megasnake.ui.controller;
 
 import com.megasnake.game.controller.SnakeGameController;
 import com.megasnake.game.model.User;
+import com.megasnake.game.utils.ScoreReader;
 import com.megasnake.ui.component.CustomLabel;
 import com.megasnake.ui.model.THEME;
 import com.megasnake.ui.model.ThemePicker;
@@ -20,7 +21,6 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.PriorityQueue;
 
 public class SubSceneController {
     private SnakeSubScene sceneToHide;
@@ -28,8 +28,6 @@ public class SubSceneController {
     private SnakeSubScene helpSubScene;
     private SnakeSubScene scoresSubScene;
     private SnakeSubScene themeChooserSubScene;
-
-    PriorityQueue<User> userTable;
 
     List<ThemePicker> themesList;
     private THEME chosenTheme;
@@ -41,7 +39,6 @@ public class SubSceneController {
     public SubSceneController(Stage mainStage, AnchorPane mainPane) {
         this.mainStage = mainStage;
         this.mainPane = mainPane;
-        userTable = new PriorityQueue<>();
     }
 
     public void createSubScenes() {
@@ -79,7 +76,7 @@ public class SubSceneController {
             public void handle(ActionEvent event) {
                 if(chosenTheme != null) {
                     SnakeGameController gameController = new SnakeGameController();
-                    gameController.runSnakeGame(mainStage, userTable, chosenTheme.getDifficulty());
+                    gameController.runSnakeGame(mainStage, chosenTheme.getDifficulty());
                 }
             }
         });
@@ -129,6 +126,7 @@ public class SubSceneController {
         sceneToHide = subScene;
     }
 
+
     public void drawScoreTableOnSubScene() {
         VBox scoreLayout = new VBox(10); // Vertical layout with spacing of 10
         scoreLayout.setAlignment(Pos.CENTER); // Center alignment
@@ -142,19 +140,12 @@ public class SubSceneController {
         titleBar.getChildren().addAll(userTitle, scoreTitle);
         scoreLayout.getChildren().add(titleBar);
 
-        ArrayList<User> usersList = new ArrayList<>();
-
-        for (int i = 0; i < 5; i++) {
-            if (userTable.isEmpty()) {
-                break;
-            }
-            usersList.add(userTable.poll());
-        }
+        ArrayList<User> usersList = ScoreReader.readScoresFromFile();
+        Collections.sort(usersList);
 
         for (User user : usersList) {
             InfoLabel scoreLabel = new InfoLabel(user.getUsername() + "       " + user.getScore());
             scoreLayout.getChildren().add(scoreLabel);
-            userTable.add(user); // Add back to the queue
         }
 
         // If there are fewer than five scores, add blank labels

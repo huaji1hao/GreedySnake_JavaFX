@@ -19,14 +19,17 @@ public class SnakeTextField extends TextField {
             }
         });
 
-        // Set the position and size of the TextField
-        this.setLayoutX(150); // X coordinate
-        this.setLayoutY(180); // Y coordinate
+        // the size of the TextField
         this.setPrefWidth(300); // Width
         this.setPrefHeight(50); // Height
 
         // Set font size and style
         setFont(23);
+    }
+
+    public void setPos(double x, double y) {
+        this.setLayoutX(x);
+        this.setLayoutY(y);
     }
 
     // Method to get the text field's value

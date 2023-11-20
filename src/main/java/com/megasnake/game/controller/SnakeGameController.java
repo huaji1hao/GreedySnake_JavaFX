@@ -5,6 +5,7 @@ import com.megasnake.audio.MusicPlayer;
 import com.megasnake.game.model.Food;
 import com.megasnake.game.model.Snake;
 import com.megasnake.game.model.User;
+import com.megasnake.game.utils.ScoreWriter;
 import com.megasnake.game.view.GameView;
 import com.megasnake.game.utils.KeyEventHandler;
 import com.megasnake.ui.component.CustomLabel;
@@ -29,7 +30,6 @@ import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
 import java.awt.Point;
-import java.util.PriorityQueue;
 
 import static com.megasnake.game.utils.KeyEventHandler.RIGHT;
 
@@ -47,7 +47,6 @@ public class SnakeGameController {
     KeyEventHandler keyEventHandler;
     Snake mySnake;
     int difficulty;
-    private PriorityQueue<User> userTable;
 
     public static final int WIDTH = 720;
     public static final int HEIGHT = WIDTH;
@@ -61,13 +60,12 @@ public class SnakeGameController {
         initializeGame();
     }
 
-    public void runSnakeGame(Stage menuStage, PriorityQueue<User> userTable, int difficulty){
+    public void runSnakeGame(Stage menuStage, int difficulty){
         for(int i = 0; i < difficulty; i++){
             mySnake.speedUp();
         }
         this.difficulty = difficulty;
         this.menuStage = menuStage;
-        this.userTable = userTable;
         this.menuStage.hide();
         gameStage.show();
         run();
@@ -155,6 +153,7 @@ public class SnakeGameController {
 
             CustomLabel label = new CustomLabel("Your score is " + mySnake.getScore(), 23);
             label.setPos(180, 100);
+            usernameInput.setPos(150, 180);
 
             backSubScene.getPane().getChildren().add(label);
             backSubScene.getPane().getChildren().add(usernameInput);
@@ -177,7 +176,8 @@ public class SnakeGameController {
                 if (username.isEmpty()) {
                     showAlert("Username cannot be empty");
                 } else {
-                    userTable.add(new User(username, mySnake.getScore()));
+                    User newUser = new User(username, mySnake.getScore());
+                    ScoreWriter.writeScoreToFile(newUser);
                     gameStage.close();
                     menuStage.show();
                     BackgroundMusicPlayer.repeatMusic("/audio/ui-background.mp3");
@@ -196,8 +196,6 @@ public class SnakeGameController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
-
 
 
 }
