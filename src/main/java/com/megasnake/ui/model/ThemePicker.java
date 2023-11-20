@@ -1,6 +1,8 @@
 package com.megasnake.ui.model;
 
+import com.megasnake.ui.component.CustomLabel;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -8,6 +10,7 @@ import javafx.scene.layout.VBox;
 public class ThemePicker extends VBox {
     private ImageView circleImage;
     private ImageView themeImage;
+    private Label themeLabel;
 
     private String circleNotChoosen = "grey_circle.png";
     private String circleChoosen = "circle_choosen.png";
@@ -19,13 +22,16 @@ public class ThemePicker extends VBox {
     public ThemePicker(THEME THEME) {
         circleImage = new ImageView(circleNotChoosen);
         themeImage = new ImageView(THEME.getUrl());
+        themeLabel = new CustomLabel(THEME.getLevel(), 23);
+
 
         this.THEME = THEME;
         isCircleChoosen = false;
         this.setAlignment(Pos.CENTER);
-        this.setSpacing(20);
+        this.setSpacing(18);
         this.getChildren().add(circleImage);
         this.getChildren().add(themeImage);
+        this.getChildren().add(themeLabel);
     }
 
     public THEME getTheme() {

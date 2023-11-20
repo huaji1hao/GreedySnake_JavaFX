@@ -13,7 +13,12 @@ public class ScrollingBackground {
     private final static int IMAGE_SIZE = 256; // 背景图像的尺寸
 
     public ScrollingBackground() {
-        backgroundImage = new Image("blue.png"); // 加载背景图像
+        try{
+            backgroundImage = new Image(getClass().getResource("/background/deep_blue_star.png").toURI().toString());
+        }catch (Exception e){
+            System.out.println("Error loading space background image: " + e.getMessage());
+        }
+
         y1 = 0;
         y2 = -IMAGE_SIZE;
     }
@@ -38,4 +43,5 @@ public class ScrollingBackground {
             y2 = -IMAGE_SIZE;
         }
     }
+
 }

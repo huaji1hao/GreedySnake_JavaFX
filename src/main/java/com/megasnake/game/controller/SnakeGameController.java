@@ -1,27 +1,37 @@
 package com.megasnake.game.controller;
 
 import com.megasnake.audio.BackgroundMusicPlayer;
+import com.megasnake.audio.MusicPlayer;
 import com.megasnake.game.model.Food;
 import com.megasnake.game.model.Snake;
+import com.megasnake.game.model.User;
+import com.megasnake.game.utils.ScoreWriter;
 import com.megasnake.game.view.GameView;
-import com.megasnake.game.utils.DirectionHandler;
+import com.megasnake.game.utils.KeyEventHandler;
+import com.megasnake.ui.component.CustomLabel;
+import com.megasnake.ui.component.SnakeButton;
+import com.megasnake.ui.component.SnakeSubScene;
+import com.megasnake.ui.component.SnakeTextField;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
+import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
-import java.awt.*;
-import java.util.PriorityQueue;
+import java.awt.Point;
 
-import static com.megasnake.game.utils.DirectionHandler.RIGHT;
+import static com.megasnake.game.utils.KeyEventHandler.RIGHT;
 
 public class SnakeGameController {
     Stage menuStage;
@@ -32,15 +42,15 @@ public class SnakeGameController {
     GameView gameview;
     Timeline gameTimer;
     GraphicsContext gc;
+    SnakeTextField usernameInput;
     Food food;
-    DirectionHandler directionHandler;
+    KeyEventHandler keyEventHandler;
     Snake mySnake;
     int difficulty;
-    private PriorityQueue<Integer> scoreTable;
 
     public static final int WIDTH = 720;
     public static final int HEIGHT = WIDTH;
-    public static final int ROWS = 24;
+    public static final int ROWS = 20;
     public static final int COLUMNS = ROWS;
     public static final int SQUARE_SIZE = WIDTH / ROWS;
 
@@ -49,23 +59,22 @@ public class SnakeGameController {
     public SnakeGameController(){
         initializeGame();
     }
-    public void runSnakeGame(Stage menuStage, PriorityQueue<Integer> scoreTable, int difficulty){
+
+    public void runSnakeGame(Stage menuStage, int difficulty){
         for(int i = 0; i < difficulty; i++){
             mySnake.speedUp();
         }
         this.difficulty = difficulty;
         this.menuStage = menuStage;
-        this.scoreTable = scoreTable;
         this.menuStage.hide();
         gameStage.show();
         run();
     }
 
     private void run() {
-        scene.setOnKeyPressed(directionHandler);
         BackgroundMusicPlayer.repeatMusic("/audio/frogger.mp3");
         food.generateFood(mySnake);
-        gameTimer = new Timeline(new KeyFrame(Duration.millis(32), e -> mainLogic(mySnake, food)));
+        scene.setOnKeyPressed(keyEventHandler);
         gameTimer.setCycleCount(Animation.INDEFINITE);
         gameTimer.play();
     }
@@ -85,34 +94,32 @@ public class SnakeGameController {
         gc = canvas.getGraphicsContext2D();
         root.getChildren().add(canvas);
         scene = new Scene(root);
+        usernameInput = new SnakeTextField();
 
-
-        gameview = new GameView();
         food = new Food();
         mySnake = new Snake();
-        directionHandler = new DirectionHandler(RIGHT);
+
+        gameTimer = new Timeline(new KeyFrame(Duration.millis(32), e -> mainLogic(mySnake, food)));
+        keyEventHandler = new KeyEventHandler(RIGHT, gameTimer, gc);
+        gameview = new GameView();
 
         gameStage.setScene(scene);
     }
 
     private void mainLogic(Snake mySnake, Food food){
         if (gameOver) {
-            gameview.drawGameOver(gc);
-            BackgroundMusicPlayer.repeatMusic("/audio/ui-background.mp3");
-            scoreTable.add(mySnake.getScore());
-            gameStage.close();
-            gameTimer.stop();
-            menuStage.show();
+            afterGameOver();
+            return;
         }
         mySnake.move();
 
         gameview.drawAll(gc, mySnake, food, difficulty);
 
-        gameOver(mySnake);
+        isGameOver(mySnake);
         mySnake.eatFood(food);
     }
 
-    private void gameOver(Snake mySnake) {
+    private void isGameOver(Snake mySnake) {
         Point snakeHead = mySnake.getSnakeHead();
         if (snakeHead.x < 0 || snakeHead.y < 0 || snakeHead.x * SQUARE_SIZE >= WIDTH || snakeHead.y * SQUARE_SIZE >= HEIGHT) {
             gameOver = true;
@@ -128,8 +135,67 @@ public class SnakeGameController {
 
     }
 
+    private void afterGameOver(){
+        gameTimer.stop();
+        BackgroundMusicPlayer.stopMusic();
+        gameview.drawGameOver(gc);
+        MusicPlayer.playMusic("/audio/game-over.mp3");
 
 
+
+        PauseTransition pause = new PauseTransition(Duration.seconds(3));
+
+        pause.setOnFinished(event -> {
+            // create a new scene when the game is over
+            SnakeSubScene backSubScene = new SnakeSubScene();
+            root.getChildren().add(backSubScene);
+            backSubScene.moveSubSceneInGame();
+
+            CustomLabel label = new CustomLabel("Your score is " + mySnake.getScore(), 23);
+            label.setPos(180, 100);
+            usernameInput.setPos(150, 180);
+
+            backSubScene.getPane().getChildren().add(label);
+            backSubScene.getPane().getChildren().add(usernameInput);
+            backSubScene.getPane().getChildren().add(createButtonToBack());
+        });
+
+        pause.play();
+
+    }
+
+    private SnakeButton createButtonToBack(){
+        SnakeButton backButton = new SnakeButton("Go Back", 1);
+        backButton.setLayoutX(350);
+        backButton.setLayoutY(280);
+
+        backButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String username = usernameInput.getTextValue().trim();
+                if (username.isEmpty()) {
+                    showAlert("Username cannot be empty");
+                } else {
+                    User newUser = new User(username, mySnake.getScore());
+                    ScoreWriter.writeScoreToFile(newUser);
+                    gameStage.close();
+                    menuStage.show();
+                    BackgroundMusicPlayer.repeatMusic("/audio/ui-background.mp3");
+                }
+            }
+        });
+
+
+        return backButton;
+    }
+
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Warning");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 
 
 }

@@ -2,7 +2,7 @@ package com.megasnake.game.model;
 
 
 import com.megasnake.game.controller.SpeedController;
-import com.megasnake.game.utils.DirectionHandler;
+import com.megasnake.game.utils.KeyEventHandler;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -71,21 +71,21 @@ public class Snake  implements movable{
     public void judgeMoveFrame(int direction){
         if (speedController.isMoveFrame()){
             moveBody();
-            if(direction == DirectionHandler.RIGHT){
+            if(direction == KeyEventHandler.RIGHT){
                 snakeHead.x++;
-                DirectionHandler.setCurrentDirection(DirectionHandler.RIGHT);
+                KeyEventHandler.setCurrentDirection(KeyEventHandler.RIGHT);
             }
-            else if(direction == DirectionHandler.LEFT){
+            else if(direction == KeyEventHandler.LEFT){
                 snakeHead.x--;
-                DirectionHandler.setCurrentDirection(DirectionHandler.LEFT);
+                KeyEventHandler.setCurrentDirection(KeyEventHandler.LEFT);
             }
-            else if(direction == DirectionHandler.UP){
+            else if(direction == KeyEventHandler.UP){
                 snakeHead.y--;
-                DirectionHandler.setCurrentDirection(DirectionHandler.UP);
+                KeyEventHandler.setCurrentDirection(KeyEventHandler.UP);
             }
-            else if(direction == DirectionHandler.DOWN){
+            else if(direction == KeyEventHandler.DOWN){
                 snakeHead.y++;
-                DirectionHandler.setCurrentDirection(DirectionHandler.DOWN);
+                KeyEventHandler.setCurrentDirection(KeyEventHandler.DOWN);
             }
         }
         speedController.updateFrame();
@@ -93,11 +93,11 @@ public class Snake  implements movable{
 
 
     public void move(){
-        switch (DirectionHandler.getNextDirection()) {
-            case DirectionHandler.RIGHT -> judgeMoveFrame(DirectionHandler.RIGHT);
-            case DirectionHandler.LEFT -> judgeMoveFrame(DirectionHandler.LEFT);
-            case DirectionHandler.UP -> judgeMoveFrame(DirectionHandler.UP);
-            case DirectionHandler.DOWN -> judgeMoveFrame(DirectionHandler.DOWN);
+        switch (KeyEventHandler.getNextDirection()) {
+            case KeyEventHandler.RIGHT -> judgeMoveFrame(KeyEventHandler.RIGHT);
+            case KeyEventHandler.LEFT -> judgeMoveFrame(KeyEventHandler.LEFT);
+            case KeyEventHandler.UP -> judgeMoveFrame(KeyEventHandler.UP);
+            case KeyEventHandler.DOWN -> judgeMoveFrame(KeyEventHandler.DOWN);
         }
     }
 

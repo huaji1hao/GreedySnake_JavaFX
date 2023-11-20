@@ -64,6 +64,10 @@ public class BackgroundMusicPlayer extends Thread {
         pause.play();
     }
 
+    public static void continueMusic(){
+        repeatMusic(filename);
+    }
+
     /**
      * Static method to stop playing music.
      */

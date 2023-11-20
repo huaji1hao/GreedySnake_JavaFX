@@ -10,7 +10,7 @@ import javafx.stage.WindowEvent;
 public class MainApp extends Application {
 
     @Override
-    public void start(Stage menuStage) throws Exception {
+    public void start(Stage menuStage){
         ViewManager manager = new ViewManager();
         menuStage = manager.getMainStage();
 
@@ -19,7 +19,6 @@ public class MainApp extends Application {
             Platform.exit();
             System.exit(0);
         });
-
         menuStage.show();
     }
 
