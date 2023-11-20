@@ -1,6 +1,8 @@
 package com.megasnake.ui.controller;
 
 import com.megasnake.game.controller.SnakeGameController;
+import com.megasnake.game.model.User;
+import com.megasnake.ui.component.CustomLabel;
 import com.megasnake.ui.model.THEME;
 import com.megasnake.ui.model.ThemePicker;
 import com.megasnake.ui.component.InfoLabel;
@@ -27,7 +29,7 @@ public class SubSceneController {
     private SnakeSubScene scoresSubScene;
     private SnakeSubScene themeChooserSubScene;
 
-    PriorityQueue<Integer> scoreTable;
+    PriorityQueue<User> userTable;
 
     List<ThemePicker> themesList;
     private THEME chosenTheme;
@@ -39,7 +41,7 @@ public class SubSceneController {
     public SubSceneController(Stage mainStage, AnchorPane mainPane) {
         this.mainStage = mainStage;
         this.mainPane = mainPane;
-        scoreTable = new PriorityQueue<>(Collections.reverseOrder());
+        userTable = new PriorityQueue<>();
     }
 
     public void createSubScenes() {
@@ -77,7 +79,7 @@ public class SubSceneController {
             public void handle(ActionEvent event) {
                 if(chosenTheme != null) {
                     SnakeGameController gameController = new SnakeGameController();
-                    gameController.runSnakeGame(mainStage, scoreTable, chosenTheme.getDifficulty());
+                    gameController.runSnakeGame(mainStage, userTable, chosenTheme.getDifficulty());
                 }
             }
         });
@@ -128,37 +130,46 @@ public class SubSceneController {
     }
 
     public void drawScoreTableOnSubScene() {
-        VBox scoreLayout = new VBox(10); // 垂直布局，元素间距为10
-        scoreLayout.setAlignment(Pos.CENTER); // 居中对齐
+        VBox scoreLayout = new VBox(10); // Vertical layout with spacing of 10
+        scoreLayout.setAlignment(Pos.CENTER); // Center alignment
 
-        ArrayList<Integer> scoresList = new ArrayList<>();
+        HBox titleBar = new HBox(50); // Horizontal layout with spacing of 50
+        titleBar.setAlignment(Pos.CENTER); // Center alignment
+
+        CustomLabel userTitle = new CustomLabel("User", 23);
+        CustomLabel scoreTitle = new CustomLabel("Score", 23);
+
+        titleBar.getChildren().addAll(userTitle, scoreTitle);
+        scoreLayout.getChildren().add(titleBar);
+
+        ArrayList<User> usersList = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {
-            if (scoreTable.isEmpty()) {
+            if (userTable.isEmpty()) {
                 break;
             }
-            scoresList.add(scoreTable.poll());
+            usersList.add(userTable.poll());
         }
 
-        for (Integer score : scoresList) {
-            InfoLabel scoreLabel = new InfoLabel(score.toString());
+        for (User user : usersList) {
+            InfoLabel scoreLabel = new InfoLabel(user.getUsername() + "       " + user.getScore());
             scoreLayout.getChildren().add(scoreLabel);
-            scoreTable.add(score); // 添加回去
+            userTable.add(user); // Add back to the queue
         }
 
-        // 如果分数不足五个，添加空白标签
-        while (scoresList.size() < 5) {
+        // If there are fewer than five scores, add blank labels
+        while (usersList.size() < 5) {
             scoreLayout.getChildren().add(new InfoLabel(""));
-            scoresList.add(0); // 假设分数为0
+            usersList.add(new User("", 0)); // Assume score of 0
         }
 
         scoresSubScene.getPane().getChildren().add(scoreLayout);
 
-        // 计算VBox的起始位置以使其在subscene中垂直居中
-        double totalLabelHeight = scoresList.size() * 49 + (scoresList.size() - 1) * 10; // 总高度 = 标签高度 * 数量 + 间距 * (数量 - 1)
-        scoreLayout.setLayoutX((600 - 380) / 2); // 水平居中 (subscene宽度 - InfoLabel宽度) / 2
-        scoreLayout.setLayoutY((400 - totalLabelHeight) / 2); // 垂直居中 (subscene高度 - totalLabelHeight) / 2
+        scoreLayout.setLayoutX((600 - 380) / 2); // Horizontal centering (subscene width - InfoLabel width) / 2
+        scoreLayout.setLayoutY(15); // Vertical centering (subscene height - totalLabelHeight) / 2
+
     }
+
 
 
     public void showCreditsSubScene() {

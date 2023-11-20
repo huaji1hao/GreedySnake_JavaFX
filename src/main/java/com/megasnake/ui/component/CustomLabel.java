@@ -1,0 +1,41 @@
+package com.megasnake.ui.component;
+
+import javafx.scene.control.Label;
+import javafx.scene.text.Font;
+
+import java.util.Objects;
+
+public class CustomLabel extends Label {
+
+    /**
+     * Constructs a CustomLabel with specified text and font size.
+     *
+     * @param text      The text to be displayed.
+     * @param fontSize  The size of the font.
+     */
+    public CustomLabel(String text, double fontSize) {
+        super(text); // Call the superclass constructor to set the text
+        setFont(fontSize); // Set the font size
+    }
+
+    /**
+     * Sets the font of the label with the specified size.
+     * Tries to load a custom font, and if it fails, defaults to Arial.
+     *
+     * @param fontSize The size of the font to be set.
+     */
+    private void setFont(double fontSize) {
+        String FONT_PATH = "/font/kenvector_future.ttf"; // Path to the custom font file
+
+        // Attempt to load the custom font
+        Font customFont = Font.loadFont(getClass().getResourceAsStream(FONT_PATH), fontSize);
+        // Use Arial as a fallback if custom font fails to load
+        this.setFont(Objects.requireNonNullElseGet(customFont, () -> new Font("Arial", fontSize)));
+    }
+
+    public void setPos(double x, double y) {
+        this.setLayoutX(x);
+        this.setLayoutY(y);
+    }
+
+}

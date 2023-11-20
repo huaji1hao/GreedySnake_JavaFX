@@ -33,6 +33,7 @@ public class MusicPlayer extends Thread {
     }
 
     public static void playMusic(String filename) {
+        if(filename == null || BackgroundMusicPlayer.isMuted()) return;
         new MusicPlayer(filename).play();
     }
 }

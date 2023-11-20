@@ -4,10 +4,13 @@ import com.megasnake.audio.BackgroundMusicPlayer;
 import com.megasnake.audio.MusicPlayer;
 import com.megasnake.game.model.Food;
 import com.megasnake.game.model.Snake;
+import com.megasnake.game.model.User;
 import com.megasnake.game.view.GameView;
 import com.megasnake.game.utils.KeyEventHandler;
+import com.megasnake.ui.component.CustomLabel;
 import com.megasnake.ui.component.SnakeButton;
 import com.megasnake.ui.component.SnakeSubScene;
+import com.megasnake.ui.component.SnakeTextField;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
@@ -19,12 +22,13 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
-import java.awt.*;
+import java.awt.Point;
 import java.util.PriorityQueue;
 
 import static com.megasnake.game.utils.KeyEventHandler.RIGHT;
@@ -38,11 +42,12 @@ public class SnakeGameController {
     GameView gameview;
     Timeline gameTimer;
     GraphicsContext gc;
+    SnakeTextField usernameInput;
     Food food;
     KeyEventHandler keyEventHandler;
     Snake mySnake;
     int difficulty;
-    private PriorityQueue<Integer> scoreTable;
+    private PriorityQueue<User> userTable;
 
     public static final int WIDTH = 720;
     public static final int HEIGHT = WIDTH;
@@ -56,13 +61,13 @@ public class SnakeGameController {
         initializeGame();
     }
 
-    public void runSnakeGame(Stage menuStage, PriorityQueue<Integer> scoreTable, int difficulty){
+    public void runSnakeGame(Stage menuStage, PriorityQueue<User> userTable, int difficulty){
         for(int i = 0; i < difficulty; i++){
             mySnake.speedUp();
         }
         this.difficulty = difficulty;
         this.menuStage = menuStage;
-        this.scoreTable = scoreTable;
+        this.userTable = userTable;
         this.menuStage.hide();
         gameStage.show();
         run();
@@ -91,6 +96,7 @@ public class SnakeGameController {
         gc = canvas.getGraphicsContext2D();
         root.getChildren().add(canvas);
         scene = new Scene(root);
+        usernameInput = new SnakeTextField();
 
         food = new Food();
         mySnake = new Snake();
@@ -137,7 +143,7 @@ public class SnakeGameController {
         gameview.drawGameOver(gc);
         MusicPlayer.playMusic("/audio/game-over.mp3");
 
-        scoreTable.add(mySnake.getScore());
+
 
         PauseTransition pause = new PauseTransition(Duration.seconds(3));
 
@@ -146,11 +152,16 @@ public class SnakeGameController {
             SnakeSubScene backSubScene = new SnakeSubScene();
             root.getChildren().add(backSubScene);
             backSubScene.moveSubSceneInGame();
+
+            CustomLabel label = new CustomLabel("Your score is " + mySnake.getScore(), 23);
+            label.setPos(180, 100);
+
+            backSubScene.getPane().getChildren().add(label);
+            backSubScene.getPane().getChildren().add(usernameInput);
             backSubScene.getPane().getChildren().add(createButtonToBack());
         });
 
         pause.play();
-
 
     }
 
@@ -162,14 +173,28 @@ public class SnakeGameController {
         backButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                gameStage.close();
-                menuStage.show();
-                BackgroundMusicPlayer.repeatMusic("/audio/ui-background.mp3");
+                String username = usernameInput.getTextValue().trim();
+                if (username.isEmpty()) {
+                    showAlert("Username cannot be empty");
+                } else {
+                    userTable.add(new User(username, mySnake.getScore()));
+                    gameStage.close();
+                    menuStage.show();
+                    BackgroundMusicPlayer.repeatMusic("/audio/ui-background.mp3");
+                }
             }
         });
 
 
         return backButton;
+    }
+
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Warning");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
 

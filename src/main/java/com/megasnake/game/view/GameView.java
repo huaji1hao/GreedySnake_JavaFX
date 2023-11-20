@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 import java.awt.*;
+import java.util.Objects;
 
 import static com.megasnake.game.controller.SnakeGameController.*;
 
@@ -151,11 +152,8 @@ public class GameView {
 
         // Load the custom font
         Font customFont = Font.loadFont(getClass().getResourceAsStream(FONT_PATH), fontSize);
-        if (customFont != null) {
-            gc.setFont(customFont); // Use the custom font if loaded successfully
-        } else {
-            gc.setFont(new Font("Arial", fontSize)); // Use a default font if custom font fails to load
-        }
+        // Use a default font if custom font fails to load
+        gc.setFont(Objects.requireNonNullElseGet(customFont, () -> new Font("Arial", fontSize)));
     }
 
 }
