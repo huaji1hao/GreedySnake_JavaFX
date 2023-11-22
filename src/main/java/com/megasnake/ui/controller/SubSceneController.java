@@ -143,6 +143,9 @@ public class SubSceneController {
         ArrayList<User> usersList = ScoreReader.readScoresFromFile();
         Collections.sort(usersList);
 
+        if (usersList.size() > 5) usersList = new ArrayList<>(usersList.subList(0, 5));
+
+
         for (User user : usersList) {
             InfoLabel scoreLabel = new InfoLabel(user.getUsername() + "       " + user.getScore());
             scoreLayout.getChildren().add(scoreLabel);

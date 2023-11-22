@@ -9,13 +9,12 @@ import static com.megasnake.game.controller.SnakeGameController.COLUMNS;
 import static com.megasnake.game.controller.SnakeGameController.ROWS;
 
 public class Food  {
-    public static final String[] FOODS_IMAGE = new String[]{"food/food-apple.png", "food/food-banana.png", "food/food-blueberry.png",
+    private final String[] FOODS_IMAGE = new String[]{"food/food-apple.png", "food/food-banana.png", "food/food-blueberry.png",
             "food/food-cherry.png", "food/food-durian.png", "food/food-grape.png", "food/food-grapefruit.png", "food/food-kiwi.png",
             "food/food-lemon.png", "food/food-litchi.png", "food/food-mango.png", "food/food-orange.png", "food/food-peach.png",
             "food/food-pear.png", "food/food-pineapple.png", "food/food-pitaya.png", "food/food-strawberry.png", "food/food-watermelon.png"};
 
     private Image foodImage;
-
     private int foodX;
     private int foodY;
 

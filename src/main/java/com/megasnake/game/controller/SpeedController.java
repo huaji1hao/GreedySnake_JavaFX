@@ -10,7 +10,7 @@ public class SpeedController {
     }
 
     public int getSpeedLevel() {
-        return 6 - slowspeed;
+        return 7 - slowspeed;
     }
     public double getFrameRate() {
         return 1.0 * frame / slowspeed;
@@ -32,7 +32,7 @@ public class SpeedController {
     }
 
     public void speedDown() {
-        slowspeed++;
+        if(slowspeed < 6) slowspeed++;
     }
 
 

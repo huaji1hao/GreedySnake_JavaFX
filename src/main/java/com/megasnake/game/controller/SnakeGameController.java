@@ -3,6 +3,7 @@ package com.megasnake.game.controller;
 import com.megasnake.audio.BackgroundMusicPlayer;
 import com.megasnake.audio.MusicPlayer;
 import com.megasnake.game.model.Food;
+import com.megasnake.game.model.Meteor;
 import com.megasnake.game.model.Snake;
 import com.megasnake.game.model.User;
 import com.megasnake.game.utils.ScoreWriter;
@@ -46,6 +47,7 @@ public class SnakeGameController {
     Food food;
     KeyEventHandler keyEventHandler;
     Snake mySnake;
+    Meteor meteor;
     int difficulty;
 
     public static final int WIDTH = 720;
@@ -98,6 +100,7 @@ public class SnakeGameController {
 
         food = new Food();
         mySnake = new Snake();
+        meteor = new Meteor();
 
         gameTimer = new Timeline(new KeyFrame(Duration.millis(32), e -> mainLogic(mySnake, food)));
         keyEventHandler = new KeyEventHandler(RIGHT, gameTimer, gc);
@@ -112,24 +115,32 @@ public class SnakeGameController {
             return;
         }
         mySnake.move();
+        meteor.move();
 
-        gameview.drawAll(gc, mySnake, food, difficulty);
+        gameview.drawAll(gc, mySnake, food, difficulty, meteor);
 
         isGameOver(mySnake);
         mySnake.eatFood(food);
+        mySnake.hitByMeteor(meteor);
     }
 
     private void isGameOver(Snake mySnake) {
+        if(mySnake.getBodySize() <= 1){
+            gameOver = true;
+            return;
+        }
+
         Point snakeHead = mySnake.getSnakeHead();
         if (snakeHead.x < 0 || snakeHead.y < 0 || snakeHead.x * SQUARE_SIZE >= WIDTH || snakeHead.y * SQUARE_SIZE >= HEIGHT) {
             gameOver = true;
+            return;
         }
 
         //destroy itself
         for (int i = 1; i < mySnake.getBodySize(); i++) {
             if (snakeHead.x == mySnake.getBodyPart(i).getX() && snakeHead.getY() == mySnake.getBodyPart(i).getY()) {
                 gameOver = true;
-                break;
+                return;
             }
         }
 

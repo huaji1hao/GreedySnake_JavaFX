@@ -57,6 +57,15 @@ public class Snake  implements movable{
         }
     }
 
+    public void hitByMeteor(Meteor meteor){
+        if(meteor.isCollidingWithSnake(this)){
+            if(Math.random() > 0.5)speedDown();
+            if(snakeBody.size() > 1 )snakeBody.remove(snakeBody.size()-1);
+            meteor.setRandomPosition();
+            score -= 4 * speedController.getSpeedLevel();
+        }
+    }
+
     public int getScore() {
         return score;
     }
