@@ -1,12 +1,10 @@
 package com.megasnake.game.view;
 
+import com.megasnake.game.controller.SnakeGameController;
 import com.megasnake.game.model.Food;
 import com.megasnake.game.model.Meteor;
 import com.megasnake.game.utils.KeyEventHandler;
 import com.megasnake.game.model.Snake;
-import javafx.animation.Animation;
-import javafx.animation.Timeline;
-import javafx.scene.AmbientLight;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -19,6 +17,11 @@ import static com.megasnake.game.controller.SnakeGameController.*;
 
 public class GameView {
     private ScrollingBackground scrollingBackground;
+    private static final String SNAKE_BODY_NAME = "snake-body.png";
+    private static final String SNAKE_RIGHT_HEAD_NAME = "snake-head-right.png";
+    private static final String SNAKE_LEFT_HEAD_NAME = "snake-head-left.png";
+    private static final String SNAKE_UP_HEAD_NAME = "snake-head-up.png";
+    private static final String SNAKE_DOWN_HEAD_NAME = "snake-head-down.png";
 
 
     public GameView() {
@@ -49,14 +52,14 @@ public class GameView {
         }
     }
 
-    public void drawFood(GraphicsContext gc, Food food){
-        gc.drawImage(food.getFoodImage(), food.getX() * SQUARE_SIZE, food.getY() * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
+    public void drawFood(GraphicsContext gc, Food[] foods){
+        for (Food food : foods)
+            gc.drawImage(food.getFoodImage(), food.getX() * SQUARE_SIZE, food.getY() * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
     }
 
     public void drawSnake(GraphicsContext gc, Snake mySnake, int difficulty) {
         try {
             if(mySnake.getBodySize() <= 1) return;// Don't draw the snake if it has no body parts
-
             String snakeFolderPath;
 
             if(difficulty == 1) snakeFolderPath = "/snake/candy-snake/";
@@ -78,7 +81,7 @@ public class GameView {
                 double partY = currentPart.getY() + (prevPart.getY() - currentPart.getY()) * moveFrame;
 
                 // Draw the current body part with a slight reduction in size for visual fineness
-                gc.drawImage(new Image(getClass().getResource(snakeFolderPath + "snake-body.png").toURI().toString()), partX * SQUARE_SIZE, partY * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
+                gc.drawImage(new Image(getClass().getResource(snakeFolderPath + SNAKE_BODY_NAME).toURI().toString()), partX * SQUARE_SIZE, partY * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
             }
 
             // Get the first part of the snake for drawing
@@ -99,16 +102,16 @@ public class GameView {
             switch (currentDirection) {
                 case KeyEventHandler.RIGHT ->
                     // Draw the head facing right
-                        gc.drawImage(new Image(getClass().getResource(snakeFolderPath + "snake-head-right.png").toURI().toString()), headX * SQUARE_SIZE, headY * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
+                        gc.drawImage(new Image(getClass().getResource(snakeFolderPath + SNAKE_RIGHT_HEAD_NAME).toURI().toString()), headX * SQUARE_SIZE, headY * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
                 case KeyEventHandler.LEFT ->
                     // Draw the head facing left
-                        gc.drawImage(new Image(getClass().getResource(snakeFolderPath + "snake-head-left.png").toURI().toString()), headX * SQUARE_SIZE, headY * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
+                        gc.drawImage(new Image(getClass().getResource(snakeFolderPath + SNAKE_LEFT_HEAD_NAME).toURI().toString()), headX * SQUARE_SIZE, headY * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
                 case KeyEventHandler.UP ->
                     // Draw the head facing up
-                        gc.drawImage(new Image(getClass().getResource(snakeFolderPath + "snake-head-up.png").toURI().toString()), headX * SQUARE_SIZE, headY * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
+                        gc.drawImage(new Image(getClass().getResource(snakeFolderPath + SNAKE_UP_HEAD_NAME).toURI().toString()), headX * SQUARE_SIZE, headY * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
                 case KeyEventHandler.DOWN ->
                     // Draw the head facing down
-                        gc.drawImage(new Image(getClass().getResource(snakeFolderPath + "snake-head-down.png").toURI().toString()), headX * SQUARE_SIZE, headY * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
+                        gc.drawImage(new Image(getClass().getResource(snakeFolderPath + SNAKE_DOWN_HEAD_NAME).toURI().toString()), headX * SQUARE_SIZE, headY * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
             }
         } catch (Exception e) {
             System.out.println("Error loading snake image: " + e.getMessage());
@@ -132,12 +135,12 @@ public class GameView {
 
     }
 
-    public void drawAll(GraphicsContext gc, Snake mySnake, Food food, int difficulty, Meteor meteor){
+    public void drawAll(GraphicsContext gc, Snake mySnake, Food[] foods, int difficulty, Meteor meteor){
         drawBackground(gc, difficulty);
-        drawFood(gc, food);
+        drawFood(gc, foods);
         drawSnake(gc, mySnake, difficulty);
         drawScore(gc, mySnake.getScore());
-        drawMeteor(gc, meteor);
+        if(SnakeGameController.getIsPlayableFeature())drawMeteor(gc, meteor);
     }
 
     private void drawMeteor(GraphicsContext gc, Meteor meteor) {
@@ -161,7 +164,7 @@ public class GameView {
         gc.translate(-meteorX - SQUARE_SIZE / 2, -meteorY - SQUARE_SIZE / 2);
 
         // Draw the meteor image at its position
-        gc.drawImage(meteor.getMeteorImage(), meteorX, meteorY, SQUARE_SIZE, SQUARE_SIZE);
+        gc.drawImage(meteor.getImage(), meteorX, meteorY, SQUARE_SIZE, SQUARE_SIZE);
 
         // Restore the graphics context to its original state
         // This is important to not affect other elements that will be drawn later

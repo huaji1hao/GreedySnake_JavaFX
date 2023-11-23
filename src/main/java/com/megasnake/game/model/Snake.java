@@ -1,6 +1,7 @@
 package com.megasnake.game.model;
 
 
+import com.megasnake.audio.MusicPlayer;
 import com.megasnake.game.controller.SpeedController;
 import com.megasnake.game.utils.KeyEventHandler;
 
@@ -51,6 +52,7 @@ public class Snake  implements movable{
 
     public void eatFood(Food food) {
         if (snakeHead.getX() == food.getX() && snakeHead.getY() == food.getY()) {
+            MusicPlayer.playMusic("/audio/eat.mp3");
             snakeBody.add(new Point(snakeBody.get(snakeBody.size()-1).x, snakeBody.get(snakeBody.size()-1).y));
             food.generateFood(this);
             score += 5 * speedController.getSpeedLevel();
@@ -59,6 +61,7 @@ public class Snake  implements movable{
 
     public void hitByMeteor(Meteor meteor){
         if(meteor.isCollidingWithSnake(this)){
+            MusicPlayer.playMusic("/audio/hit.mp3");
             if(Math.random() > 0.5)speedDown();
             if(snakeBody.size() > 1 )snakeBody.remove(snakeBody.size()-1);
             meteor.setRandomPosition();
