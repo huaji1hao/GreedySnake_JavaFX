@@ -60,12 +60,16 @@ public class GameView {
     public void drawSnake(GraphicsContext gc, Snake mySnake, int difficulty) {
         try {
             if(mySnake.getBodySize() <= 1) return;// Don't draw the snake if it has no body parts
-            String snakeFolderPath;
 
-            if(difficulty == 1) snakeFolderPath = "/snake/candy-snake/";
-            else if(difficulty == 2) snakeFolderPath = "/snake/lava-snake/";
-            else if(difficulty == 3) snakeFolderPath = "/snake/space-snake/";
-            else snakeFolderPath = "/snake/plain-snake/";
+            String snakeFolderPath = switch (difficulty) {
+                case 1 -> "/snake/candy-snake/";
+                case 2 -> "/snake/lava-snake/";
+                case 3 -> "/snake/space-snake/";
+                default -> "/snake/plain-snake/";
+            };
+
+            StringBuilder snakeFolderPathBuilder = new StringBuilder();
+            snakeFolderPathBuilder.append(snakeFolderPath).append(SNAKE_BODY_NAME);
 
             // Calculate the movement frame which determines how much the snake has progressed towards the next cell
             double moveFrame = mySnake.getMoveFrame();
@@ -81,7 +85,7 @@ public class GameView {
                 double partY = currentPart.getY() + (prevPart.getY() - currentPart.getY()) * moveFrame;
 
                 // Draw the current body part with a slight reduction in size for visual fineness
-                gc.drawImage(new Image(getClass().getResource(snakeFolderPath + SNAKE_BODY_NAME).toURI().toString()), partX * SQUARE_SIZE, partY * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
+                gc.drawImage(new Image(getClass().getResource(snakeFolderPathBuilder.toString()).toURI().toString()), partX * SQUARE_SIZE, partY * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
             }
 
             // Get the first part of the snake for drawing
@@ -91,34 +95,36 @@ public class GameView {
             double headX = headPart.getX();
             double headY = headPart.getY();
             int currentDirection = KeyEventHandler.getCurrentDirection();
-            switch (currentDirection) {
-                case KeyEventHandler.RIGHT -> headX += moveFrame;
-                case KeyEventHandler.LEFT -> headX -= moveFrame;
-                case KeyEventHandler.UP -> headY -= moveFrame;
-                case KeyEventHandler.DOWN -> headY += moveFrame;
-            }
+            StringBuilder headImageBuilder = new StringBuilder();
+            headImageBuilder.append(snakeFolderPath);
 
             // Draw the snake head with the correct orientation based on the current direction of movement
             switch (currentDirection) {
-                case KeyEventHandler.RIGHT ->
-                    // Draw the head facing right
-                        gc.drawImage(new Image(getClass().getResource(snakeFolderPath + SNAKE_RIGHT_HEAD_NAME).toURI().toString()), headX * SQUARE_SIZE, headY * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
-                case KeyEventHandler.LEFT ->
-                    // Draw the head facing left
-                        gc.drawImage(new Image(getClass().getResource(snakeFolderPath + SNAKE_LEFT_HEAD_NAME).toURI().toString()), headX * SQUARE_SIZE, headY * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
-                case KeyEventHandler.UP ->
-                    // Draw the head facing up
-                        gc.drawImage(new Image(getClass().getResource(snakeFolderPath + SNAKE_UP_HEAD_NAME).toURI().toString()), headX * SQUARE_SIZE, headY * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
-                case KeyEventHandler.DOWN ->
-                    // Draw the head facing down
-                        gc.drawImage(new Image(getClass().getResource(snakeFolderPath + SNAKE_DOWN_HEAD_NAME).toURI().toString()), headX * SQUARE_SIZE, headY * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
+                case KeyEventHandler.RIGHT -> {
+                    headX += moveFrame;
+                    headImageBuilder.append(SNAKE_RIGHT_HEAD_NAME);
+                }
+                case KeyEventHandler.LEFT -> {
+                    headX -= moveFrame;
+                    headImageBuilder.append(SNAKE_LEFT_HEAD_NAME);
+                }
+                case KeyEventHandler.UP -> {
+                    headY -= moveFrame;
+                    headImageBuilder.append(SNAKE_UP_HEAD_NAME);
+                }
+                case KeyEventHandler.DOWN -> {
+                    headY += moveFrame;
+                    headImageBuilder.append(SNAKE_DOWN_HEAD_NAME);
+                }
             }
+
+            gc.drawImage(new Image(getClass().getResource(headImageBuilder.toString()).toURI().toString()), headX * SQUARE_SIZE, headY * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
+
         } catch (Exception e) {
             System.out.println("Error loading snake image: " + e.getMessage());
         }
 
     }
-
 
 
     public void drawScore(GraphicsContext gc, int score) {
