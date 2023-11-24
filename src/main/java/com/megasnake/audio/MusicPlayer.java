@@ -1,40 +1,31 @@
 package com.megasnake.audio;
 
-import javazoom.jl.player.Player;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import java.net.URL;
 
-import java.io.BufferedInputStream;
-import java.io.InputStream;
-
-/**
- * A simple music player that plays audio files in a separate thread.
- */
-public class MusicPlayer extends Thread {
-    private final String filename;
-    private Player player;
+public class MusicPlayer {
+    private MediaPlayer mediaPlayer;
 
     public MusicPlayer(String filename) {
-        this.filename = filename;
-    }
-
-    @Override
-    public void run() {
-        try (InputStream is = getClass().getResourceAsStream(filename);
-             BufferedInputStream bis = new BufferedInputStream(is)) {
-            player = new Player(bis);
-            player.play();
-        } catch (Exception e) {
-            System.err.println("Error playing the audio file: " + e.getMessage());
-            e.printStackTrace();
+        URL resource = getClass().getResource(filename);
+        if (resource == null) {
+            System.err.println("Music file not found: " + filename);
+            return;
         }
+        Media media = new Media(resource.toString());
+        mediaPlayer = new MediaPlayer(media);
     }
 
     public void play() {
-        this.start();
+        if (mediaPlayer != null && !BackgroundMusicPlayer.isMuted()) {
+            mediaPlayer.play();
+        }
     }
 
     public static void playMusic(String filename) {
-        if(filename == null || BackgroundMusicPlayer.isMuted()) return;
-        new MusicPlayer(filename).play();
+        if (filename == null || BackgroundMusicPlayer.isMuted()) return;
+        MusicPlayer musicPlayer = new MusicPlayer(filename);
+        musicPlayer.play();
     }
 }
-

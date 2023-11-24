@@ -13,12 +13,13 @@ import java.util.List;
 import static com.megasnake.game.controller.SnakeGameController.ROWS;
 
 public class Snake  implements movable{
-    private List<Point> snakeBody = new ArrayList();
+    private List<Point> snakeBody;
     private Point snakeHead;
     private SpeedController speedController;
     private int score = 0;
 
     public Snake() {
+        snakeBody = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             snakeBody.add(new Point(5, ROWS / 2));
         }

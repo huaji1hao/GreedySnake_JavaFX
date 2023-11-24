@@ -75,10 +75,10 @@ public class KeyEventHandler implements EventHandler<KeyEvent> {
     public void pauseGame(){
         if(gameTimer.getStatus() == Animation.Status.RUNNING){
             gameTimer.pause();
-            BackgroundMusicPlayer.stopMusic();
+            BackgroundMusicPlayer.pauseMusic();
         }else{
             gameTimer.play();
-            BackgroundMusicPlayer.continueMusic();
+            BackgroundMusicPlayer.playMusic();
         }
     }
 
