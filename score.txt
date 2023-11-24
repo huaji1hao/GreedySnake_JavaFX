@@ -3,3 +3,5 @@ Cool, 120
 XMT, 150
 
 zjf, 305
+
+superzjf, 566

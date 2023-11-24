@@ -3,6 +3,8 @@ package com.megasnake.game.model;
 import com.megasnake.game.controller.SpeedController;
 import javafx.scene.image.Image;
 
+import java.util.Random;
+
 import static com.megasnake.game.controller.SnakeGameController.COLUMNS;
 import static com.megasnake.game.controller.SnakeGameController.ROWS;
 
@@ -12,16 +14,15 @@ public abstract class SnakeObject implements movable{
     protected double rotationAngle = 0;
     protected Image image;
     protected SpeedController speedController;
+    protected Random random = new Random();
 
     public Image getImage(){
         return image;
     }
 
     public void setRandomPosition(){
-        this.x = (int) (Math.random() * COLUMNS);
-        this.y = (int) (Math.random() * ROWS * 0.5) * (-1);
-
-        if(Math.random() > 0.5) speedController.speedUp();
+        this.x = random.nextInt(COLUMNS);
+        this.y = -random.nextInt((int) (ROWS * 0.5));
     }
 
     public void move(){

@@ -1,10 +1,8 @@
 package com.megasnake.game.view;
 
 import com.megasnake.game.controller.SnakeGameController;
-import com.megasnake.game.model.Food;
-import com.megasnake.game.model.Meteor;
+import com.megasnake.game.model.*;
 import com.megasnake.game.utils.KeyEventHandler;
-import com.megasnake.game.model.Snake;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -141,18 +139,21 @@ public class GameView {
 
     }
 
-    public void drawAll(GraphicsContext gc, Snake mySnake, Food[] foods, int difficulty, Meteor meteor){
+    public void drawAll(GraphicsContext gc, Snake mySnake, Food[] foods, int difficulty, Meteor meteor, Gem gem){
         drawBackground(gc, difficulty);
         drawFood(gc, foods);
         drawSnake(gc, mySnake, difficulty);
         drawScore(gc, mySnake.getScore());
-        if(SnakeGameController.getIsPlayableFeature())drawMeteor(gc, meteor);
+        if(SnakeGameController.getIsPlayableFeature()){
+            drawSnakeObject(gc, meteor);
+            drawSnakeObject(gc, gem);
+        }
     }
 
-    private void drawMeteor(GraphicsContext gc, Meteor meteor) {
+    private void drawSnakeObject(GraphicsContext gc, SnakeObject meteor) {
         double moveFrame = meteor.getMoveFrame();
-        double meteorX = meteor.getX() * SQUARE_SIZE;
-        double meteorY = (meteor.getY() + moveFrame) * SQUARE_SIZE;
+        double objectX = meteor.getX() * SQUARE_SIZE;
+        double objectY = (meteor.getY() + moveFrame) * SQUARE_SIZE;
         double rotationAngle = meteor.getRotationAngle();
 
         // Save the current state of the graphics context
@@ -160,17 +161,17 @@ public class GameView {
 
         // Translate the rotation center to the center of the meteor
         // This is done by moving the origin of the graphics context to the meteor's center
-        gc.translate(meteorX + SQUARE_SIZE / 2, meteorY + SQUARE_SIZE / 2);
+        gc.translate(objectX + SQUARE_SIZE / 2, objectY + SQUARE_SIZE / 2);
 
         // Apply the rotation around the new origin (meteor's center)
         gc.rotate(rotationAngle);
 
         // Translate the graphics context back to its original position
         // This ensures that the rotation only affects the meteor image
-        gc.translate(-meteorX - SQUARE_SIZE / 2, -meteorY - SQUARE_SIZE / 2);
+        gc.translate(-objectX - SQUARE_SIZE / 2, -objectY - SQUARE_SIZE / 2);
 
         // Draw the meteor image at its position
-        gc.drawImage(meteor.getImage(), meteorX, meteorY, SQUARE_SIZE, SQUARE_SIZE);
+        gc.drawImage(meteor.getImage(), objectX, objectY, SQUARE_SIZE, SQUARE_SIZE);
 
         // Restore the graphics context to its original state
         // This is important to not affect other elements that will be drawn later

@@ -6,11 +6,12 @@ import javafx.scene.image.Image;
 import java.util.Random;
 
 public class Meteor extends SnakeObject{
-    private String[] meteorImages = new String[]{"/meteor_grey.png", "/meteor_brown.png"};
+    private final String[] meteorImages = new String[]{"/stone/yellow.png", "/stone/orange.png", "/stone/blue.png"};
 
     public Meteor(){
-        setNewMeteorImage();
         speedController = new SpeedController();
+        setNewMeteorImage();
+        setRandomPosition();
     }
 
     private void setNewMeteorImage(){
@@ -21,9 +22,11 @@ public class Meteor extends SnakeObject{
         }
     }
 
+    @Override
     public void setRandomPosition(){
         super.setRandomPosition();
         setNewMeteorImage();
+        if(Math.random() > 0.8) speedController.speedUp();
     }
 
 }

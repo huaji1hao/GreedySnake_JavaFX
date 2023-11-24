@@ -69,6 +69,15 @@ public class Snake  implements movable{
         }
     }
 
+    public void touchGem(Gem gem) {
+        if (gem.isCollidingWithSnake(this)) {
+            MusicPlayer.playMusic("/audio/gem.mp3");
+            gem.setRandomPosition();
+            speedUp();
+            score += 8 * speedController.getSpeedLevel();
+        }
+    }
+
     public int getScore() {
         return score;
     }
@@ -112,5 +121,6 @@ public class Snake  implements movable{
             case KeyEventHandler.DOWN -> judgeMoveFrame(KeyEventHandler.DOWN);
         }
     }
+
 
 }

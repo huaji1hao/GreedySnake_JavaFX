@@ -2,10 +2,7 @@ package com.megasnake.game.controller;
 
 import com.megasnake.audio.BackgroundMusicPlayer;
 import com.megasnake.audio.MusicPlayer;
-import com.megasnake.game.model.Food;
-import com.megasnake.game.model.Meteor;
-import com.megasnake.game.model.Snake;
-import com.megasnake.game.model.User;
+import com.megasnake.game.model.*;
 import com.megasnake.game.utils.ScoreWriter;
 import com.megasnake.game.view.GameView;
 import com.megasnake.game.utils.KeyEventHandler;
@@ -48,6 +45,7 @@ public class SnakeGameController {
     private Snake mySnake;
     private int difficulty;
     Meteor meteor;
+    Gem gem;
 
     private static int foodNum = 2;
     private static boolean isPlayableFeature = true;
@@ -119,15 +117,16 @@ public class SnakeGameController {
 
         mySnake = new Snake();
         meteor = new Meteor();
+        gem = new Gem();
 
-        gameTimer = new Timeline(new KeyFrame(Duration.millis(32), e -> mainLogic(mySnake, foods, meteor)));
+        gameTimer = new Timeline(new KeyFrame(Duration.millis(32), e -> mainLogic(mySnake, foods, meteor, gem)));
         keyEventHandler = new KeyEventHandler(RIGHT, gameTimer, gc);
         gameview = new GameView();
 
         gameStage.setScene(scene);
     }
 
-    private void mainLogic(Snake mySnake, Food[] foods, Meteor meteor) {
+    private void mainLogic(Snake mySnake, Food[] foods, Meteor meteor, Gem gem) {
         if (gameOver) {
             afterGameOver();
             return;
@@ -138,10 +137,12 @@ public class SnakeGameController {
 
         if(isPlayableFeature){
             meteor.move();
+            gem.move();
             mySnake.hitByMeteor(meteor);
+            mySnake.touchGem(gem);
         }
 
-        gameview.drawAll(gc, mySnake, foods, difficulty, meteor);
+        gameview.drawAll(gc, mySnake, foods, difficulty, meteor, gem);
 
         isGameOver(mySnake);
     }
