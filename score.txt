@@ -5,3 +5,5 @@ XMT, 150
 zjf, 305
 
 superzjf, 566
+
+lexie, 28

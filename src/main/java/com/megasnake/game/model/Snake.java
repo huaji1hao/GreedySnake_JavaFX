@@ -78,6 +78,14 @@ public class Snake  implements movable{
         }
     }
 
+    public void eatCoin(Coin coin) {
+        if (coin.isCollidingWithSnake(this)) {
+            MusicPlayer.playMusic("/audio/coin.mp3");
+            coin.setRandomPosition();
+            score += 6 * speedController.getSpeedLevel();
+        }
+    }
+
     public int getScore() {
         return score;
     }
@@ -121,6 +129,7 @@ public class Snake  implements movable{
             case KeyEventHandler.DOWN -> judgeMoveFrame(KeyEventHandler.DOWN);
         }
     }
+
 
 
 }

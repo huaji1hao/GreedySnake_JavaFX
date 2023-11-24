@@ -8,20 +8,21 @@ import java.util.Random;
 import static com.megasnake.game.controller.SnakeGameController.COLUMNS;
 import static com.megasnake.game.controller.SnakeGameController.ROWS;
 
-public class Gem extends SnakeObject{
-    private final String[] gemImages = new String[]{"/stone/green-gem.png", "/stone/purple-gem.png"};
+public class Coin extends SnakeObject{
+    private final String[] coinImages = new String[]{"/stone/coin.png"};
 
-    public Gem(){
-        setNewGemImage();
+
+    public Coin(){
+        setNewCoinImage();
         speedController = new SpeedController();
-        speedController.speedDown();
+        speedController.speedDown(3);
         setRandomPosition();
-        horizontalDirection = -1;
+        horizontalDirection = 1;
     }
 
-    private void setNewGemImage(){
+    private void setNewCoinImage(){
         try{
-            image = new Image(getClass().getResource(gemImages[new Random().nextInt(gemImages.length)]).toURI().toString());
+            image = new Image(getClass().getResource(coinImages[new Random().nextInt(coinImages.length)]).toURI().toString());
         } catch (Exception e) {
             System.out.println("Error loading meteor image: " + e.getMessage());
         }
@@ -31,9 +32,9 @@ public class Gem extends SnakeObject{
     public void setRandomPosition(){
         this.x = random.nextInt(COLUMNS);
         this.y = -random.nextInt(ROWS);
-        setNewGemImage();
-        if(Math.random() > 0.9) speedController.speedUp();
+        setNewCoinImage();
     }
+
     @Override
     public void move(){
         if(speedController.isMoveFrame()){
@@ -44,10 +45,11 @@ public class Gem extends SnakeObject{
                 horizontalDirection *= -1;
             }
 
-            this.rotationAngle += 10;
+            this.rotationAngle += 5;
             checkIfIsOutOfScreen();
         }
         speedController.updateFrame();
     }
+
 
 }

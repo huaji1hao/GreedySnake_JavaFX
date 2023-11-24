@@ -46,6 +46,7 @@ public class SnakeGameController {
     private int difficulty;
     Meteor meteor;
     Gem gem;
+    Coin coin;
 
     private static int foodNum = 2;
     private static boolean isPlayableFeature = true;
@@ -63,9 +64,7 @@ public class SnakeGameController {
     }
 
     public void runSnakeGame(Stage menuStage, int difficulty) {
-        for (int i = 0; i < difficulty; i++) {
-            mySnake.speedUp();
-        }
+        for (int i = 0; i < difficulty; i++) mySnake.speedUp();
         this.difficulty = difficulty;
         this.menuStage = menuStage;
         this.menuStage.hide();
@@ -118,15 +117,16 @@ public class SnakeGameController {
         mySnake = new Snake();
         meteor = new Meteor();
         gem = new Gem();
+        coin = new Coin();
 
-        gameTimer = new Timeline(new KeyFrame(Duration.millis(32), e -> mainLogic(mySnake, foods, meteor, gem)));
+        gameTimer = new Timeline(new KeyFrame(Duration.millis(32), e -> mainLogic(mySnake, foods, meteor, gem, coin)));
         keyEventHandler = new KeyEventHandler(RIGHT, gameTimer, gc);
         gameview = new GameView();
 
         gameStage.setScene(scene);
     }
 
-    private void mainLogic(Snake mySnake, Food[] foods, Meteor meteor, Gem gem) {
+    private void mainLogic(Snake mySnake, Food[] foods, Meteor meteor, Gem gem, Coin coin) {
         if (gameOver) {
             afterGameOver();
             return;
@@ -138,11 +138,13 @@ public class SnakeGameController {
         if(isPlayableFeature){
             meteor.move();
             gem.move();
+            coin.move();
             mySnake.hitByMeteor(meteor);
             mySnake.touchGem(gem);
+            mySnake.eatCoin(coin);
         }
 
-        gameview.drawAll(gc, mySnake, foods, difficulty, meteor, gem);
+        gameview.drawAll(gc, mySnake, foods, difficulty, meteor, gem, coin);
 
         isGameOver(mySnake);
     }

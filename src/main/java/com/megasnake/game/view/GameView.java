@@ -139,7 +139,7 @@ public class GameView {
 
     }
 
-    public void drawAll(GraphicsContext gc, Snake mySnake, Food[] foods, int difficulty, Meteor meteor, Gem gem){
+    public void drawAll(GraphicsContext gc, Snake mySnake, Food[] foods, int difficulty, Meteor meteor, Gem gem, Coin coin){
         drawBackground(gc, difficulty);
         drawFood(gc, foods);
         drawSnake(gc, mySnake, difficulty);
@@ -147,12 +147,13 @@ public class GameView {
         if(SnakeGameController.getIsPlayableFeature()){
             drawSnakeObject(gc, meteor);
             drawSnakeObject(gc, gem);
+            drawSnakeObject(gc, coin);
         }
     }
 
     private void drawSnakeObject(GraphicsContext gc, SnakeObject meteor) {
         double moveFrame = meteor.getMoveFrame();
-        double objectX = meteor.getX() * SQUARE_SIZE;
+        double objectX = (meteor.getX() + moveFrame * meteor.getHorizontalDirection()) * SQUARE_SIZE;
         double objectY = (meteor.getY() + moveFrame) * SQUARE_SIZE;
         double rotationAngle = meteor.getRotationAngle();
 

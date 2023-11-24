@@ -35,5 +35,9 @@ public class SpeedController {
         if(slowspeed < 6) slowspeed++;
     }
 
+    public void speedDown(int n) {
+        for(int i = 0; i < n; i++) slowspeed++;
+    }
+
 
 }

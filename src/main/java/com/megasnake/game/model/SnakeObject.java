@@ -15,6 +15,7 @@ public abstract class SnakeObject implements movable{
     protected Image image;
     protected SpeedController speedController;
     protected Random random = new Random();
+    protected int horizontalDirection = 0;
 
     public Image getImage(){
         return image;
@@ -23,6 +24,10 @@ public abstract class SnakeObject implements movable{
     public void setRandomPosition(){
         this.x = random.nextInt(COLUMNS);
         this.y = -random.nextInt((int) (ROWS * 0.5));
+    }
+
+    public int getHorizontalDirection() {
+        return horizontalDirection;
     }
 
     public void move(){
