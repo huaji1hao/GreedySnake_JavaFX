@@ -1,31 +1,31 @@
-package com.megasnake.controller.ui;
+package com.megasnake.view.ui;
 
 
 import com.megasnake.utils.audio.BackgroundMusicPlayer;
-import com.megasnake.model.component.SnakeButton;
-import com.megasnake.model.component.SoundButton;
+import com.megasnake.view.component.SnakeButton;
+import com.megasnake.view.component.SoundButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ButtonController {
+public class ButtonManager {
     List<SnakeButton> menuButtons;
     AnchorPane mainPane;
 
     Stage mainStage;
 
-    SubSceneController subSceneController;
+    SubSceneManager subSceneManager;
 
 
     private static final int MENU_BUTTONS_START_X = 60;
     private static final int MENU_BUTTONS_START_Y = 150;
 
-    public ButtonController(Stage mainStage, AnchorPane mainPane, SubSceneController subSceneController){
+    public ButtonManager(Stage mainStage, AnchorPane mainPane, SubSceneManager subSceneManager){
         this.mainPane = mainPane;
         this.mainStage = mainStage;
-        this.subSceneController = subSceneController;
+        this.subSceneManager = subSceneManager;
         menuButtons = new ArrayList<>();
     }
 
@@ -57,7 +57,7 @@ public class ButtonController {
         SnakeButton startButton = new SnakeButton("PLAY");
         addMenuButton(startButton);
 
-        startButton.setOnAction(event -> subSceneController.showThemeChooserSubScene());
+        startButton.setOnAction(event -> subSceneManager.showThemeChooserSubScene());
     }
 
     private void createScoresButton() {
@@ -65,8 +65,8 @@ public class ButtonController {
         addMenuButton(scoresButton);
 
         scoresButton.setOnAction(event -> {
-            subSceneController.drawScoreTableOnSubScene();
-            subSceneController.showScoresSubScene();
+            subSceneManager.drawScoreTableOnSubScene();
+            subSceneManager.showScoresSubScene();
         });
     }
 
@@ -74,7 +74,7 @@ public class ButtonController {
         SnakeButton helpButton = new SnakeButton("HELP");
         addMenuButton(helpButton);
 
-        helpButton.setOnAction(event -> subSceneController.showHelpSubScene());
+        helpButton.setOnAction(event -> subSceneManager.showHelpSubScene());
     }
 
     private void createCreditsButton() {
@@ -82,8 +82,8 @@ public class ButtonController {
         addMenuButton(settingButton);
 
         settingButton.setOnAction(event -> {
-            subSceneController.drawSettingSubScene();
-            subSceneController.showSettingSubScene();
+            subSceneManager.drawSettingSubScene();
+            subSceneManager.showSettingSubScene();
         });
     }
 

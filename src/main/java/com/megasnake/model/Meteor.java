@@ -1,6 +1,6 @@
-package com.megasnake.model.game;
+package com.megasnake.model;
 
-import com.megasnake.controller.game.SpeedController;
+import com.megasnake.controller.SpeedController;
 import com.megasnake.utils.ImageLoader;
 
 public class Meteor extends SnakeObject{

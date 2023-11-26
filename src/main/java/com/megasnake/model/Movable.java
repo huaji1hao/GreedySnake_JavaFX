@@ -1,4 +1,4 @@
-package com.megasnake.model.game;
+package com.megasnake.model;
 
 public interface Movable {
 	void move();

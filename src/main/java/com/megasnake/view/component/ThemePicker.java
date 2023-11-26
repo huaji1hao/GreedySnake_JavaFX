@@ -1,6 +1,6 @@
-package com.megasnake.model.ui;
+package com.megasnake.view.component;
 
-import com.megasnake.model.component.CustomLabel;
+import com.megasnake.model.THEME;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;

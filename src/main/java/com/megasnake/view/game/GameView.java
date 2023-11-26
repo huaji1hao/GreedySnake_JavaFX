@@ -1,17 +1,16 @@
 package com.megasnake.view.game;
 
-import com.megasnake.controller.game.SnakeGameController;
-import com.megasnake.model.game.Point;
+import com.megasnake.controller.SnakeGameController;
+import com.megasnake.model.*;
 import com.megasnake.utils.ImageLoader;
 import com.megasnake.utils.KeyEventHandler;
-import com.megasnake.model.game.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 import java.util.Objects;
 
-import static com.megasnake.controller.game.SnakeGameController.*;
+import static com.megasnake.controller.SnakeGameController.*;
 
 public class GameView {
     private final GraphicsContext gc;

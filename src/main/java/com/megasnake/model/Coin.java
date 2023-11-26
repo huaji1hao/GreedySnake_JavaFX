@@ -1,11 +1,11 @@
-package com.megasnake.model.game;
+package com.megasnake.model;
 
-import com.megasnake.controller.game.SpeedController;
+import com.megasnake.controller.SpeedController;
 import com.megasnake.utils.ImageLoader;
 
 
-import static com.megasnake.controller.game.SnakeGameController.COLUMNS;
-import static com.megasnake.controller.game.SnakeGameController.ROWS;
+import static com.megasnake.controller.SnakeGameController.COLUMNS;
+import static com.megasnake.controller.SnakeGameController.ROWS;
 
 public class Coin extends SnakeObject{
     public Coin(){

@@ -1,16 +1,16 @@
-package com.megasnake.controller.game;
+package com.megasnake.controller;
 
+import com.megasnake.model.*;
 import com.megasnake.utils.ImageLoader;
 import com.megasnake.utils.audio.BackgroundMusicPlayer;
 import com.megasnake.utils.audio.MusicPlayer;
 import com.megasnake.utils.scoreboard.ScoreWriter;
 import com.megasnake.view.game.GameView;
 import com.megasnake.utils.KeyEventHandler;
-import com.megasnake.model.game.*;
-import com.megasnake.model.component.CustomLabel;
-import com.megasnake.model.component.SnakeButton;
-import com.megasnake.model.component.SnakeSubScene;
-import com.megasnake.model.component.SnakeTextField;
+import com.megasnake.view.component.CustomLabel;
+import com.megasnake.view.component.SnakeButton;
+import com.megasnake.view.component.SnakeSubScene;
+import com.megasnake.view.component.SnakeTextField;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
@@ -29,7 +29,7 @@ import javafx.util.Duration;
 import static com.megasnake.utils.KeyEventHandler.RIGHT;
 
 public class SnakeGameController {
-    private Stage menuStage;
+    private final Stage menuStage;
     private Stage gameStage;
     private Group root;
     private Scene scene;
@@ -58,14 +58,14 @@ public class SnakeGameController {
 
     private boolean gameOver = false;
 
-    public SnakeGameController() {
+    public SnakeGameController(Stage menuStage) {
+        this.menuStage = menuStage;
         initializeGame();
     }
 
-    public void runSnakeGame(Stage menuStage, int level) {
+    public void runSnakeGame(int level) {
         mySnake.setLevel(level);
         this.level = level;
-        this.menuStage = menuStage;
         this.menuStage.hide();
         gameStage.show();
         run();

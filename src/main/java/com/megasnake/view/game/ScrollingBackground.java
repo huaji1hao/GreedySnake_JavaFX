@@ -4,8 +4,8 @@ import com.megasnake.utils.ImageLoader;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-import static com.megasnake.controller.game.SnakeGameController.HEIGHT;
-import static com.megasnake.controller.game.SnakeGameController.WIDTH;
+import static com.megasnake.controller.SnakeGameController.HEIGHT;
+import static com.megasnake.controller.SnakeGameController.WIDTH;
 
 public class ScrollingBackground {
     private final Image backgroundImage;

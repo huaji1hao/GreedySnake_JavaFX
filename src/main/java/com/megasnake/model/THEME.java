@@ -1,4 +1,4 @@
-package com.megasnake.model.ui;
+package com.megasnake.model;
 
 public enum THEME {
     BLUE("/grass_background_small.png", 0, "Easy"),

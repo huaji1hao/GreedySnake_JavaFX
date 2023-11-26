@@ -1,4 +1,4 @@
-package com.megasnake.model.component;
+package com.megasnake.view.component;
 
 import com.megasnake.utils.audio.BackgroundMusicPlayer;
 import javafx.scene.control.Button;

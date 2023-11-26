@@ -11,7 +11,7 @@ import javafx.scene.text.Font;
 
 import java.util.Objects;
 
-import static com.megasnake.controller.game.SnakeGameController.HEIGHT;
+import static com.megasnake.controller.SnakeGameController.HEIGHT;
 
 public class KeyEventHandler implements EventHandler<KeyEvent> {
     Animation gameTimer;

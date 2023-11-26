@@ -1,15 +1,15 @@
-package com.megasnake.model.game;
+package com.megasnake.model;
 
 
 import com.megasnake.utils.ImageLoader;
 import com.megasnake.utils.audio.MusicPlayer;
-import com.megasnake.controller.game.SpeedController;
+import com.megasnake.controller.SpeedController;
 import com.megasnake.utils.KeyEventHandler;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 
-import static com.megasnake.controller.game.SnakeGameController.ROWS;
+import static com.megasnake.controller.SnakeGameController.ROWS;
 import static com.megasnake.utils.KeyEventHandler.*;
 
 public class Snake extends SnakeBase{

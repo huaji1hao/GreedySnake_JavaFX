@@ -1,4 +1,4 @@
-package com.megasnake.model.game;
+package com.megasnake.model;
 
 public class User implements Comparable<User> {
     String username;

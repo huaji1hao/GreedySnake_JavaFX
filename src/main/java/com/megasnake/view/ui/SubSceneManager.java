@@ -1,11 +1,10 @@
-package com.megasnake.controller.ui;
+package com.megasnake.view.ui;
 
-import com.megasnake.controller.game.SnakeGameController;
-import com.megasnake.model.component.*;
-import com.megasnake.model.game.User;
+import com.megasnake.controller.SnakeGameController;
+import com.megasnake.model.User;
 import com.megasnake.utils.scoreboard.ScoreReader;
-import com.megasnake.model.ui.THEME;
-import com.megasnake.model.ui.ThemePicker;
+import com.megasnake.model.THEME;
+import com.megasnake.view.component.*;
 import javafx.geometry.Pos;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.*;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class SubSceneController {
+public class SubSceneManager {
     private SnakeSubScene sceneToHide;
     private SnakeSubScene settingSubScene;
     private SnakeSubScene helpSubScene;
@@ -35,7 +34,7 @@ public class SubSceneController {
     private CustomLabel sliderText;
 
 
-    public SubSceneController(Stage mainStage, AnchorPane mainPane) {
+    public SubSceneManager(Stage mainStage, AnchorPane mainPane) {
         this.mainStage = mainStage;
         this.mainPane = mainPane;
         initializeSettingSubScene();
@@ -88,8 +87,8 @@ public class SubSceneController {
 
         startButton.setOnAction(event -> {
             if (chosenTheme != null) {
-                SnakeGameController gameController = new SnakeGameController();
-                gameController.runSnakeGame(mainStage, chosenTheme.getDifficulty());
+                SnakeGameController gameController = new SnakeGameController(mainStage);
+                gameController.runSnakeGame(chosenTheme.getDifficulty());
             }
         });
 

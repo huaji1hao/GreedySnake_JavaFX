@@ -1,6 +1,6 @@
-package com.megasnake.model.game;
+package com.megasnake.model;
 
-import com.megasnake.controller.game.SpeedController;
+import com.megasnake.controller.SpeedController;
 import javafx.scene.image.Image;
 
 import java.util.List;

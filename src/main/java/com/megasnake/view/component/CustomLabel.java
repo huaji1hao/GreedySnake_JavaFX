@@ -1,4 +1,4 @@
-package com.megasnake.model.component;
+package com.megasnake.view.component;
 
 import javafx.scene.control.Label;
 import javafx.scene.text.Font;

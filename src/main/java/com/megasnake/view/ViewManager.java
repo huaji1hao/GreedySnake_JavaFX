@@ -1,8 +1,8 @@
 package com.megasnake.view;
 
 import com.megasnake.utils.audio.BackgroundMusicPlayer;
-import com.megasnake.controller.ui.ButtonController;
-import com.megasnake.controller.ui.SubSceneController;
+import com.megasnake.view.ui.ButtonManager;
+import com.megasnake.view.ui.SubSceneManager;
 import javafx.scene.Scene;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
@@ -17,8 +17,8 @@ public class ViewManager {
     private  static final int HEIGHT = 700;
     private final AnchorPane mainPane;
     private final Stage mainStage;
-    ButtonController buttonController;
-    SubSceneController subSceneController;
+    ButtonManager buttonManager;
+    SubSceneManager subSceneManager;
     public ViewManager() {
         mainPane = new AnchorPane();
         Scene mainScene = new Scene(mainPane, WIDTH, HEIGHT);
@@ -27,11 +27,11 @@ public class ViewManager {
         mainStage.setTitle("MegaSnake");
         mainStage.getIcons().add(new Image("/snake-logo2.png"));
 
-        subSceneController = new SubSceneController(mainStage, mainPane);
-        subSceneController.createSubScenes();
+        subSceneManager = new SubSceneManager(mainStage, mainPane);
+        subSceneManager.createSubScenes();
 
-        buttonController = new ButtonController(mainStage, mainPane, subSceneController);
-        buttonController.createButtons();
+        buttonManager = new ButtonManager(mainStage, mainPane, subSceneManager);
+        buttonManager.createButtons();
 
         createBackground();
 //        createLogo();

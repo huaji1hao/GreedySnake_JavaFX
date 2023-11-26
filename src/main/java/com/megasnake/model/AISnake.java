@@ -1,7 +1,7 @@
-package com.megasnake.model.game;
+package com.megasnake.model;
 
-import com.megasnake.controller.game.SnakeGameController;
-import com.megasnake.controller.game.SpeedController;
+import com.megasnake.controller.SnakeGameController;
+import com.megasnake.controller.SpeedController;
 import com.megasnake.utils.ImageLoader;
 import com.megasnake.utils.audio.MusicPlayer;
 import javafx.scene.image.Image;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-import static com.megasnake.controller.game.SnakeGameController.*;
+import static com.megasnake.controller.SnakeGameController.*;
 import static com.megasnake.utils.KeyEventHandler.*;
 
 public class AISnake extends SnakeBase {
@@ -102,7 +102,7 @@ public class AISnake extends SnakeBase {
 
     public void eatFood(Food food, Snake snake) {
         if (snakeHead.getX() == food.getX() && snakeHead.getY() == food.getY()) {
-            if(Math.random()>0.7){
+            if(Math.random() > 0.7){
                 snakeBody.add(new Point(snakeBody.get(snakeBody.size()-1).getX(), snakeBody.get(snakeBody.size()-1).getY()));
             }
             MusicPlayer.playMusic("/audio/laugh.mp3");

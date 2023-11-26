@@ -1,4 +1,4 @@
-package com.megasnake.model.game;
+package com.megasnake.model;
 
 
 import com.megasnake.utils.ImageLoader;
@@ -6,8 +6,8 @@ import javafx.scene.image.Image;
 
 import java.util.Random;
 
-import static com.megasnake.controller.game.SnakeGameController.COLUMNS;
-import static com.megasnake.controller.game.SnakeGameController.ROWS;
+import static com.megasnake.controller.SnakeGameController.COLUMNS;
+import static com.megasnake.controller.SnakeGameController.ROWS;
 
 public class Food  {
     private Image foodImage;

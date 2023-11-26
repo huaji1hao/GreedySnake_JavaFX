@@ -1,6 +1,6 @@
 package com.megasnake.utils.scoreboard;
 
-import com.megasnake.model.game.User;
+import com.megasnake.model.User;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
