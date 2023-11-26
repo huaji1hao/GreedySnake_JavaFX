@@ -10,7 +10,6 @@ import javafx.scene.text.Font;
 
 public class SnakeButton extends Button {
     private final String FONT_PATH = "/font/kenvector_future.ttf";
-    private String BUTTON_PRESSED_STYLE = "-fx-background-color: transparent; -fx-background-image: url('green-button.png');";
     private String BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('green-button.png');";
 
     public SnakeButton(String text) {
@@ -19,14 +18,13 @@ public class SnakeButton extends Button {
 
     public SnakeButton(String text, int color) {
         if(color == 1) {
-            BUTTON_PRESSED_STYLE = "-fx-background-color: transparent; -fx-background-image: url('qing-button.png');";
             BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('qing-button.png');";
         }
         initializeButton(text);
 
     }
 
-    private void initializeButton(String text) {
+    protected void initializeButton(String text) {
         setText(text);
         setButtonFont();
         setPrefWidth(190);
@@ -46,13 +44,11 @@ public class SnakeButton extends Button {
     }
 
     private  void setButtonPressedStyle() {
-        setStyle(BUTTON_PRESSED_STYLE);
         setPrefHeight(45);
         setLayoutY(getLayoutY() + 4);
     }
 
     private void setButtonReleasedStyle() {
-        setStyle(BUTTON_FREE_STYLE);
         setPrefHeight(49);
         setLayoutY(getLayoutY() - 4);
     }

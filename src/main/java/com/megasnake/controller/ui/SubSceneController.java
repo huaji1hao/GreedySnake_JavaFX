@@ -1,25 +1,18 @@
 package com.megasnake.controller.ui;
 
 import com.megasnake.controller.game.SnakeGameController;
+import com.megasnake.model.component.*;
 import com.megasnake.model.game.User;
 import com.megasnake.utils.scoreboard.ScoreReader;
-import com.megasnake.model.component.CustomLabel;
 import com.megasnake.model.ui.THEME;
 import com.megasnake.model.ui.ThemePicker;
-import com.megasnake.model.component.InfoLabel;
-import com.megasnake.model.component.SnakeButton;
-import com.megasnake.model.component.SnakeSubScene;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Slider;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -37,8 +30,8 @@ public class SubSceneController {
     private AnchorPane mainPane;
 
     private Stage mainStage;
-    private ToggleButton specialItemToggle;
-    private ToggleButton aiSnakeToggle;
+    private SnakeToggleButton specialItemToggle;
+    private SnakeToggleButton aiSnakeToggle;
     private Slider foodNumSlider;
     private CustomLabel button1Text;
     private CustomLabel button2Text;
@@ -52,14 +45,13 @@ public class SubSceneController {
     }
 
     private void initializeSettingSubScene(){
-        specialItemToggle = new ToggleButton("Open"); // Default text
-        aiSnakeToggle = new ToggleButton("Open");
+        specialItemToggle = new SnakeToggleButton("Open"); // Default text
+        aiSnakeToggle = new SnakeToggleButton("Open"); // Default text
         foodNumSlider = new Slider(1, 5, 2); // Minimum 1, Maximum 5, Initial value 2
         button1Text = new CustomLabel("Special Items", 23);
         button2Text = new CustomLabel("AI Snake Competitor", 23);
         sliderText = new CustomLabel("Food Number", 23);
-        specialItemToggle.setSelected(true); // Default state is selected (Open)
-        aiSnakeToggle.setSelected(true);
+
         foodNumSlider.setShowTickLabels(true);
         foodNumSlider.setShowTickMarks(true);
         foodNumSlider.setMajorTickUnit(1); // Major tick unit set to 1
@@ -153,36 +145,17 @@ public class SubSceneController {
     }
 
     public void drawSettingSubScene() {
-        VBox settingsLayout = new VBox(20); // 垂直布局，间距为20
+        VBox settingsLayout = new VBox(10); // 垂直布局，间距为20
         settingsLayout.setAlignment(Pos.CENTER); // 居中对齐
 
         specialItemToggle.setOnAction(event -> {
-            if (specialItemToggle.isSelected()) {
-                specialItemToggle.setText("Open");
-                SnakeGameController.setPlayableFeature(true);
-
-            } else {
-                specialItemToggle.setText("Close");
-                SnakeGameController.setPlayableFeature(false);
-
-            }
+            specialItemToggle.toggle();
+            SnakeGameController.setPlayableFeature(specialItemToggle.isSelected());
         });
 
         aiSnakeToggle.setOnAction(event -> {
-
-            if (aiSnakeToggle.isSelected()) {
-                // If toggle is selected (On), set text to "Open"
-                aiSnakeToggle.setText("Open");
-                SnakeGameController.setAISnake(true);
-
-
-            } else {
-                // If toggle is not selected (Off), set text to "Close"
-                aiSnakeToggle.setText("Close");
-                SnakeGameController.setAISnake(false);
-
-
-            }
+            aiSnakeToggle.toggle();
+            SnakeGameController.setAISnake(aiSnakeToggle.isSelected());
         });
 
         foodNumSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
