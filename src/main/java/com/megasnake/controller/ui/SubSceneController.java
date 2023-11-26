@@ -38,7 +38,7 @@ public class SubSceneController {
 
     private Stage mainStage;
     private ToggleButton specialItemToggle;
-    private ToggleButton competitorToggle;
+    private ToggleButton aiSnakeToggle;
     private Slider foodNumSlider;
     private CustomLabel button1Text;
     private CustomLabel button2Text;
@@ -53,13 +53,13 @@ public class SubSceneController {
 
     private void initializeSettingSubScene(){
         specialItemToggle = new ToggleButton("Open"); // Default text
-        competitorToggle = new ToggleButton("Open");
+        aiSnakeToggle = new ToggleButton("Open");
         foodNumSlider = new Slider(1, 5, 2); // Minimum 1, Maximum 5, Initial value 2
         button1Text = new CustomLabel("Special Items", 23);
-        button2Text = new CustomLabel("AI competitor", 23);
+        button2Text = new CustomLabel("AI Snake Competitor", 23);
         sliderText = new CustomLabel("Food Number", 23);
         specialItemToggle.setSelected(true); // Default state is selected (Open)
-        competitorToggle.setSelected(true);
+        aiSnakeToggle.setSelected(true);
         foodNumSlider.setShowTickLabels(true);
         foodNumSlider.setShowTickMarks(true);
         foodNumSlider.setMajorTickUnit(1); // Major tick unit set to 1
@@ -168,18 +168,18 @@ public class SubSceneController {
             }
         });
 
-        competitorToggle.setOnAction(event -> {
+        aiSnakeToggle.setOnAction(event -> {
 
-            if (competitorToggle.isSelected()) {
+            if (aiSnakeToggle.isSelected()) {
                 // If toggle is selected (On), set text to "Open"
-                competitorToggle.setText("Open");
-                SnakeGameController.setAIEater(true);
+                aiSnakeToggle.setText("Open");
+                SnakeGameController.setAISnake(true);
 
 
             } else {
                 // If toggle is not selected (Off), set text to "Close"
-                competitorToggle.setText("Close");
-                SnakeGameController.setAIEater(false);
+                aiSnakeToggle.setText("Close");
+                SnakeGameController.setAISnake(false);
 
 
             }
@@ -191,14 +191,14 @@ public class SubSceneController {
         });
 
 
-        settingsLayout.getChildren().addAll(button1Text, specialItemToggle, button2Text, competitorToggle, sliderText, foodNumSlider);
+        settingsLayout.getChildren().addAll(button1Text, specialItemToggle, button2Text, aiSnakeToggle, sliderText, foodNumSlider);
 
         // 将设置布局添加到子场景中
         settingSubScene.getPane().getChildren().add(settingsLayout);
 
         // 设置布局位置（根据需要调整）
-        settingsLayout.setLayoutX(100); // 水平位置
-        settingsLayout.setLayoutY(50); // 垂直位置
+        settingsLayout.setLayoutX(150); // 水平位置
+        settingsLayout.setLayoutY(70); // 垂直位置
     }
 
 

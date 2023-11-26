@@ -1,21 +1,19 @@
 package com.megasnake.model.game;
 
 
+import com.megasnake.utils.ImageLoader;
 import com.megasnake.utils.audio.MusicPlayer;
 import com.megasnake.controller.game.SpeedController;
 import com.megasnake.utils.KeyEventHandler;
+import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 
-import java.util.List;
-
 import static com.megasnake.controller.game.SnakeGameController.ROWS;
 
-public class Snake  implements movable{
-    private List<Point> snakeBody;
-    private Point snakeHead;
-    private SpeedController speedController;
-    private int score = 0;
+public class Snake extends SnakeBase{
+
+    private int level;
 
     public Snake() {
         snakeBody = new ArrayList<>();
@@ -24,30 +22,6 @@ public class Snake  implements movable{
         }
         snakeHead = snakeBody.get(0);
         speedController = new SpeedController();
-    }
-
-    public void speedUp() {
-        speedController.speedUp();
-    }
-
-    public void speedDown() {
-        speedController.speedDown();
-    }
-
-    public double getMoveFrame() {
-        return speedController.getFrameRate();
-    }
-
-    public int getBodySize() {
-        return snakeBody.size();
-    }
-
-    public Point getBodyPart(int index) {
-        return snakeBody.get(index);
-    }
-
-    public Point getSnakeHead() {
-        return snakeHead;
     }
 
     public void eatFood(Food food) {
@@ -86,35 +60,27 @@ public class Snake  implements movable{
         }
     }
 
-    public int getScore() {
-        return score;
-    }
-
-    public void moveBody(){
-        for (int i = getBodySize() - 1; i >= 1; i--) {
-            getBodyPart(i).x = getBodyPart(i-1).x;
-            getBodyPart(i).y = getBodyPart(i-1).y;
-        }
-    }
-
     public void judgeMoveFrame(int direction){
         if (speedController.isMoveFrame()){
             moveBody();
-            if(direction == KeyEventHandler.RIGHT){
-                snakeHead.x++;
-                KeyEventHandler.setCurrentDirection(KeyEventHandler.RIGHT);
-            }
-            else if(direction == KeyEventHandler.LEFT){
-                snakeHead.x--;
-                KeyEventHandler.setCurrentDirection(KeyEventHandler.LEFT);
-            }
-            else if(direction == KeyEventHandler.UP){
-                snakeHead.y--;
-                KeyEventHandler.setCurrentDirection(KeyEventHandler.UP);
-            }
-            else if(direction == KeyEventHandler.DOWN){
-                snakeHead.y++;
-                KeyEventHandler.setCurrentDirection(KeyEventHandler.DOWN);
+            switch (direction) {
+                case KeyEventHandler.RIGHT -> {
+                    snakeHead.x++;
+                    KeyEventHandler.setCurrentDirection(KeyEventHandler.RIGHT);
+                }
+                case KeyEventHandler.LEFT -> {
+                    snakeHead.x--;
+                    KeyEventHandler.setCurrentDirection(KeyEventHandler.LEFT);
+                }
+                case KeyEventHandler.UP -> {
+                    snakeHead.y--;
+                    KeyEventHandler.setCurrentDirection(KeyEventHandler.UP);
+                }
+                case KeyEventHandler.DOWN -> {
+                    snakeHead.y++;
+                    KeyEventHandler.setCurrentDirection(KeyEventHandler.DOWN);
+                }
+                default -> System.out.println("Invalid direction in judgeMoveFrame: " + direction);
             }
         }
         speedController.updateFrame();
@@ -127,7 +93,45 @@ public class Snake  implements movable{
             case KeyEventHandler.LEFT -> judgeMoveFrame(KeyEventHandler.LEFT);
             case KeyEventHandler.UP -> judgeMoveFrame(KeyEventHandler.UP);
             case KeyEventHandler.DOWN -> judgeMoveFrame(KeyEventHandler.DOWN);
+            default -> System.out.println("Invalid direction in move: " + KeyEventHandler.getNextDirection());
         }
+    }
+    @Override
+    public Image getBodyImage() {
+        return switch (level) {
+            case 1 -> ImageLoader.getImage("/snake/rabbit-snake/snake-body.png");
+            case 2 -> ImageLoader.getImage("/snake/ghost-snake/snake-body.png");
+            case 3 -> ImageLoader.getImage("/snake/space-snake/snake-body.png");
+            default -> ImageLoader.getImage("/snake/plain-snake/snake-body.png");
+        };
+
+    }
+
+    @Override
+    public Image getHeadImage(int direction) {
+        StringBuilder imagePathBuilder = new StringBuilder("/snake/");
+
+        switch (level) {
+            case 1 -> imagePathBuilder.append("rabbit-snake/");
+            case 2 -> imagePathBuilder.append("ghost-snake/");
+            case 3 -> imagePathBuilder.append("space-snake/");
+            default -> imagePathBuilder.append("plain-snake/");
+        }
+
+        switch (direction) {
+            case KeyEventHandler.RIGHT -> imagePathBuilder.append("snake-head-right.png");
+            case KeyEventHandler.LEFT -> imagePathBuilder.append("snake-head-left.png");
+            case KeyEventHandler.UP -> imagePathBuilder.append("snake-head-up.png");
+            case KeyEventHandler.DOWN -> imagePathBuilder.append("snake-head-down.png");
+            default -> System.out.println("Invalid direction in getHeadImage: " + direction);
+        }
+
+        return ImageLoader.getImage(imagePathBuilder.toString());
+    }
+
+    public void setLevel(int level){
+        this.level = level;
+        speedUp(level);
     }
 
 

@@ -5,7 +5,7 @@ public class SpeedController {
     private int frame;
 
     public SpeedController() {
-        this.slowspeed = 7;
+        this.slowspeed = 8;
         this.frame = slowspeed - 1;
     }
 
@@ -29,6 +29,10 @@ public class SpeedController {
             slowspeed--;
             frame = slowspeed - 1;
         }
+    }
+
+    public void speedUp(int n) {
+        for(int i = 0; i < n; i++) speedUp();
     }
 
     public void speedDown() {

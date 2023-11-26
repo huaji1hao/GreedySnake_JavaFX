@@ -1,5 +1,6 @@
 package com.megasnake.controller.game;
 
+import com.megasnake.utils.ImageLoader;
 import com.megasnake.utils.audio.BackgroundMusicPlayer;
 import com.megasnake.utils.audio.MusicPlayer;
 import com.megasnake.utils.scoreboard.ScoreWriter;
@@ -36,21 +37,20 @@ public class SnakeGameController {
     private Scene scene;
     private GameView gameview;
     private Timeline gameTimer;
-    private GraphicsContext gc;
     private SnakeTextField usernameInput;
     private Food[] foods;
     private KeyEventHandler keyEventHandler;
     private Snake mySnake;
-    private int difficulty;
+    private int level;
     Meteor meteor;
     Gem gem;
     Coin coin;
-    AIEater eater;
+    AISnake aiSnake;
 
     private static int foodNum = 2;
     private static boolean isPlayableFeature = true;
 
-    private static boolean isAIEater = true;
+    private static boolean isAISnake = true;
 
     public static final int WIDTH = 720;
     public static final int HEIGHT = 720;
@@ -64,9 +64,9 @@ public class SnakeGameController {
         initializeGame();
     }
 
-    public void runSnakeGame(Stage menuStage, int difficulty) {
-        for (int i = 0; i < difficulty; i++) mySnake.speedUp();
-        this.difficulty = difficulty;
+    public void runSnakeGame(Stage menuStage, int level) {
+        mySnake.setLevel(level);
+        this.level = level;
         this.menuStage = menuStage;
         this.menuStage.hide();
         gameStage.show();
@@ -82,7 +82,7 @@ public class SnakeGameController {
     }
 
     private void chooseBackgroundMusic() {
-        switch (difficulty) {
+        switch (level) {
             case 1 -> BackgroundMusicPlayer.repeatMusic("/audio/quqidao.mp3");
             case 2 -> BackgroundMusicPlayer.repeatMusic("/audio/huoshandao.mp3");
             case 3 -> BackgroundMusicPlayer.repeatMusic("/audio/shendian.mp3");
@@ -91,6 +91,8 @@ public class SnakeGameController {
     }
 
     private void initializeGame() {
+        ImageLoader.preloadImages();
+        MusicPlayer.preloadMedia();
 
         gameStage = new Stage();
         gameStage.setTitle("MegaSnake");
@@ -103,7 +105,7 @@ public class SnakeGameController {
 
         root = new Group();
         Canvas canvas = new Canvas(WIDTH, HEIGHT);
-        gc = canvas.getGraphicsContext2D();
+        GraphicsContext gc = canvas.getGraphicsContext2D();
         root.getChildren().add(canvas);
         scene = new Scene(root);
         usernameInput = new SnakeTextField();
@@ -115,17 +117,16 @@ public class SnakeGameController {
         meteor = new Meteor();
         gem = new Gem();
         coin = new Coin();
-        eater = new AIEater(foods);
-        MusicPlayer.preloadMedia(new String[]{"/audio/eat.mp3", "/audio/hit.mp3", "/audio/gem.mp3", "/audio/coin.mp3", "/audio/game-over.mp3"});
+        aiSnake = new AISnake(foods);
 
-        gameTimer = new Timeline(new KeyFrame(Duration.millis(32), e -> mainLogic(mySnake, foods, meteor, gem, coin, eater)));
+        gameTimer = new Timeline(new KeyFrame(Duration.millis(32), e -> mainLogic(mySnake, foods, meteor, gem, coin, aiSnake)));
         keyEventHandler = new KeyEventHandler(RIGHT, gameTimer, gc);
-        gameview = new GameView();
+        gameview = new GameView(gc);
 
         gameStage.setScene(scene);
     }
 
-    private void mainLogic(Snake mySnake, Food[] foods, Meteor meteor, Gem gem, Coin coin, AIEater eater) {
+    private void mainLogic(Snake mySnake, Food[] foods, Meteor meteor, Gem gem, Coin coin, AISnake aiSnake) {
         if (gameOver) {
             afterGameOver();
             return;
@@ -143,12 +144,12 @@ public class SnakeGameController {
             mySnake.eatCoin(coin);
         }
 
-        if(isAIEater){
-            eater.move();
-            for(Food food : foods) eater.eatFood(food, mySnake);
+        if(isAISnake){
+            aiSnake.move();
+            for(Food food : foods) aiSnake.eatFood(food, mySnake);
         }
 
-        gameview.drawAll(gc, mySnake, foods, difficulty, meteor, gem, coin, eater);
+        gameview.drawAll(mySnake, foods, level, meteor, gem, coin, aiSnake);
 
         isGameOver(mySnake);
     }
@@ -178,7 +179,7 @@ public class SnakeGameController {
     private void afterGameOver() {
         gameTimer.stop();
         BackgroundMusicPlayer.stopMusic();
-        gameview.drawGameOver(gc);
+        gameview.drawGameOver();
         MusicPlayer.playMusic("/audio/game-over.mp3");
 
 
@@ -244,11 +245,11 @@ public class SnakeGameController {
         isPlayableFeature = playableFeature;
     }
 
-    public static boolean getIsAIEater(){
-        return isAIEater;
+    public static boolean getIsAISnake(){
+        return isAISnake;
     }
-    public static void setAIEater(boolean AIEater){
-        isAIEater = AIEater;
+    public static void setAISnake(boolean aiSnake){
+        isAISnake = aiSnake;
     }
     public static void setFoodNum(int num){
         if(num > 0 && num < 6) foodNum = num;

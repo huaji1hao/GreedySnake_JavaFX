@@ -10,6 +10,8 @@ public class MusicPlayer implements Runnable {
     private String filename;
     private static final Map<String, Media> mediaCache = new HashMap<>();
 
+    private static final String[] MUSIC_FILES = new String[]{"/audio/eat.mp3", "/audio/hit.mp3", "/audio/gem.mp3", "/audio/coin.mp3", "/audio/game-over.mp3", "/audio/laugh.mp3"};
+
     public MusicPlayer(String filename) {
         this.filename = filename;
     }
@@ -26,6 +28,10 @@ public class MusicPlayer implements Runnable {
         if (!BackgroundMusicPlayer.isMuted()) {
             mediaPlayer.play();
         }
+    }
+
+    public static void preloadMedia(){
+        preloadMedia(MUSIC_FILES);
     }
 
     public static void preloadMedia(String[] filenames) {

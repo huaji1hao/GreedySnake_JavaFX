@@ -1,10 +1,10 @@
 package com.megasnake.model.ui;
 
 public enum THEME {
-    BLUE("grass_background_small.png", 0, "Easy"),
-    GREEN("candy_background_small.png", 1, "Medium"),
-    ORANGE("lava_background_small.jpg", 2 , "Hard"),
-    RED("space_background_small.jpg", 3, "Hell");
+    BLUE("/grass_background_small.png", 0, "Easy"),
+    GREEN("/candy_background_small.png", 1, "Medium"),
+    ORANGE("/lava_background_small.jpg", 2 , "Hard"),
+    RED("/space_background_small.jpg", 3, "Hell");
 
     private String urlShip;
 
