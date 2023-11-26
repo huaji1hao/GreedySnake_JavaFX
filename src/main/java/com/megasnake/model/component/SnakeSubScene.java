@@ -8,16 +8,14 @@ import javafx.util.Duration;
 
 public class SnakeSubScene extends SubScene{
 
-    private final String FONT_PATH = "/font/kenvector_future.ttf";
-    private final String BACKGROUND_IMAGE = "green-panel.png";
-
     private boolean isHidden = true;
     public SnakeSubScene() {
         super(new AnchorPane(), 600, 400);
         prefWidth(600);
         prefHeight(400);
 
-        BackgroundImage image = new BackgroundImage(new Image(BACKGROUND_IMAGE, 600, 400, false, true),
+        String backgroundImage = "green-panel.png";
+        BackgroundImage image = new BackgroundImage(new Image(backgroundImage, 600, 400, false, true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, null);
 
         AnchorPane root2 = (AnchorPane) this.getRoot();

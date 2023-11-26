@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 
 import java.util.List;
 
-public abstract class SnakeBase implements movable{
+public abstract class SnakeBase implements Movable {
     protected SpeedController speedController;
     protected int score = 0;
     protected List<Point> snakeBody;
@@ -29,8 +29,8 @@ public abstract class SnakeBase implements movable{
 
     public void moveBody(){
         for (int i = getBodySize() - 1; i >= 1; i--) {
-            getBodyPart(i).x = getBodyPart(i-1).x;
-            getBodyPart(i).y = getBodyPart(i-1).y;
+            getBodyPart(i).setX(getBodyPart(i-1).getX());
+            getBodyPart(i).setY(getBodyPart(i-1).getY());
         }
     }
 

@@ -4,8 +4,6 @@ package com.megasnake.controller.ui;
 import com.megasnake.utils.audio.BackgroundMusicPlayer;
 import com.megasnake.model.component.SnakeButton;
 import com.megasnake.model.component.SoundButton;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -21,8 +19,8 @@ public class ButtonController {
     SubSceneController subSceneController;
 
 
-    private final static int MENU_BUTTONS_START_X = 60;
-    private final static int MENU_BUTTONS_START_Y = 150;
+    private static final int MENU_BUTTONS_START_X = 60;
+    private static final int MENU_BUTTONS_START_Y = 150;
 
     public ButtonController(Stage mainStage, AnchorPane mainPane, SubSceneController subSceneController){
         this.mainPane = mainPane;
@@ -40,10 +38,9 @@ public class ButtonController {
         createExitButton();
     }
 
-
     private void addMenuButton(SnakeButton button) {
         button.setLayoutX(MENU_BUTTONS_START_X);
-        button.setLayoutY(MENU_BUTTONS_START_Y + menuButtons.size() * 100);
+        button.setLayoutY(MENU_BUTTONS_START_Y + menuButtons.size() * 100.0);
         menuButtons.add(button);
         mainPane.getChildren().add(button);
     }
@@ -53,36 +50,23 @@ public class ButtonController {
         soundButton.setLayoutX(900);
         soundButton.setLayoutY(20);
         mainPane.getChildren().add(soundButton);
-        soundButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                soundButton.changeButtonStyleAndOperateMusic();
-            }
-        });
+        soundButton.setOnAction(event -> soundButton.changeButtonStyleAndOperateMusic());
     }
 
     private void createPlayButton() {
         SnakeButton startButton = new SnakeButton("PLAY");
         addMenuButton(startButton);
 
-        startButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                subSceneController.showThemeChooserSubScene();
-            }
-        });
+        startButton.setOnAction(event -> subSceneController.showThemeChooserSubScene());
     }
 
     private void createScoresButton() {
         SnakeButton scoresButton = new SnakeButton("SCORES");
         addMenuButton(scoresButton);
 
-        scoresButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                subSceneController.drawScoreTableOnSubScene();
-                subSceneController.showScoresSubScene();
-            }
+        scoresButton.setOnAction(event -> {
+            subSceneController.drawScoreTableOnSubScene();
+            subSceneController.showScoresSubScene();
         });
     }
 
@@ -90,24 +74,16 @@ public class ButtonController {
         SnakeButton helpButton = new SnakeButton("HELP");
         addMenuButton(helpButton);
 
-        helpButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                subSceneController.showHelpSubScene();
-            }
-        });
+        helpButton.setOnAction(event -> subSceneController.showHelpSubScene());
     }
 
     private void createCreditsButton() {
         SnakeButton settingButton = new SnakeButton("Settings");
         addMenuButton(settingButton);
 
-        settingButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                subSceneController.drawSettingSubScene();
-                subSceneController.showSettingSubScene();
-            }
+        settingButton.setOnAction(event -> {
+            subSceneController.drawSettingSubScene();
+            subSceneController.showSettingSubScene();
         });
     }
 
@@ -115,12 +91,9 @@ public class ButtonController {
         SnakeButton exitButton = new SnakeButton("EXIT");
         addMenuButton(exitButton);
 
-        exitButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                BackgroundMusicPlayer.stopMusic();
-                mainStage.close();
-            }
+        exitButton.setOnAction(event -> {
+            BackgroundMusicPlayer.stopMusic();
+            mainStage.close();
         });
     }
 

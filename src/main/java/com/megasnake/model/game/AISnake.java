@@ -5,11 +5,11 @@ import com.megasnake.controller.game.SpeedController;
 import com.megasnake.utils.ImageLoader;
 import com.megasnake.utils.audio.MusicPlayer;
 import javafx.scene.image.Image;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
+import static com.megasnake.controller.game.SnakeGameController.*;
 import static com.megasnake.utils.KeyEventHandler.*;
 
 public class AISnake extends SnakeBase {
@@ -22,8 +22,8 @@ public class AISnake extends SnakeBase {
         speedController.speedUp();
 
         Random random = new Random();
-        int x = random.nextInt(SnakeGameController.COLUMNS);
-        int y = random.nextInt(SnakeGameController.ROWS);
+        int x = random.nextInt(COLUMNS);
+        int y = random.nextInt(ROWS);
 
         snakeBody = new ArrayList<>();
         for(int i = 0; i < 2; i++){
@@ -36,16 +36,16 @@ public class AISnake extends SnakeBase {
     @Override
     public Image getHeadImage(int direction) {
         return switch (direction) {
-            case LEFT -> ImageLoader.getImage("/snake/ninjia-snake/snake-head-left.png");
-            case UP -> ImageLoader.getImage("/snake/ninjia-snake/snake-head-up.png");
-            case DOWN -> ImageLoader.getImage("/snake/ninjia-snake/snake-head-down.png");
-            default -> ImageLoader.getImage("/snake/ninjia-snake/snake-head-right.png");
+            case LEFT -> ImageLoader.getImage("/snake/ninja-snake/snake-head-left.png");
+            case UP -> ImageLoader.getImage("/snake/ninja-snake/snake-head-up.png");
+            case DOWN -> ImageLoader.getImage("/snake/ninja-snake/snake-head-down.png");
+            default -> ImageLoader.getImage("/snake/ninja-snake/snake-head-right.png");
         };
     }
 
     @Override
     public Image getBodyImage(){
-        return ImageLoader.getImage("/snake/ninjia-snake/snake-body.png");
+        return ImageLoader.getImage("/snake/ninja-snake/snake-body.png");
     }
 
     public int getCurrentDirection() {
@@ -66,20 +66,20 @@ public class AISnake extends SnakeBase {
             moveBody();
 
             // 计算移动方向
-            int deltaX = nearestFood.getX() - snakeHead.x;
-            int deltaY = nearestFood.getY() - snakeHead.y;
+            int deltaX = nearestFood.getX() - snakeHead.getX();
+            int deltaY = nearestFood.getY() - snakeHead.getY();
 
             if (Math.abs(deltaX) > Math.abs(deltaY)) {
-                snakeHead.x += Integer.signum(deltaX);
+                snakeHead.setX(snakeHead.getX() + Integer.signum(deltaX));
                 currentDirection = deltaX > 0 ? RIGHT : LEFT;
             } else {
-                snakeHead.y += Integer.signum(deltaY);
+                snakeHead.setY(snakeHead.getY() + Integer.signum(deltaY));
                 currentDirection = deltaY > 0 ? DOWN : UP;
             }
 
             // 确保 AI 不会移动出界
-            snakeHead.x = Math.max(0, Math.min(snakeHead.x, SnakeGameController.COLUMNS - 1));
-            snakeHead.y = Math.max(0, Math.min(snakeHead.y, SnakeGameController.ROWS - 1));
+            snakeHead.setX(Math.max(0, Math.min(snakeHead.getX(), COLUMNS - 1)));
+            snakeHead.setY(Math.max(0, Math.min(snakeHead.getY(), SnakeGameController.ROWS - 1)));
         }
         speedController.updateFrame();
 
@@ -89,8 +89,8 @@ public class AISnake extends SnakeBase {
     private Food findNearestFood() {
         return Arrays.stream(foods)
                 .min((food1, food2) -> {
-                    int dist1 = distance(snakeHead.x, snakeHead.y, food1.getX(), food1.getY());
-                    int dist2 = distance(snakeHead.x, snakeHead.y, food2.getX(), food2.getY());
+                    int dist1 = distance(snakeHead.getX(), snakeHead.getY(), food1.getX(), food1.getY());
+                    int dist2 = distance(snakeHead.getX(), snakeHead.getY(), food2.getX(), food2.getY());
                     return Integer.compare(dist1, dist2);
                 })
                 .orElse(null);
@@ -101,9 +101,9 @@ public class AISnake extends SnakeBase {
     }
 
     public void eatFood(Food food, Snake snake) {
-        if (snakeHead.x == food.getX() && snakeHead.y == food.getY()) {
+        if (snakeHead.getX() == food.getX() && snakeHead.getY() == food.getY()) {
             if(Math.random()>0.7){
-                snakeBody.add(new Point(snakeBody.get(snakeBody.size()-1).x, snakeBody.get(snakeBody.size()-1).y));
+                snakeBody.add(new Point(snakeBody.get(snakeBody.size()-1).getX(), snakeBody.get(snakeBody.size()-1).getY()));
             }
             MusicPlayer.playMusic("/audio/laugh.mp3");
             food.generateFood(snake);

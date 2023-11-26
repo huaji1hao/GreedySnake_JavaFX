@@ -1,8 +1,5 @@
 package com.megasnake.utils.audio;
 
-/**
- * A class for playing background music in a game. It extends Thread to allow music playing in the background.
- */
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import java.net.URL;

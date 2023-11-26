@@ -10,10 +10,7 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.text.Font;
 
 public class InfoLabel extends Label {
-    public final String FONT_PATH = "/font/kenvector_future.ttf";
-
-    private final String BACKGROUND_IMAGE = "yellow_small_panel.png";
-
+    private static final String BACKGROUND_IMAGE = "yellow_small_panel.png";
 
     public InfoLabel(String text) {
         setPrefWidth(380);
@@ -31,7 +28,7 @@ public class InfoLabel extends Label {
 
     private void setLabelFont() {
         try{
-            setFont(Font.loadFont(getClass().getResourceAsStream(FONT_PATH), 23));
+            setFont(Font.loadFont(getClass().getResourceAsStream("/font/kenvector_future.ttf"), 23));
         }catch (Exception e) {
             setFont(Font.font("Verdana", 23));
         }

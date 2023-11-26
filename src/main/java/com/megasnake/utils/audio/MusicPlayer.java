@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MusicPlayer implements Runnable {
-    private String filename;
+    private final String filename;
     private static final Map<String, Media> mediaCache = new HashMap<>();
 
     private static final String[] MUSIC_FILES = new String[]{"/audio/eat.mp3", "/audio/hit.mp3", "/audio/gem.mp3", "/audio/coin.mp3", "/audio/game-over.mp3", "/audio/laugh.mp3"};

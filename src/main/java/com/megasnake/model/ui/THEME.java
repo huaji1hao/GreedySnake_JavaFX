@@ -6,11 +6,12 @@ public enum THEME {
     ORANGE("/lava_background_small.jpg", 2 , "Hard"),
     RED("/space_background_small.jpg", 3, "Hell");
 
-    private String urlShip;
+    private final String urlShip;
 
-    private int difficulty;
-    private String level;
-    private THEME(String urlShip, int difficulty, String level) {
+    private final int difficulty;
+    private final String level;
+
+    THEME(String urlShip, int difficulty, String level) {
         this.urlShip = urlShip;
         this.difficulty = difficulty;
         this.level = level;

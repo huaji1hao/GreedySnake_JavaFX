@@ -4,8 +4,10 @@ import javafx.scene.image.Image;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class ImageLoader {
+    private ImageLoader() {}
     private static final Map<String, Image> imageCache = new HashMap<>();
 
     public static final String[] FOODS_IMAGE = new String[]{"/food/food-apple.png", "/food/food-banana.png", "/food/food-blueberry.png",
@@ -18,9 +20,11 @@ public class ImageLoader {
             {"/snake/rabbit-snake/snake-body.png", "/snake/rabbit-snake/snake-head-right.png", "/snake/rabbit-snake/snake-head-left.png", "/snake/rabbit-snake/snake-head-up.png", "/snake/rabbit-snake/snake-head-down.png"},
             {"/snake/ghost-snake/snake-body.png", "/snake/ghost-snake/snake-head-right.png", "/snake/ghost-snake/snake-head-left.png", "/snake/ghost-snake/snake-head-up.png", "/snake/ghost-snake/snake-head-down.png"},
             {"/snake/space-snake/snake-body.png", "/snake/space-snake/snake-head-right.png", "/snake/space-snake/snake-head-left.png", "/snake/space-snake/snake-head-up.png", "/snake/space-snake/snake-head-down.png"},
-            {"/snake/ninjia-snake/snake-body.png", "/snake/ninjia-snake/snake-head-right.png", "/snake/ninjia-snake/snake-head-left.png", "/snake/ninjia-snake/snake-head-up.png", "/snake/ninjia-snake/snake-head-down.png"},
-
+            {"/snake/ninja-snake/snake-body.png", "/snake/ninja-snake/snake-head-right.png", "/snake/ninja-snake/snake-head-left.png", "/snake/ninja-snake/snake-head-up.png", "/snake/ninja-snake/snake-head-down.png"},
     };
+
+    public static final String[] GEM_IMAGES = new String[]{"/stone/green-gem.png", "/stone/purple-gem.png"};
+    public static final String[] METEOR_IMAGES = new String[]{"/stone/yellow.png", "/stone/orange.png", "/stone/blue.png"};
 
     public static void preloadImages() {
         for (String foodImage : FOODS_IMAGE) {
@@ -33,14 +37,24 @@ public class ImageLoader {
             }
         }
 
+        for (String gemImage : GEM_IMAGES) {
+            loadImage(gemImage);
+        }
+
+        for (String meteorImage : METEOR_IMAGES) {
+            loadImage(meteorImage);
+        }
+
         loadImage("/background/candy_background.png");
         loadImage("/background/lava_background.png");
+        loadImage("/background/deep_blue_star.png");
+        loadImage("/stone/coin.png");
 
     }
 
     private static void loadImage(String path) {
         try {
-            Image image = new Image(ImageLoader.class.getResource(path).toURI().toString());
+            Image image = new Image(Objects.requireNonNull(ImageLoader.class.getResource(path)).toURI().toString());
             imageCache.put(path, image);
         } catch (Exception e) {
             System.out.println("Error loading image: " + path + e.getMessage());

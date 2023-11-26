@@ -6,11 +6,8 @@ import com.megasnake.model.game.User;
 import com.megasnake.utils.scoreboard.ScoreReader;
 import com.megasnake.model.ui.THEME;
 import com.megasnake.model.ui.ThemePicker;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Slider;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import java.util.ArrayList;
@@ -27,9 +24,9 @@ public class SubSceneController {
     List<ThemePicker> themesList;
     private THEME chosenTheme;
 
-    private AnchorPane mainPane;
+    private final AnchorPane mainPane;
 
-    private Stage mainStage;
+    private final Stage mainStage;
     private SnakeToggleButton specialItemToggle;
     private SnakeToggleButton aiSnakeToggle;
     private Slider foodNumSlider;
@@ -89,13 +86,10 @@ public class SubSceneController {
         startButton.setLayoutX(350);
         startButton.setLayoutY(280);
 
-        startButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if(chosenTheme != null) {
-                    SnakeGameController gameController = new SnakeGameController();
-                    gameController.runSnakeGame(mainStage, chosenTheme.getDifficulty());
-                }
+        startButton.setOnAction(event -> {
+            if (chosenTheme != null) {
+                SnakeGameController gameController = new SnakeGameController();
+                gameController.runSnakeGame(mainStage, chosenTheme.getDifficulty());
             }
         });
 
@@ -113,18 +107,15 @@ public class SubSceneController {
             themesList.add(themeToPick);
             box.getChildren().add(themeToPick);
 
-            themeToPick.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    for(ThemePicker theme : themesList) {
-                        theme.setIsCircleChoosen(false);
-                    }
-                    themeToPick.setIsCircleChoosen(true);
-                    chosenTheme = themeToPick.getTheme();
+            themeToPick.setOnMouseClicked(event -> {
+                for(ThemePicker theme : themesList) {
+                    theme.setIsCircleChosen(false);
                 }
+                themeToPick.setIsCircleChosen(true);
+                chosenTheme = themeToPick.getTheme();
             });
         }
-        box.setLayoutX(300 - (118*2));
+        box.setLayoutX(300.0 - (118*2));
         box.setLayoutY(100);
         return box;
     }
@@ -189,7 +180,7 @@ public class SubSceneController {
         titleBar.getChildren().addAll(userTitle, scoreTitle);
         scoreLayout.getChildren().add(titleBar);
 
-        ArrayList<User> usersList = ScoreReader.readScoresFromFile();
+        List<User> usersList = ScoreReader.readScoresFromFile();
         Collections.sort(usersList);
 
         if (usersList.size() > 5) usersList = new ArrayList<>(usersList.subList(0, 5));
@@ -208,8 +199,8 @@ public class SubSceneController {
 
         scoresSubScene.getPane().getChildren().add(scoreLayout);
 
-        scoreLayout.setLayoutX((600 - 380) / 2); // Horizontal centering (subscene width - InfoLabel width) / 2
-        scoreLayout.setLayoutY(15); // Vertical centering (subscene height - totalLabelHeight) / 2
+        scoreLayout.setLayoutX((600 - 380) / 2.0); // Horizontal centering (sub scene width - InfoLabel width) / 2
+        scoreLayout.setLayoutY(15); // Vertical centering (sub scene height - totalLabelHeight) / 2
 
     }
 
@@ -229,10 +220,6 @@ public class SubSceneController {
 
     public void showThemeChooserSubScene() {
         showSubScene(themeChooserSubScene);
-    }
-
-    public THEME getChosenTheme() {
-        return chosenTheme;
     }
 
 

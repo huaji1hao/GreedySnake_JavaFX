@@ -8,7 +8,7 @@ import java.util.Random;
 import static com.megasnake.controller.game.SnakeGameController.COLUMNS;
 import static com.megasnake.controller.game.SnakeGameController.ROWS;
 
-public abstract class SnakeObject implements movable{
+public abstract class SnakeObject implements Movable {
     protected int x;
     protected int y;
     protected double rotationAngle = 0;
@@ -16,7 +16,6 @@ public abstract class SnakeObject implements movable{
     protected SpeedController speedController;
     protected Random random = new Random();
     protected int horizontalDirection = 0;
-
 
     public Image getImage(){
         return image;

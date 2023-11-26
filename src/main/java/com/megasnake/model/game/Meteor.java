@@ -1,12 +1,9 @@
 package com.megasnake.model.game;
 
 import com.megasnake.controller.game.SpeedController;
-import javafx.scene.image.Image;
-
-import java.util.Random;
+import com.megasnake.utils.ImageLoader;
 
 public class Meteor extends SnakeObject{
-    private final String[] meteorImages = new String[]{"/stone/yellow.png", "/stone/orange.png", "/stone/blue.png"};
 
     public Meteor(){
         speedController = new SpeedController();
@@ -15,11 +12,7 @@ public class Meteor extends SnakeObject{
     }
 
     private void setNewMeteorImage(){
-        try{
-            image = new Image(getClass().getResource(meteorImages[new Random().nextInt(meteorImages.length)]).toURI().toString());
-        } catch (Exception e) {
-            System.out.println("Error loading meteor image: " + e.getMessage());
-        }
+        image = ImageLoader.getImage(ImageLoader.METEOR_IMAGES[random.nextInt(ImageLoader.METEOR_IMAGES.length)]);
     }
 
     @Override

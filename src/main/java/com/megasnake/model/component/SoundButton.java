@@ -1,31 +1,29 @@
 package com.megasnake.model.component;
 
 import com.megasnake.utils.audio.BackgroundMusicPlayer;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.effect.Glow;
 import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 
 public class SoundButton extends Button {
-    private int BUTTON_HEIGHT = 82;
-    private int BUTTON_WIDTH = 82;
-    private String BUTTON_STYLE = "-fx-background-color: transparent; -fx-background-image: url('sound_button.png');";
-    private String BUTTON_CLOSE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('sound_button_close.png');";
+    private static final int BUTTON_HEIGHT = 82;
+    private static final String BUTTON_STYLE = "-fx-background-color: transparent; -fx-background-image: url('sound_button.png');";
+    private static final String BUTTON_CLOSE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('sound_button_close.png');";
 
     public SoundButton() {
         initializeButton();
     }
 
     private void initializeButton() {
-        setPrefWidth(BUTTON_WIDTH);
+        int buttonWidth = 82;
+        setPrefWidth(buttonWidth);
         setPrefHeight(BUTTON_HEIGHT);
         setStyle(BUTTON_STYLE);
         initializeButtonListeners();
     }
 
     private  void setButtonPressed() {
-        setPrefHeight(BUTTON_HEIGHT - 1);
+        setPrefHeight(BUTTON_HEIGHT - 1.0);
         setLayoutY(getLayoutY() + 1);
     }
 
@@ -35,38 +33,21 @@ public class SoundButton extends Button {
     }
 
     public void initializeButtonListeners() {
-        setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if(event.getButton().equals(MouseButton.PRIMARY)) {
-                    setButtonPressed();
-                }
+        setOnMousePressed(event -> {
+            if (event.getButton().equals(MouseButton.PRIMARY)) {
+                setButtonPressed();
             }
         });
 
-        setOnMouseReleased(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if(event.getButton().equals(MouseButton.PRIMARY)) {
-                    setButtonReleased();
-                }
+        setOnMouseReleased(event -> {
+            if(event.getButton().equals(MouseButton.PRIMARY)) {
+                setButtonReleased();
             }
         });
 
-        setOnMouseEntered(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                setEffect(new Glow());
-            }
+        setOnMouseEntered(event -> setEffect(new Glow()));
 
-        });
-
-        setOnMouseExited(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                setEffect(null);
-            }
-        });
+        setOnMouseExited(event -> setEffect(null));
 
     }
 

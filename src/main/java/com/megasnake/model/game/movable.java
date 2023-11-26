@@ -1,14 +1,5 @@
 package com.megasnake.model.game;
 
-/**
- * 
- * @Project Snakee
- * @Description Fyrsta viðmótið
- * @Author Sigurður Sigurðardóttir
- * @version Ekki viss
- */ 
-
-public interface movable
-{
+public interface Movable {
 	void move();
 }

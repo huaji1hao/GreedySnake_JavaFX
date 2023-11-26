@@ -16,8 +16,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -39,8 +37,8 @@ public class SnakeGameController {
     private Timeline gameTimer;
     private SnakeTextField usernameInput;
     private Food[] foods;
-    private KeyEventHandler keyEventHandler;
     private Snake mySnake;
+    private KeyEventHandler keyEventHandler;
     private int level;
     Meteor meteor;
     Gem gem;
@@ -161,14 +159,14 @@ public class SnakeGameController {
         }
 
         Point snakeHead = mySnake.getSnakeHead();
-        if (snakeHead.x < 0 || snakeHead.y < 0 || snakeHead.x * SQUARE_SIZE >= WIDTH || snakeHead.y * SQUARE_SIZE >= HEIGHT) {
+        if (snakeHead.getX() < 0 || snakeHead.getY() < 0 || snakeHead.getX() * SQUARE_SIZE >= WIDTH || snakeHead.getY() * SQUARE_SIZE >= HEIGHT) {
             gameOver = true;
             return;
         }
 
         //destroy itself
         for (int i = 1; i < mySnake.getBodySize(); i++) {
-            if (snakeHead.x == mySnake.getBodyPart(i).getX() && snakeHead.getY() == mySnake.getBodyPart(i).getY()) {
+            if (snakeHead.getX() == mySnake.getBodyPart(i).getX() && snakeHead.getY() == mySnake.getBodyPart(i).getY()) {
                 gameOver = true;
                 return;
             }
@@ -209,20 +207,17 @@ public class SnakeGameController {
         backButton.setLayoutX(350);
         backButton.setLayoutY(280);
 
-        backButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                String username = usernameInput.getTextValue().trim();
-                if (username.isEmpty()) {
-                    showAlert("You did not enter a username, so this record will not be retained.");
-                } else {
-                    User newUser = new User(username, mySnake.getScore());
-                    ScoreWriter.writeScoreToFile(newUser);
-                }
-                gameStage.close();
-                menuStage.show();
-                BackgroundMusicPlayer.repeatMusic("/audio/ui-background.mp3");
+        backButton.setOnAction(event -> {
+            String username = usernameInput.getTextValue().trim();
+            if (username.isEmpty()) {
+                showAlert("You did not enter a username, so this record will not be retained.");
+            } else {
+                User newUser = new User(username, mySnake.getScore());
+                ScoreWriter.writeScoreToFile(newUser);
             }
+            gameStage.close();
+            menuStage.show();
+            BackgroundMusicPlayer.repeatMusic("/audio/ui-background.mp3");
         });
 
 

@@ -8,25 +8,23 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
 public class ThemePicker extends VBox {
-    private ImageView circleImage;
-    private ImageView themeImage;
-    private Label themeLabel;
+    private final ImageView circleImage;
 
-    private String circleNotChoosen = "grey_circle.png";
-    private String circleChoosen = "circle_choosen.png";
+    private static final String CIRCLE_NOT_CHOSEN = "grey_circle.png";
+    private static final String CIRCLE_CHOSEN = "circle_chosen.png";
 
-    private THEME THEME;
+    private final THEME theme;
 
-    private boolean isCircleChoosen;
+    private boolean isCircleChosen;
 
-    public ThemePicker(THEME THEME) {
-        circleImage = new ImageView(circleNotChoosen);
-        themeImage = new ImageView(THEME.getUrl());
-        themeLabel = new CustomLabel(THEME.getLevel(), 23);
+    public ThemePicker(THEME theme) {
+        circleImage = new ImageView(CIRCLE_NOT_CHOSEN);
+        ImageView themeImage = new ImageView(theme.getUrl());
+        Label themeLabel = new CustomLabel(theme.getLevel(), 23);
 
 
-        this.THEME = THEME;
-        isCircleChoosen = false;
+        this.theme = theme;
+        isCircleChosen = false;
         this.setAlignment(Pos.CENTER);
         this.setSpacing(18);
         this.getChildren().add(circleImage);
@@ -35,16 +33,12 @@ public class ThemePicker extends VBox {
     }
 
     public THEME getTheme() {
-        return THEME;
+        return theme;
     }
 
-    public boolean getIsCircleChoosen() {
-        return isCircleChoosen;
-    }
-
-    public void setIsCircleChoosen(boolean isCircleChoosen) {
-        this.isCircleChoosen = isCircleChoosen;
-        String imageToSet = this.isCircleChoosen ? circleChoosen : circleNotChoosen;
+    public void setIsCircleChosen(boolean isCircleChosen) {
+        this.isCircleChosen = isCircleChosen;
+        String imageToSet = this.isCircleChosen ? CIRCLE_CHOSEN : CIRCLE_NOT_CHOSEN;
         circleImage.setImage(new Image(imageToSet));
     }
 }

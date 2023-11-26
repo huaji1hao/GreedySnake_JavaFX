@@ -54,39 +54,21 @@ public class SnakeButton extends Button {
     }
 
     public void initializeButtonListeners() {
-        setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if(event.getButton().equals(MouseButton.PRIMARY)) {
-                    setButtonPressedStyle();
-                }
+        setOnMousePressed(event -> {
+            if(event.getButton().equals(MouseButton.PRIMARY)) {
+                setButtonPressedStyle();
             }
         });
 
-        setOnMouseReleased(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if(event.getButton().equals(MouseButton.PRIMARY)) {
-                    setButtonReleasedStyle();
-                }
+        setOnMouseReleased(event -> {
+            if(event.getButton().equals(MouseButton.PRIMARY)) {
+                setButtonReleasedStyle();
             }
         });
 
-        setOnMouseEntered(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-//                setEffect(new DropShadow());
-                setEffect(new Glow());
-            }
+        setOnMouseEntered(event -> setEffect(new Glow()));
 
-        });
-
-        setOnMouseExited(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                setEffect(null);
-            }
-        });
+        setOnMouseExited(event -> setEffect(null));
 
     }
 

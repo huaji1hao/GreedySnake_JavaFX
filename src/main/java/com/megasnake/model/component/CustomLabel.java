@@ -25,10 +25,8 @@ public class CustomLabel extends Label {
      * @param fontSize The size of the font to be set.
      */
     private void setFont(double fontSize) {
-        String FONT_PATH = "/font/kenvector_future.ttf"; // Path to the custom font file
-
         // Attempt to load the custom font
-        Font customFont = Font.loadFont(getClass().getResourceAsStream(FONT_PATH), fontSize);
+        Font customFont = Font.loadFont(getClass().getResourceAsStream("/font/kenvector_future.ttf"), fontSize);
         // Use Arial as a fallback if custom font fails to load
         this.setFont(Objects.requireNonNullElseGet(customFont, () -> new Font("Arial", fontSize)));
     }

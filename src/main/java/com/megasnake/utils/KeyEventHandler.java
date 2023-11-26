@@ -9,6 +9,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+import java.util.Objects;
+
 import static com.megasnake.controller.game.SnakeGameController.HEIGHT;
 
 public class KeyEventHandler implements EventHandler<KeyEvent> {
@@ -32,9 +34,8 @@ public class KeyEventHandler implements EventHandler<KeyEvent> {
     public void handle(KeyEvent event) {
         KeyCode code = event.getCode();
 
-        if(code == KeyCode.SPACE){
-            pauseGame();
-        }
+        if(code == KeyCode.SPACE) pauseGame();
+
         if(gameTimer.getStatus() == Animation.Status.PAUSED){
             drawPause(gc, gameTimer);
             return;
@@ -86,18 +87,14 @@ public class KeyEventHandler implements EventHandler<KeyEvent> {
         if(gameTimer.getStatus() == Animation.Status.PAUSED){
             String text = "Press space to continue the game"; // Text to display
             double x = 40; // X position for the text
-            double y = HEIGHT / 2; // Y position for the text (centered vertically)
+            double y = HEIGHT / 2.0; // Y position for the text (centered vertically)
 
-            String FONT_PATH = "/font/kenvector_future.ttf"; // Path to the custom font file
             double fontSize = 40; // Font size
 
             // Load the custom font
-            Font customFont = Font.loadFont(getClass().getResourceAsStream(FONT_PATH), fontSize);
-            if (customFont != null) {
-                gc.setFont(customFont); // Use the custom font if loaded successfully
-            } else {
-                gc.setFont(new Font("Arial", fontSize)); // Use a default font if custom font fails to load
-            }
+            Font customFont = Font.loadFont(getClass().getResourceAsStream("/font/kenvector_future.ttf"), fontSize);
+            // Use a default font if custom font fails to load
+            gc.setFont(Objects.requireNonNullElseGet(customFont, () -> new Font("Arial", fontSize))); // Use the custom font if loaded successfully
 
             // Draw the text outline in black
             gc.setStroke(Color.BLACK); // Set the outline color to black
