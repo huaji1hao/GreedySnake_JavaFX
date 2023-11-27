@@ -52,6 +52,7 @@ public class BackgroundMusicPlayer {
         isMuted = true;
         if (mediaPlayer != null) {
             mediaPlayer.setMute(true);
+            mediaPlayer.pause();
         }
     }
 
@@ -59,6 +60,7 @@ public class BackgroundMusicPlayer {
         isMuted = false;
         if (mediaPlayer != null) {
             mediaPlayer.setMute(false);
+            mediaPlayer.play();
         }
     }
 
