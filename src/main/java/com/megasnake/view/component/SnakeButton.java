@@ -1,16 +1,12 @@
 package com.megasnake.view.component;
 
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Glow;
 import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 
 public class SnakeButton extends Button {
-    private final String FONT_PATH = "/font/kenvector_future.ttf";
-    private String BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('green-button.png');";
+    private String buttonFreeStyle = "-fx-background-color: transparent; -fx-background-image: url('green-button.png');";
 
     public SnakeButton(String text) {
         initializeButton(text);
@@ -18,7 +14,7 @@ public class SnakeButton extends Button {
 
     public SnakeButton(String text, int color) {
         if(color == 1) {
-            BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('qing-button.png');";
+            buttonFreeStyle = "-fx-background-color: transparent; -fx-background-image: url('qing-button.png');";
         }
         initializeButton(text);
 
@@ -29,13 +25,13 @@ public class SnakeButton extends Button {
         setButtonFont();
         setPrefWidth(190);
         setPrefHeight(49);
-        setStyle(BUTTON_FREE_STYLE);
+        setStyle(buttonFreeStyle);
         initializeButtonListeners();
     }
 
     private void setButtonFont() {
         try {
-            setFont(Font.loadFont(getClass().getResourceAsStream(FONT_PATH), 23));
+            setFont(Font.loadFont(getClass().getResourceAsStream("/font/kenvector_future.ttf"), 23));
         } catch (Exception e) {
             System.out.println("Font not found");
             setFont(Font.font("Verdana", 23));

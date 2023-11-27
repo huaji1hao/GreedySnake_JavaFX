@@ -3,6 +3,7 @@ package com.megasnake.view.ui;
 
 import com.megasnake.utils.audio.BackgroundMusicPlayer;
 import com.megasnake.view.component.SnakeButton;
+import com.megasnake.view.component.SnakeSwitchButton;
 import com.megasnake.view.component.SoundButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -35,6 +36,7 @@ public class ButtonManager {
         createHelpButton();
         createCreditsButton();
         createSoundButton();
+        createSwitchButton();
         createExitButton();
     }
 
@@ -51,6 +53,14 @@ public class ButtonManager {
         soundButton.setLayoutY(20);
         mainPane.getChildren().add(soundButton);
         soundButton.setOnAction(event -> soundButton.changeButtonStyleAndOperateMusic());
+    }
+
+    private void createSwitchButton() {
+        SnakeSwitchButton switchButton = new SnakeSwitchButton("Night", mainPane);
+        switchButton.setLayoutX(750);
+        switchButton.setLayoutY(40);
+        mainPane.getChildren().add(switchButton);
+        switchButton.setOnAction(event -> switchButton.toggle());
     }
 
     private void createPlayButton() {
