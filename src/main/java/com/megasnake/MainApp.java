@@ -1,7 +1,7 @@
 package com.megasnake;
 
-import com.megasnake.audio.BackgroundMusicPlayer;
-import com.megasnake.ui.view.ViewManager;
+import com.megasnake.utils.audio.BackgroundMusicPlayer;
+import com.megasnake.view.ViewManager;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -10,16 +10,15 @@ import javafx.stage.WindowEvent;
 public class MainApp extends Application {
 
     @Override
-    public void start(Stage menuStage) throws Exception {
+    public void start(Stage stage) {
         ViewManager manager = new ViewManager();
-        menuStage = manager.getMainStage();
+        Stage menuStage = manager.getMainStage();
 
         menuStage.setOnCloseRequest((WindowEvent we) -> {
             BackgroundMusicPlayer.stopMusic();
             Platform.exit();
             System.exit(0);
         });
-
         menuStage.show();
     }
 

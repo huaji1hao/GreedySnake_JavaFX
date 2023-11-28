@@ -29,13 +29,6 @@
             <version>20.0.2</version>
         </dependency>
 
-        <!-- JavaFX FXML module -->
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>20.0.2</version>
-        </dependency>
-
         <!-- JavaFX Graphics module -->
         <dependency>
             <groupId>org.openjfx</groupId>
@@ -49,21 +42,6 @@
             <artifactId>javafx-media</artifactId>
             <version>20.0.2</version>
         </dependency>
-
-        <!-- JavaFX Web module -->
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-web</artifactId>
-            <version>20.0.2</version>
-        </dependency>
-
-        <!-- JLayer for MP3 playback -->
-        <dependency>
-            <groupId>com.googlecode.soundlibs</groupId>
-            <artifactId>jlayer</artifactId>
-            <version>1.0.1.4</version>
-        </dependency>
-
 
     </dependencies>
 
@@ -91,7 +69,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.megasnake.MainApp</mainClass>
+                            <mainClass>com.megasnake/com.megasnake.MainApp</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
@@ -103,6 +81,7 @@
 
                 </executions>
             </plugin>
+
 
         </plugins>
     </build>
