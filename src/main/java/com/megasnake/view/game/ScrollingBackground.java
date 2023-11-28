@@ -1,24 +1,21 @@
 package com.megasnake.view.game;
 
+import com.megasnake.utils.ImageLoader;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-import static com.megasnake.controller.game.SnakeGameController.HEIGHT;
-import static com.megasnake.controller.game.SnakeGameController.WIDTH;
+import static com.megasnake.controller.SnakeGameController.HEIGHT;
+import static com.megasnake.controller.SnakeGameController.WIDTH;
 
 public class ScrollingBackground {
-    private Image backgroundImage;
-    private double y1, y2;
-    private final static double SCROLL_SPEED = 0.5;
-    private final static int IMAGE_SIZE = 256; // 背景图像的尺寸
+    private final Image backgroundImage;
+    private double y1;
+    private double y2;
+    private static final double SCROLL_SPEED = 0.5;
+    private static final int IMAGE_SIZE = 256; // 背景图像的尺寸
 
     public ScrollingBackground() {
-        try{
-            backgroundImage = new Image(getClass().getResource("/background/deep_blue_star.png").toURI().toString());
-        }catch (Exception e){
-            System.out.println("Error loading space background image: " + e.getMessage());
-        }
-
+        backgroundImage = ImageLoader.getImage("/background/deep_blue_star.png");
         y1 = 0;
         y2 = -IMAGE_SIZE;
     }

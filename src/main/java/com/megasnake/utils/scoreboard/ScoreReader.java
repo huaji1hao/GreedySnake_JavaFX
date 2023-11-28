@@ -1,14 +1,16 @@
 package com.megasnake.utils.scoreboard;
 
-import com.megasnake.model.game.User;
+import com.megasnake.model.User;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ScoreReader {
+    private ScoreReader() {}
 
     private static final String SCORE_FILE_PATH = "score.txt";
-    public static ArrayList<User> readScoresFromFile() {
+    public static List<User> readScoresFromFile() {
         ArrayList<User> usersList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(SCORE_FILE_PATH))) {
             String line;

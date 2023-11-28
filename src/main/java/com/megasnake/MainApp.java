@@ -10,9 +10,9 @@ import javafx.stage.WindowEvent;
 public class MainApp extends Application {
 
     @Override
-    public void start(Stage menuStage){
+    public void start(Stage stage) {
         ViewManager manager = new ViewManager();
-        menuStage = manager.getMainStage();
+        Stage menuStage = manager.getMainStage();
 
         menuStage.setOnCloseRequest((WindowEvent we) -> {
             BackgroundMusicPlayer.stopMusic();

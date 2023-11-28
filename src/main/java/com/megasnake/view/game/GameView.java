@@ -1,17 +1,16 @@
 package com.megasnake.view.game;
 
-import com.megasnake.controller.game.SnakeGameController;
-import com.megasnake.model.game.Point;
+import com.megasnake.controller.SnakeGameController;
+import com.megasnake.model.*;
 import com.megasnake.utils.ImageLoader;
 import com.megasnake.utils.KeyEventHandler;
-import com.megasnake.model.game.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 import java.util.Objects;
 
-import static com.megasnake.controller.game.SnakeGameController.*;
+import static com.megasnake.controller.SnakeGameController.*;
 
 public class GameView {
     private final GraphicsContext gc;
@@ -30,7 +29,7 @@ public class GameView {
                     } else {
                         gc.setFill(Color.web("A2D149"));
                     }
-                    gc.fillRect(i * SQUARE_SIZE, j * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
+                    gc.fillRect(1.0 * i * SQUARE_SIZE, 1.0 * j * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
                 }
             }
         } else if(difficulty == 1){
@@ -44,7 +43,7 @@ public class GameView {
 
     public void drawFood(Food[] foods){
         for (Food food : foods)
-            gc.drawImage(food.getFoodImage(), food.getX() * SQUARE_SIZE, food.getY() * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
+            gc.drawImage(food.getFoodImage(), 1.0 * food.getX() * SQUARE_SIZE, 1.0 * food.getY() * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
     }
 
     public void drawSnakeBase(SnakeBase snake, int currentDirection){
@@ -62,7 +61,7 @@ public class GameView {
             double partY = currentPart.getY() + (prevPart.getY() - currentPart.getY()) * moveFrame;
 
             // Draw the current body part with a slight reduction in size for visual fineness
-            gc.drawImage(snake.getBodyImage(), partX * SQUARE_SIZE, partY * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
+            gc.drawImage(snake.getBodyImage(), partX * SQUARE_SIZE, partY * SQUARE_SIZE, SQUARE_SIZE - 1.0, SQUARE_SIZE - 1.0);
         }
 
         // Get the first part of the snake for drawing
@@ -80,7 +79,7 @@ public class GameView {
             case KeyEventHandler.DOWN -> headY += moveFrame;
             default -> System.out.println("Invalid direction: " + currentDirection);
         }
-        gc.drawImage(snake.getHeadImage(currentDirection), headX * SQUARE_SIZE, headY * SQUARE_SIZE, SQUARE_SIZE - 1, SQUARE_SIZE - 1);
+        gc.drawImage(snake.getHeadImage(currentDirection), headX * SQUARE_SIZE, headY * SQUARE_SIZE, SQUARE_SIZE - 1.0, SQUARE_SIZE - 1.0);
 
     }
 
@@ -142,14 +141,14 @@ public class GameView {
 
         // Translate the rotation center to the center of the meteor
         // This is done by moving the origin of the graphics context to the meteor's center
-        gc.translate(objectX + SQUARE_SIZE / 2, objectY + SQUARE_SIZE / 2);
+        gc.translate(objectX + SQUARE_SIZE / 2.0, objectY + SQUARE_SIZE / 2.0);
 
         // Apply the rotation around the new origin (meteor's center)
         gc.rotate(rotationAngle);
 
         // Translate the graphics context back to its original position
         // This ensures that the rotation only affects the meteor image
-        gc.translate(-objectX - SQUARE_SIZE / 2, -objectY - SQUARE_SIZE / 2);
+        gc.translate(-objectX - SQUARE_SIZE / 2.0, -objectY - SQUARE_SIZE / 2.0);
 
         // Draw the meteor image at its position
         gc.drawImage(snakeObject.getImage(), objectX, objectY, SQUARE_SIZE, SQUARE_SIZE);
@@ -166,17 +165,15 @@ public class GameView {
 
         gc.setStroke(Color.RED);
         gc.setLineWidth(2);
-        gc.strokeText("Game Over", WIDTH / 5, HEIGHT / 2);
+        gc.strokeText("Game Over", WIDTH / 5.0, HEIGHT / 2.0);
 
         gc.setFill(Color.WHITE);
-        gc.fillText("Game Over", WIDTH / 5, HEIGHT / 2);
+        gc.fillText("Game Over", WIDTH / 5.0, HEIGHT / 2.0);
     }
 
     private void setFont(int fontSize) {
-        String FONT_PATH = "/font/kenvector_future.ttf"; // Path to the custom font file
-
         // Load the custom font
-        Font customFont = Font.loadFont(getClass().getResourceAsStream(FONT_PATH), fontSize);
+        Font customFont = Font.loadFont(getClass().getResourceAsStream("/font/kenvector_future.ttf"), fontSize);
         // Use a default font if custom font fails to load
         gc.setFont(Objects.requireNonNullElseGet(customFont, () -> new Font("Arial", fontSize)));
     }

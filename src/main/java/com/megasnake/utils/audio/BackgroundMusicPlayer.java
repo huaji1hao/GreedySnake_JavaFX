@@ -1,8 +1,5 @@
 package com.megasnake.utils.audio;
 
-/**
- * A class for playing background music in a game. It extends Thread to allow music playing in the background.
- */
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import java.net.URL;
@@ -55,6 +52,7 @@ public class BackgroundMusicPlayer {
         isMuted = true;
         if (mediaPlayer != null) {
             mediaPlayer.setMute(true);
+            mediaPlayer.pause();
         }
     }
 
@@ -62,6 +60,7 @@ public class BackgroundMusicPlayer {
         isMuted = false;
         if (mediaPlayer != null) {
             mediaPlayer.setMute(false);
+            mediaPlayer.play();
         }
     }
 

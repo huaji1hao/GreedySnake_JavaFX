@@ -29,13 +29,6 @@
             <version>20.0.2</version>
         </dependency>
 
-        <!-- JavaFX FXML module -->
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>20.0.2</version>
-        </dependency>
-
         <!-- JavaFX Graphics module -->
         <dependency>
             <groupId>org.openjfx</groupId>
@@ -49,14 +42,6 @@
             <artifactId>javafx-media</artifactId>
             <version>20.0.2</version>
         </dependency>
-
-        <!-- JavaFX Web module -->
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-web</artifactId>
-            <version>20.0.2</version>
-        </dependency>
-
 
     </dependencies>
 
@@ -96,6 +81,7 @@
 
                 </executions>
             </plugin>
+
 
         </plugins>
     </build>
