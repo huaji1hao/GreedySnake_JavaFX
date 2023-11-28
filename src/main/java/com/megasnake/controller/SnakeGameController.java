@@ -94,7 +94,7 @@ public class SnakeGameController {
 
         gameStage = new Stage();
         gameStage.setTitle("MegaSnake");
-        gameStage.getIcons().add(new Image("/snake-logo.png"));
+        gameStage.getIcons().add(new Image("/little-logo.png"));
         gameStage.setOnCloseRequest((WindowEvent we) -> {
             BackgroundMusicPlayer.stopMusic();
             Platform.exit();
@@ -144,6 +144,7 @@ public class SnakeGameController {
 
         if(isAISnake){
             aiSnake.move();
+            aiSnake.hitMySnake(mySnake);
             for(Food food : foods) aiSnake.eatFood(food, mySnake);
         }
 

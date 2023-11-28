@@ -29,7 +29,7 @@ public class Snake extends SnakeBase{
             MusicPlayer.playMusic("/audio/eat.mp3");
             snakeBody.add(new Point(snakeBody.get(snakeBody.size()-1).getX(), snakeBody.get(snakeBody.size()-1).getY()));
             food.generateFood(this);
-            score += 5 * speedController.getSpeedLevel();
+            addScore(5 * speedController.getSpeedLevel());
         }
     }
 
@@ -37,9 +37,9 @@ public class Snake extends SnakeBase{
         if(meteor.isCollidingWithSnake(this)){
             MusicPlayer.playMusic("/audio/hit.mp3");
             if(Math.random() > 0.5) speedDown();
-            if(snakeBody.size() > 1 )snakeBody.remove(snakeBody.size()-1);
+            removeTail();
             meteor.setRandomPosition();
-            score -= 4 * speedController.getSpeedLevel();
+            reduceScore(4 * speedController.getSpeedLevel());
         }
     }
 
@@ -48,7 +48,7 @@ public class Snake extends SnakeBase{
             MusicPlayer.playMusic("/audio/gem.mp3");
             gem.setRandomPosition();
             speedUp();
-            score += 8 * speedController.getSpeedLevel();
+            addScore(8 * speedController.getSpeedLevel());
         }
     }
 
@@ -56,7 +56,7 @@ public class Snake extends SnakeBase{
         if (coin.isCollidingWithSnake(this)) {
             MusicPlayer.playMusic("/audio/coin.mp3");
             coin.setRandomPosition();
-            score += 6 * speedController.getSpeedLevel();
+            addScore(6 * speedController.getSpeedLevel());
         }
     }
 

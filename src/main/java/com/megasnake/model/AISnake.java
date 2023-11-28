@@ -102,7 +102,7 @@ public class AISnake extends SnakeBase {
 
     public void eatFood(Food food, Snake snake) {
         if (snakeHead.getX() == food.getX() && snakeHead.getY() == food.getY()) {
-            if(Math.random() > 0.7){
+            if(Math.random() > 0.5){
                 snakeBody.add(new Point(snakeBody.get(snakeBody.size()-1).getX(), snakeBody.get(snakeBody.size()-1).getY()));
             }
             MusicPlayer.playMusic("/audio/laugh.mp3");
@@ -110,4 +110,28 @@ public class AISnake extends SnakeBase {
             score += 5 * speedController.getSpeedLevel();
         }
     }
+
+    private boolean isAISnakeBodyCollidingWithMySnakeHead(Snake mySnake) {
+        int mySnakeHeadX = mySnake.getSnakeHead().getX();
+        int mySnakeHeadY = mySnake.getSnakeHead().getY();
+        for (Point point : snakeBody) {
+            if (point.getX() == mySnakeHeadX && point.getY() == mySnakeHeadY) {
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    public void hitMySnake(Snake mySnake) {
+        if (isAISnakeBodyCollidingWithMySnakeHead(mySnake)) {
+            MusicPlayer.playMusic("/audio/hit.mp3");
+            if(snakeBody.size() > 2 ) removeTail();
+            if(mySnake.getBodySize() > 3) mySnake.removeTail();
+            reduceScore(speedController.getSpeedLevel());
+            mySnake.reduceScore(speedController.getSpeedLevel());
+        }
+    }
+
+
 }

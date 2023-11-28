@@ -2,6 +2,7 @@ package com.megasnake.view.component;
 
 import javafx.animation.TranslateTransition;
 import javafx.scene.SubScene;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
@@ -22,6 +23,8 @@ public class SnakeSubScene extends SubScene{
 
         root2.setBackground(new Background(image));
 
+        setOnMouseEntered(event -> setEffect(new Glow(0.07)));
+        setOnMouseExited(event -> setEffect(null));
         setLayoutX(1024);
         setLayoutY(180);
     }

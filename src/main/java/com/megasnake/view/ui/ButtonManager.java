@@ -84,7 +84,10 @@ public class ButtonManager {
         SnakeButton helpButton = new SnakeButton("HELP");
         addMenuButton(helpButton);
 
-        helpButton.setOnAction(event -> subSceneManager.showHelpSubScene());
+        helpButton.setOnAction(event -> {
+            subSceneManager.showHelpSubScene();
+            subSceneManager.drawHelpSubScene();
+        });
     }
 
     private void createCreditsButton() {

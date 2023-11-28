@@ -7,6 +7,7 @@ import com.megasnake.model.THEME;
 import com.megasnake.view.component.*;
 import javafx.geometry.Pos;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import java.util.ArrayList;
@@ -132,6 +133,13 @@ public class SubSceneManager {
 
         subScene.moveSubScene();
         sceneToHide = subScene;
+    }
+
+    public void drawHelpSubScene(){
+        String backgroundImage = "help.png";
+        BackgroundImage image = new BackgroundImage(new Image(backgroundImage, 600, 400, false, true),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, null);
+        helpSubScene.getPane().setBackground(new Background(image));
     }
 
     public void drawSettingSubScene() {

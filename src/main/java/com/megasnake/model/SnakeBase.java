@@ -27,6 +27,10 @@ public abstract class SnakeBase implements Movable {
         return snakeHead;
     }
 
+    public void removeTail(){
+        if(snakeBody.size() > 1 )snakeBody.remove(snakeBody.size()-1);
+    }
+
     public void moveBody(){
         for (int i = getBodySize() - 1; i >= 1; i--) {
             getBodyPart(i).setX(getBodyPart(i-1).getX());
@@ -51,6 +55,15 @@ public abstract class SnakeBase implements Movable {
 
     public void speedDown() {
         speedController.speedDown();
+    }
+
+    public void reduceScore(int score){
+        this.score -= score;
+        if(this.score < 0) this.score = 0;
+    }
+
+    public void addScore(int score){
+        this.score += score;
     }
 
 

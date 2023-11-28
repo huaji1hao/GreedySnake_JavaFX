@@ -25,7 +25,7 @@ public class ViewManager {
         mainStage = new Stage();
         mainStage.setScene(mainScene);
         mainStage.setTitle("MegaSnake");
-        mainStage.getIcons().add(new Image("/snake-logo2.png"));
+        mainStage.getIcons().add(new Image("/little-logo.png"));
 
         subSceneManager = new SubSceneManager(mainStage, mainPane);
         subSceneManager.createSubScenes();
@@ -34,7 +34,7 @@ public class ViewManager {
         buttonManager.createButtons();
 
         createBackground();
-//        createLogo();
+        createLogo();
         BackgroundMusicPlayer.repeatMusic("/audio/ui-background.mp3");
     }
 
@@ -54,9 +54,9 @@ public class ViewManager {
     }
 
     private void createLogo() {
-        ImageView logo = new ImageView("snake-logo.png");
+        ImageView logo = new ImageView("megasnake.png");
         logo.setLayoutX(400);
-        logo.setLayoutY(20);
+        logo.setLayoutY(95);
         logo.setOnMouseEntered(event -> logo.setEffect(new Glow()));
         logo.setOnMouseExited(event -> logo.setEffect(null));
 
