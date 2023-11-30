@@ -5,8 +5,14 @@ import javafx.scene.text.Font;
 
 import java.util.Objects;
 
+/**
+ * Custom text field for the MegaSnake game.
+ */
 public class SnakeTextField extends TextField {
 
+    /**
+     * Constructor for the SnakeTextField class.
+     */
     public SnakeTextField() {
         // Set default prompt text
         this.setPromptText("Enter Username");
@@ -27,6 +33,11 @@ public class SnakeTextField extends TextField {
         setFont(23);
     }
 
+    /**
+     * Sets the position of the text field.
+     * @param x The x coordinate.
+     * @param y The y coordinate.
+     */
     public void setPos(double x, double y) {
         this.setLayoutX(x);
         this.setLayoutY(y);
@@ -37,6 +48,10 @@ public class SnakeTextField extends TextField {
         return this.getText();
     }
 
+    /**
+     * Sets the font size and style of the text field.
+     * @param fontSize The font size.
+     */
     private void setFont(double fontSize) {
         // Attempt to load the custom font
         Font customFont = Font.loadFont(getClass().getResourceAsStream("/font/kenvector_future.ttf"), fontSize);

@@ -6,10 +6,18 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Reads the user's name and score from the score.txt file.
+ */
 public class ScoreReader {
     private ScoreReader() {}
-
     private static final String SCORE_FILE_PATH = "score.txt";
+
+    /**
+     * Reads the user's name and score from the score.txt file.
+     *
+     * @return A list of users with their name and score.
+     */
     public static List<User> readScoresFromFile() {
         ArrayList<User> usersList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(SCORE_FILE_PATH))) {

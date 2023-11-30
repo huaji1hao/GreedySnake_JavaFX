@@ -1,120 +1,133 @@
 package com.megasnake.model;
 
-
-import com.megasnake.utils.ImageLoader;
-import com.megasnake.utils.audio.MusicPlayer;
 import com.megasnake.controller.SpeedController;
-import com.megasnake.utils.KeyEventHandler;
 import javafx.scene.image.Image;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import static com.megasnake.controller.SnakeGameController.ROWS;
-import static com.megasnake.utils.KeyEventHandler.*;
+/**
+ * Abstract class for the snake.
+ */
+public abstract class Snake implements Movable {
+    protected SpeedController speedController;
+    protected int score = 0;
+    protected List<Point> snakeBody;
+    protected Point snakeHead;
 
-public class Snake extends SnakeBase{
-    private int level;
+    /**
+     * Gets the move frame of the snake (the frame rate in which the snake moves).
+     *
+     * @return The move frame of the snake.
+     */
+    public double getMoveFrame() {
+        return speedController.getFrameRate();
+    }
 
-    public Snake() {
-        snakeBody = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            snakeBody.add(new Point(5, ROWS / 2));
+    /**
+     * Gets the size of the snake's body.
+     *
+     * @return The size of the snake's body.
+     */
+    public int getBodySize() {
+        return snakeBody.size();
+    }
+
+    /**
+     * Gets the body part of the snake at the specified index.
+     *
+     * @param index The index of the body part.
+     * @return The body part of the snake at the specified index.
+     */
+    public Point getBodyPart(int index) {
+        return snakeBody.get(index);
+    }
+
+    /**
+     * Gets the head of the snake.
+     *
+     * @return The head of the snake.
+     */
+    public Point getSnakeHead() {
+        return snakeHead;
+    }
+
+    /**
+     * Removes the last element of the snake's body if it's size is greater than 1.
+     */
+    public void removeTail(){
+        if(snakeBody.size() > 1 )snakeBody.remove(snakeBody.size()-1);
+    }
+
+    /**
+     * Moves the snake's body.
+     */
+    public void moveBody(){
+        for (int i = getBodySize() - 1; i >= 1; i--) {
+            getBodyPart(i).setX(getBodyPart(i-1).getX());
+            getBodyPart(i).setY(getBodyPart(i-1).getY());
         }
-        snakeHead = snakeBody.get(0);
-        speedController = new SpeedController();
     }
 
-    public void eatFood(Food food) {
-        if (snakeHead.getX() == food.getX() && snakeHead.getY() == food.getY()) {
-            MusicPlayer.playMusic("/audio/eat.mp3");
-            snakeBody.add(new Point(snakeBody.get(snakeBody.size()-1).getX(), snakeBody.get(snakeBody.size()-1).getY()));
-            food.generateFood(this);
-            addScore(5 * speedController.getSpeedLevel());
-        }
+    /**
+     * Gets the image of the snake's head.
+     *
+     * @param direction The direction of the snake's head.
+     * @return The image of the snake's head.
+     */
+    public abstract Image getHeadImage(int direction);
+
+    /**
+     * Gets the image of the snake's body.
+     *
+     * @return The image of the snake's body.
+     */
+    public abstract Image getBodyImage();
+
+    /**
+     * Gets the score of the snake.
+     *
+     * @return The score of the snake.
+     */
+    public int getScore() {
+        return score;
     }
 
-    public void hitByMeteor(Meteor meteor){
-        if(meteor.isCollidingWithSnake(this)){
-            MusicPlayer.playMusic("/audio/hit.mp3");
-            if(Math.random() > 0.5) speedDown();
-            removeTail();
-            meteor.setRandomPosition();
-            reduceScore(4 * speedController.getSpeedLevel());
-        }
+    /**
+     * Speeds up the snake by one level.
+     */
+    public void speedUp() {
+        speedController.speedUp();
+    }
+    /**
+     * Speeds up the snake by the specified level.
+     *
+     * @param level The level to speed up the snake.
+     */
+    public void speedUp(int level) {
+        speedController.speedUp(level);
     }
 
-    public void touchGem(Gem gem) {
-        if (gem.isCollidingWithSnake(this)) {
-            MusicPlayer.playMusic("/audio/gem.mp3");
-            gem.setRandomPosition();
-            speedUp();
-            addScore(8 * speedController.getSpeedLevel());
-        }
+    /**
+     * Slows down the snake by one level.
+     */
+    public void speedDown() {
+        speedController.speedDown();
     }
 
-    public void eatCoin(Coin coin) {
-        if (coin.isCollidingWithSnake(this)) {
-            MusicPlayer.playMusic("/audio/coin.mp3");
-            coin.setRandomPosition();
-            addScore(6 * speedController.getSpeedLevel());
-        }
+    /**
+     * Reduces the score of the snake by the specified amount.
+     */
+    public void reduceScore(int score){
+        this.score -= score;
+        if(this.score < 0) this.score = 0;
     }
 
-    @Override
-    public void move(){
-        if (speedController.isMoveFrame()){
-            int direction = KeyEventHandler.getNextDirection();
-            moveBody();
-            switch (direction) {
-                case RIGHT -> snakeHead.setX(snakeHead.getX() + 1);
-                case LEFT -> snakeHead.setX(snakeHead.getX() - 1);
-                case UP -> snakeHead.setY(snakeHead.getY() - 1);
-                case DOWN -> snakeHead.setY(snakeHead.getY() + 1);
-                default -> System.out.println("Invalid direction in judgeMoveFrame: " + direction);
-            }
-            KeyEventHandler.setCurrentDirection(direction);
-        }
-        speedController.updateFrame();
+    /**
+     * Adds the specified amount to the score of the snake.
+     */
+    public void addScore(int score){
+        this.score += score;
     }
-
-    @Override
-    public Image getBodyImage() {
-        return switch (level) {
-            case 1 -> ImageLoader.getImage("/snake/rabbit-snake/snake-body.png");
-            case 2 -> ImageLoader.getImage("/snake/ghost-snake/snake-body.png");
-            case 3 -> ImageLoader.getImage("/snake/space-snake/snake-body.png");
-            default -> ImageLoader.getImage("/snake/plain-snake/snake-body.png");
-        };
-
-    }
-
-    @Override
-    public Image getHeadImage(int direction) {
-        StringBuilder imagePathBuilder = new StringBuilder("/snake/");
-
-        switch (level) {
-            case 1 -> imagePathBuilder.append("rabbit-snake/");
-            case 2 -> imagePathBuilder.append("ghost-snake/");
-            case 3 -> imagePathBuilder.append("space-snake/");
-            default -> imagePathBuilder.append("plain-snake/");
-        }
-
-        switch (direction) {
-            case RIGHT -> imagePathBuilder.append("snake-head-right.png");
-            case LEFT -> imagePathBuilder.append("snake-head-left.png");
-            case UP -> imagePathBuilder.append("snake-head-up.png");
-            case DOWN -> imagePathBuilder.append("snake-head-down.png");
-            default -> System.out.println("Invalid direction in getHeadImage: " + direction);
-        }
-
-        return ImageLoader.getImage(imagePathBuilder.toString());
-    }
-
-    public void setLevel(int level){
-        this.level = level;
-        speedUp(level);
-    }
-
 
 
 }

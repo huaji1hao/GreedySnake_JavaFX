@@ -9,10 +9,18 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.text.Font;
 
-public class InfoLabel extends Label {
-    private static final String BACKGROUND_IMAGE = "yellow_small_panel.png";
+/**
+ * A custom label for the game info board.
+ */
+public class InfoLabelBoard extends Label {
+    private static final String BACKGROUND_IMAGE = "/yellow_small_panel.png";
 
-    public InfoLabel(String text) {
+    /**
+     * Creates a new instance of the InfoLabelBoard class.
+     *
+     * @param text The text to display on the label.
+     */
+    public InfoLabelBoard(String text) {
         setPrefWidth(380);
         setPrefHeight(49);
         setText(text);
@@ -26,6 +34,9 @@ public class InfoLabel extends Label {
         setBackground(new Background(backgroundImage));
     }
 
+    /**
+     * Sets the font of the label.
+     */
     private void setLabelFont() {
         try{
             setFont(Font.loadFont(getClass().getResourceAsStream("/font/kenvector_future.ttf"), 23));
