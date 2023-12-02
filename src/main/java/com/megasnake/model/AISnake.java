@@ -80,7 +80,8 @@ public class AISnake extends Snake {
     }
 
     /**
-     * Moves the AI snake.
+     * Moves the AI snake to the direction of the nearest food.
+     * @see #findNearestFood()
      */
     @Override
     public void move() {
@@ -148,7 +149,7 @@ public class AISnake extends Snake {
     }
 
     /**
-     * Checks if the AI snake is eating food.
+     * If the AI snake is eating the food, the food will be regenerated and score will be added.
      *
      * @param food The food.
      * @param mySnake The player's snake.
@@ -198,6 +199,8 @@ public class AISnake extends Snake {
 
     /**
      * If the AI snake is colliding with the player's snake,
+     * @see #isAISnakeBodyCollidingWithMySnakeHead(MySnake)
+     * @see #isAISnakeHeadCollidingWithMySnakeBody(MySnake)
      * the two snakes will lose their tails and lose points.
      *
      * @param mySnake The player's snake.

@@ -207,6 +207,7 @@ public class SnakeGameController extends GameController{
      * Shows the game over scene.
      * Stops the game timer and the background music.
      * Plays the game over music.
+     * <p>
      * Creates a new scene when the game is over.
      * The new scene contains a label to show the score of the player and a text field to enter the username.
      * The new scene also contains two buttons to restart the game and go back to the main menu.
@@ -321,6 +322,7 @@ public class SnakeGameController extends GameController{
     public static boolean getIsAISnake(){
         return isAISnake;
     }
+
     /**
      * Set whether the AI snake is enabled.
      *
@@ -329,6 +331,7 @@ public class SnakeGameController extends GameController{
     public static void setAISnake(boolean aiSnake){
         isAISnake = aiSnake;
     }
+
     /**
      * Set the number of food.
      *

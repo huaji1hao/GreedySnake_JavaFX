@@ -147,7 +147,7 @@ public class SubSceneManager {
         FeatureToggleButton aiSnakeToggle = new FeatureToggleButton("Open"); // Default text
         Slider foodNumSlider = new Slider(1, 5, 2); // Minimum 1, Maximum 5, Initial value 2
         CustomLabel button1Text = new CustomLabel("Special Items", 23);
-        CustomLabel button2Text = new CustomLabel("AI MySnake Competitor", 23);
+        CustomLabel button2Text = new CustomLabel("AI Snake Competitor", 23);
         CustomLabel sliderText = new CustomLabel("Food Number", 23);
 
         foodNumSlider.setShowTickLabels(true); // Tick labels are shown
