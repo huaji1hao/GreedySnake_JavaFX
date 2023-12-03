@@ -16,7 +16,7 @@ import static com.megasnake.controller.SnakeGameController.HEIGHT;
 /**
  * Handles key events for the game.
  * @author Sigurður Sigurðardóttir
- * @author Junfeng ZHU
+ * @author Junfeng ZHU-modified
  */
 public class KeyEventHandler implements EventHandler<KeyEvent> {
     Animation gameTimer;
@@ -47,7 +47,7 @@ public class KeyEventHandler implements EventHandler<KeyEvent> {
      * <p>
      * Change the direction of the snake if the arrow keys are pressed.
      * @author Sigurður Sigurðardóttir
-     * @author Junfeng ZHU
+     * @author Junfeng ZHU-modified
      */
     @Override
     public void handle(KeyEvent event) {
