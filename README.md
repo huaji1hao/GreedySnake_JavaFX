@@ -1,38 +1,54 @@
-# JavaFX Snake Game
+# 🐍 MegaSnake 🐍
 
-## Project Title: JavaFX Snake Game
-### Author: ZHUJUNFENG
+## Project Title: MegaSnake
 
-## Description
-This project is a JavaFX-based reimplementation of the classic Snake game. The goal is to navigate a snake through a playing field, consuming food and avoiding collisions with the snake's own tail and the game area boundaries.
-
-## Installation and Running the Project
-1. **Prerequisites**:
-   - Java 17 or higher
-   - JavaFX 17 or higher
-   - IntelliJ IDEA
-
-2. **Clone the Repository**:
-- Open a terminal window.
-- Change the current working directory to the location where you want the cloned directory.
-- Run `git clone https://projects.cs.nott.ac.uk/scyjz14/comp2013-zhujunfeng.git` to clone the repository.
+### Author: Junfeng ZHU👓
 
 
-3. **Open and Run in IntelliJ**:
-- Open IntelliJ IDEA.
-- Choose "Open" and select the cloned project directory.
-- Configure the project to use Java 17 and set up the JavaFX SDK.
-- Run the `Play.java` file to start the game.
+## 🌟 Brief Project Description
+MegaSnake is an exciting twist on the classic snake game, developed using JavaFX. This project enhances the traditional snake game with numerous additional fun features, including multiple themes, unique battle music, and various gameplay elements.
 
-## How to Play
-- Use arrow keys to navigate the snake around the playing field.
-- Eat food to gain points and grow the snake.
-- Avoid colliding with the snake's tail or the wall.
-- Try to score as high as possible!
+## 💻 Installation and Running the Project
+Currently, MegaSnake is not fully packaged into a jar or exe file. To run the project:
+1. Clone the repository to your local machine.
+2. Use maven to install all dependencies.
+3. Compile and run the project using an IDE that supports JavaFX, such as IntelliJ IDEA or Eclipse.
 
-## Credits
-Any third-party libraries or assets used:
-- jlayer-1.0.4.jar
----
+## 🎮 How to Play
+- **Start the Game**: Launch the game and choose between '🌞day' and '🌑night' themes for your comfort.
+- **Choose a Theme**: Click the 'play' button to select from four different themes, each with unique difficulty levels, battle music, and snake skins.
+- **View Scores**: Click the 'score' button to see the top five player scores.
+- **Learn to Play**: Click the 'help' button for gameplay instructions. Use WASD or arrow keys to move your snake.
 
-**Note**: This project is part of the COMP2013 coursework at Nottingham. It is intended for educational purposes only.
+### 💎 Game Elements
+- **Coin**: Earn more points.
+- **Energy Gem**: Speeds up your snake and grants many points.
+- **Food**: Increases your score and the length of your snake.
+- **Meteor**: Lose points and potentially slow down. Be careful, as it can also reduce your snake's length!
+- **Thief Snake**: Competes for food and can reduce your score and length. However, collisions are limited to reduce your length to a minimum of two segments.
+
+### 💡 Strategy
+The faster your snake moves, the more points you can earn (and lose). 
+Manage your speed wisely to grow into a Mega Snake🐍!
+
+### ⚙️ Settings
+In the settings, you can toggle special items (coins, gems, meteors) and the presence of the thief snake. You can also adjust the number of food items from 1 to 5. Challenge yourself by setting the food count to 1 and dueling with the thief snake!
+
+## 🗃️ Credits
+- **Development**: JavaFX, JavaFX Controller, JavaFX Graphics, JavaFX Media
+- **Testing**: JUnit, Mockito
+- **Build Automation**: Maven
+- **Version Control**: Git, GitHub
+- **Images Processing**: Adobe Photoshop, Stable Diffusion
+- **Resources**: Snake.io, The Mystical Jungle, Foods vs Mouse
+
+## Game View
+### Main UI
+<img src="https://telegraph-image-125.pages.dev/file/b83f75519dcd21c904f38.jpg" width = "705" height = "500" alt="ui" align=center />
+
+### Game Elements
+<img src="https://telegraph-image-125.pages.dev/file/83b869da0edef8a2409a6.jpg" width = "705" height = "500" alt="help" align=center />
+
+
+
+#### 🎉Enjoy playing MegaSnake and aim for the high score!🎉
