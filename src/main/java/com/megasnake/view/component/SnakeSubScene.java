@@ -10,7 +10,7 @@ import javafx.util.Duration;
 /**
  * A custom sub scene for the MegaSnake game.
  *
- * @Author Junfeng ZHU
+ * @author Junfeng ZHU
  */
 public class SnakeSubScene extends SubScene{
     private boolean isHidden = true;

@@ -10,7 +10,7 @@ import static org.mockito.Mockito.*;
 /**
  * This class is used to test the SnakeObject abstract class.
  * 
- * @Author Junfeng ZHU
+ * @author Junfeng ZHU
  */
 class SnakeObjectTest {
 

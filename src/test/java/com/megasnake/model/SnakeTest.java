@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * This class is used to test the Snake abstract class.
  * 
- * @Author Junfeng ZHU
+ * @author Junfeng ZHU
  */
 class SnakeTest {
 

@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Manages the sub-scenes within the MegaSnake game's main menu.
  *
- * @Author Junfeng ZHU
+ * @author Junfeng ZHU
  */
 public class SubSceneManager {
     private SnakeSubScene sceneToHide;

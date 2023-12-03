@@ -12,7 +12,7 @@ import static com.megasnake.controller.SnakeGameController.ROWS;
 /**
  * Represents the food that the snake eats.
  *
- * @Author Junfeng ZHU
+ * @author Junfeng ZHU
  */
 public class Food  {
     private Image foodImage;

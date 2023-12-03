@@ -21,8 +21,8 @@ import static com.megasnake.utils.KeyEventHandler.RIGHT;
 /**
  * Controller class for the MegaSnake game.
  * @Project MegaSnake
- * @Author Sigurður Sigurðardóttir
- * @Author Junfeng ZHU
+ * @author Sigurður Sigurðardóttir
+ * @author Junfeng ZHU
  */
 public class SnakeGameController extends GameController{
     private Food[] foods;
@@ -138,8 +138,8 @@ public class SnakeGameController extends GameController{
      * @param gem The gem.
      * @param coin The coin.
      * @param aiSnake The AI snake.
-     * @Author Sigurður Sigurðardóttir
-     * @Author Junfeng ZHU
+     * @author Sigurður Sigurðardóttir
+     * @author Junfeng ZHU
      */
     private void mainLogic(MySnake mySnake, Food[] foods, Meteor meteor, Gem gem, Coin coin, AISnake aiSnake) {
         if (isGameOver) {

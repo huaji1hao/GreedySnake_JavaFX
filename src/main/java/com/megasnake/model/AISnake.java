@@ -15,7 +15,7 @@ import static com.megasnake.utils.KeyEventHandler.*;
  * Represents the AI snake.
  *
  * @see Snake
- * @Author Junfeng ZHU
+ * @author Junfeng ZHU
  */
 public class AISnake extends Snake {
     private int currentDirection = RIGHT;

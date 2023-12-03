@@ -3,7 +3,7 @@ package com.megasnake.model;
 /**
  * Enumerates the different themes available in the game.
  *
- * @Author Junfeng ZHU
+ * @author Junfeng ZHU
  */
 public enum THEME {
 

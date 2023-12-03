@@ -3,7 +3,7 @@ package com.megasnake.controller;
 /**
  * Controls the speed of the movable objects in the game.
  *
- * @Author Junfeng ZHU
+ * @author Junfeng ZHU
  */
 public class SpeedController {
     // The larger the speedPool, the slower the speed

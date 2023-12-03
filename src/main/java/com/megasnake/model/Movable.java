@@ -5,7 +5,7 @@ package com.megasnake.model;
  *
  * @Project MegaSnake
  * @Description Fyrsta viðmótið
- * @Author Sigurður Sigurðardóttir
+ * @author Sigurður Sigurðardóttir
  * @version Ekki viss
  */
 public interface Movable {

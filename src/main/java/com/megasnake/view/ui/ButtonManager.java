@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Manages the creation and functionality of buttons in the MegaSnake game's main menu.
  *
- * @Author Junfeng ZHU
+ * @author Junfeng ZHU
  */
 public class ButtonManager {
     private final List<SnakeButton> menuButtons;

@@ -10,7 +10,7 @@ import static com.megasnake.controller.SnakeGameController.ROWS;
  * Class representing a coin object.
  *
  * @see SnakeObject
- * @Author Junfeng ZHU
+ * @author Junfeng ZHU
  */
 public class Coin extends SnakeObject{
     /**

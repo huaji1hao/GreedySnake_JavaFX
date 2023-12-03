@@ -9,7 +9,7 @@ import java.util.Objects;
 /**
  * Utility class for loading images.
  *
- * @Author Junfeng ZHU
+ * @author Junfeng ZHU
  */
 public class ImageLoader {
     // Prevent instantiation

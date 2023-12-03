@@ -15,7 +15,7 @@ import static com.megasnake.utils.KeyEventHandler.*;
  * Represents the snake operated by the player.
  *
  * @see Snake
- * @Author Junfeng ZHU
+ * @author Junfeng ZHU
  */
 public class MySnake extends Snake {
     private int level;

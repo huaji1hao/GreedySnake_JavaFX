@@ -7,7 +7,7 @@ import java.net.URL;
 /**
  * A utility class for playing background music.
  *
- * @Author Junfeng ZHU
+ * @author Junfeng ZHU
  */
 public class BackgroundMusicPlayer {
     private static MediaPlayer mediaPlayer;

@@ -12,7 +12,7 @@ import javafx.scene.text.Font;
 /**
  * A custom label for the game info board.
  *
- * @Author Junfeng ZHU
+ * @author Junfeng ZHU
  */
 public class InfoLabelBoard extends Label {
     private static final String BACKGROUND_IMAGE = "/yellow_small_panel.png";

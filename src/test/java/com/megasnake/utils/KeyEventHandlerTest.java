@@ -19,7 +19,7 @@ import static org.mockito.Mockito.*;
  * verifying that the correct behaviour occurs.
  * 
  * @see KeyEventHandler
- * @Author Junfeng ZHU
+ * @author Junfeng ZHU
  */
 
 class KeyEventHandlerTest {

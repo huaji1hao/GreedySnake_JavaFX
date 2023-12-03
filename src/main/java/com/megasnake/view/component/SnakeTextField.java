@@ -8,7 +8,7 @@ import java.util.Objects;
 /**
  * Custom text field for the MegaSnake game.
  *
- * @Author Junfeng ZHU
+ * @author Junfeng ZHU
  */
 public class SnakeTextField extends TextField {
 

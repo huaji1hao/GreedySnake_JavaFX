@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * This class is used to test the THEME enum.
  * 
- * @Author Junfeng ZHU
+ * @author Junfeng ZHU
  */
 class THEMETest {
 

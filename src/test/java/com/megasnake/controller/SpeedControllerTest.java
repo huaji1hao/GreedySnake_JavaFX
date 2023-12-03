@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * The test for SpeedController class.
  * 
- * @Author Junfeng ZHU
+ * @author Junfeng ZHU
  */
 class SpeedControllerTest {
 

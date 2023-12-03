@@ -10,7 +10,7 @@ import javafx.stage.WindowEvent;
 /**
  * Main class for the MegaSnake game application.
  *
- * @Author Junfeng ZHU
+ * @author Junfeng ZHU
  */
 public class MainApp extends Application {
 

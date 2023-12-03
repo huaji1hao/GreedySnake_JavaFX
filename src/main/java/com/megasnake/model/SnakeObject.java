@@ -11,7 +11,7 @@ import static com.megasnake.controller.SnakeGameController.ROWS;
 /**
  * Abstract class for all movable objects (except the snake) in the game.
  *
- * @Author Junfeng ZHU
+ * @author Junfeng ZHU
  */
 public abstract class SnakeObject implements Movable {
     protected int x;

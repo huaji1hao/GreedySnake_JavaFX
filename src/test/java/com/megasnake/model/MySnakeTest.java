@@ -16,7 +16,7 @@ import static org.mockito.Mockito.*;
 /**
  * This class is used to test the MySnake class.
  * 
- * @Author Junfeng ZHU
+ * @author Junfeng ZHU
  */
 class MySnakeTest {
     private MySnake mySnake;

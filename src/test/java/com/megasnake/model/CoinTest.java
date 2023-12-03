@@ -14,7 +14,7 @@ import static org.mockito.Mockito.*;
  * The test for the gem class should be similar to the test for the coin class.
  * So I'm not going to write it.
  * 
- * @Author Junfeng ZHU
+ * @author Junfeng ZHU
  */
 class CoinTest {
     private Coin coin;

@@ -44,10 +44,10 @@ In the settings, you can toggle special items (coins, gems, meteors) and the pre
 
 ## Game View
 ### Main UI
-<img src="https://telegraph-image-125.pages.dev/file/b83f75519dcd21c904f38.jpg" width = "705" height = "500" alt="ui" align=center />
+<img src="https://telegraph-image-125.pages.dev/file/cdd2340ff21bea5f757f3.png" width = "705" height = "500" alt="ui" align=center />
 
 ### Game Elements
-<img src="https://telegraph-image-125.pages.dev/file/83b869da0edef8a2409a6.jpg" width = "705" height = "500" alt="help" align=center />
+<img src="https://telegraph-image-125.pages.dev/file/2cbb91dad53d62bb2ce17.png" width = "705" height = "500" alt="help" align=center />
 
 
 
