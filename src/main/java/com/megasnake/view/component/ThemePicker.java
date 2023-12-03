@@ -9,6 +9,8 @@ import javafx.scene.layout.VBox;
 
 /**
  * A component that represents a theme picker.
+ *
+ * @Author Junfeng ZHU
  */
 public class ThemePicker extends VBox {
     private final ImageView circleImage;

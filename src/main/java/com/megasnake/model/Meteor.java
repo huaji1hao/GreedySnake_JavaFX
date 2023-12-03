@@ -5,6 +5,9 @@ import com.megasnake.utils.ImageLoader;
 
 /**
  * Class representing a meteor object.
+ *
+ * @see SnakeObject
+ * @Author Junfeng ZHU
  */
 public class Meteor extends SnakeObject{
 

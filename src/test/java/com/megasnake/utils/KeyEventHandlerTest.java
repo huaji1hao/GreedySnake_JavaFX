@@ -10,6 +10,17 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+/**
+ * This class tests the KeyEventHandler class.
+ * <p>
+ * The KeyEventHandler class is responsible for handling key events.
+ * <p>
+ * The KeyEventHandler class is tested by simulating key events and 
+ * verifying that the correct behaviour occurs.
+ * 
+ * @see KeyEventHandler
+ * @Author Junfeng ZHU
+ */
 
 class KeyEventHandlerTest {
 

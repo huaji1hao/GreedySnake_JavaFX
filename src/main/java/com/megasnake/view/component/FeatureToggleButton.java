@@ -2,6 +2,8 @@ package com.megasnake.view.component;
 
 /**
  * A button that can be toggled on and off to enable or disable a feature.
+ *
+ * @Author Junfeng ZHU
  */
 public class FeatureToggleButton extends SnakeButton{
     private boolean isToggled;

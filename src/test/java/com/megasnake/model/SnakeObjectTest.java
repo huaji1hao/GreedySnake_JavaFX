@@ -7,7 +7,11 @@ import org.junit.jupiter.api.Test;
 import static com.megasnake.controller.GameController.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-
+/**
+ * This class is used to test the SnakeObject abstract class.
+ * 
+ * @Author Junfeng ZHU
+ */
 class SnakeObjectTest {
 
     private TestSnakeObject testSnakeObject;

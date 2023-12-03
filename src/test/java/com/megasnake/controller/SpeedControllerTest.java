@@ -4,6 +4,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * The test for SpeedController class.
+ * 
+ * @Author Junfeng ZHU
+ */
 class SpeedControllerTest {
 
     private SpeedController speedController;

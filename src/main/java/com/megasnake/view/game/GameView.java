@@ -14,6 +14,8 @@ import static com.megasnake.controller.SnakeGameController.*;
 
 /**
  * The view class for the game screen.
+ *
+ * @Author Junfeng ZHU
  */
 public class GameView {
     private final GraphicsContext gc;

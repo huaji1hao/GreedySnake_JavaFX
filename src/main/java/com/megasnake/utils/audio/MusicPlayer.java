@@ -8,6 +8,8 @@ import java.util.Map;
 
 /**
  * A utility class for playing music and sound effects.
+ *
+ * @Author Junfeng ZHU
  */
 public class MusicPlayer implements Runnable {
     private final String filename;

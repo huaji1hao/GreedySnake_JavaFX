@@ -2,6 +2,8 @@ package com.megasnake.model;
 
 /**
  * Represents a user in the game.
+ *
+ * @Author Junfeng ZHU
  */
 public class User implements Comparable<User> {
     String username;

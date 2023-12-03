@@ -8,6 +8,8 @@ import java.util.List;
 
 /**
  * Reads the user's name and score from the score.txt file.
+ *
+ * @Author Junfeng ZHU
  */
 public class ScoreReader {
     private ScoreReader() {}

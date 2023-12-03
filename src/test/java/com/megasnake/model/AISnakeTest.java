@@ -14,7 +14,11 @@ import java.util.List;
 
 import static com.megasnake.TestHelperFunction.*;
 import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * This class is used to test the AISnake class.
+ * 
+ * @Author Junfeng ZHU
+ */
 class AISnakeTest {
     private AISnake aiSnake;
     private Food[] foods;

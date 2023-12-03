@@ -13,7 +13,11 @@ import static com.megasnake.TestHelperFunction.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
-
+/**
+ * This class is used to test the MySnake class.
+ * 
+ * @Author Junfeng ZHU
+ */
 class MySnakeTest {
     private MySnake mySnake;
     private Food food;

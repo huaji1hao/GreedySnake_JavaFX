@@ -11,6 +11,8 @@ import javafx.stage.Stage;
 
 /**
  * Abstract class for the game controllers.
+ *
+ * @Author Junfeng ZHU
  */
 public abstract class GameController {
     protected final Stage menuStage;

@@ -7,6 +7,8 @@ import javafx.scene.input.MouseButton;
 
 /**
  * A button that toggles the background music on and off.
+ *
+ * @Author Junfeng ZHU
  */
 public class SoundButton extends Button {
     private static final int BUTTON_HEIGHT = 82;

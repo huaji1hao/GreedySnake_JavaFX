@@ -8,6 +8,9 @@ import static com.megasnake.controller.SnakeGameController.ROWS;
 
 /**
  * Class representing a gem object.
+ *
+ * @see SnakeObject
+ * @Author Junfeng ZHU
  */
 public class Gem extends SnakeObject{
     /**

@@ -7,6 +7,8 @@ import java.util.Objects;
 
 /**
  * A button that toggles between day and night background.
+ *
+ * @Author Junfeng ZHU
  */
 public class BackgroundToggleButton extends SnakeButton{
     private boolean isToggled;

@@ -5,7 +5,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * This class is used to test the Snake abstract class.
+ * 
+ * @Author Junfeng ZHU
+ */
 class SnakeTest {
 
     private TestSnake testSnake;

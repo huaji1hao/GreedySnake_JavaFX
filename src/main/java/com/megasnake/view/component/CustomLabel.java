@@ -7,6 +7,8 @@ import java.util.Objects;
 
 /**
  * A custom label class that allows for easy customization of the font.
+ *
+ * @Author Junfeng ZHU
  */
 public class CustomLabel extends Label {
 

@@ -7,6 +7,8 @@ import java.util.List;
 
 /**
  * Abstract class for the snake.
+ *
+ * @Author Junfeng ZHU
  */
 public abstract class Snake implements Movable {
     protected SpeedController speedController;

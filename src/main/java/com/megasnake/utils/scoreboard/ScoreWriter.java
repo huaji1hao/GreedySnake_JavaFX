@@ -9,6 +9,8 @@ import java.io.PrintWriter;
 
 /**
  * Writes the user's name and score to a file.
+ *
+ * @Author Junfeng ZHU
  */
 public class ScoreWriter {
     private ScoreWriter() {}

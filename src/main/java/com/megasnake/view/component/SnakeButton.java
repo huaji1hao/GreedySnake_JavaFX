@@ -7,6 +7,8 @@ import javafx.scene.text.Font;
 
 /**
  * Custom button class for the MegaSnake game.
+ *
+ * @Author Junfeng ZHU
  */
 public class SnakeButton extends Button {
     private static final String GREEN_BUTTON_STYLE = "-fx-background-color: transparent; -fx-background-image: url('green-button.png');";

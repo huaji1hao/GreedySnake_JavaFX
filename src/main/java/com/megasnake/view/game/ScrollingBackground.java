@@ -9,6 +9,8 @@ import static com.megasnake.controller.SnakeGameController.WIDTH;
 
 /**
  * A class for drawing a scrolling background.
+ *
+ * @Author Junfeng ZHU
  */
 public class ScrollingBackground {
     private final Image backgroundImage;

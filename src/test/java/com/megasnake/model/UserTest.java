@@ -2,7 +2,11 @@ package com.megasnake.model;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * This class is used to test the User class.
+ * 
+ * @Author Junfeng ZHU
+ */
 class UserTest {
 
     @Test
