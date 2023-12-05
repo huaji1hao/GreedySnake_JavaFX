@@ -11,18 +11,18 @@ import java.util.Map;
  *
  * @author Junfeng ZHU
  */
-public class MusicPlayer implements Runnable {
+public class SoundEffectPlayer implements Runnable {
     private final String filename;
     private static final Map<String, Media> mediaCache = new HashMap<>();
 
     private static final String[] MUSIC_FILES = new String[]{"/audio/eat.mp3", "/audio/hit.mp3", "/audio/gem.mp3", "/audio/coin.mp3", "/audio/game-over.mp3", "/audio/laugh.mp3"};
 
     /**
-     * Creates a new MusicPlayer object.
+     * Creates a new SoundEffectPlayer object.
      *
      * @param filename The name of the music file to play.
      */
-    public MusicPlayer(String filename) {
+    public SoundEffectPlayer(String filename) {
         this.filename = filename;
     }
 
@@ -59,7 +59,7 @@ public class MusicPlayer implements Runnable {
      */
     public static void preloadMedia(String[] filenames) {
         for (String filename : filenames) {
-            URL resource = MusicPlayer.class.getResource(filename);
+            URL resource = SoundEffectPlayer.class.getResource(filename);
             if (resource != null) {
                 Media media = new Media(resource.toString());
                 mediaCache.put(filename, media);

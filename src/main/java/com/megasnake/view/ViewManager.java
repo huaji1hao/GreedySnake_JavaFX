@@ -2,7 +2,7 @@ package com.megasnake.view;
 
 import com.megasnake.utils.ImageLoader;
 import com.megasnake.utils.audio.BackgroundMusicPlayer;
-import com.megasnake.utils.audio.MusicPlayer;
+import com.megasnake.utils.audio.SoundEffectPlayer;
 import com.megasnake.view.ui.ButtonManager;
 import com.megasnake.view.ui.SubSceneManager;
 import javafx.scene.Scene;
@@ -29,7 +29,7 @@ public class ViewManager {
     public ViewManager() {
         // Preload images and media for faster access and smoother playback
         ImageLoader.preloadImages();
-        MusicPlayer.preloadMedia();
+        SoundEffectPlayer.preloadMedia();
 
         mainPane = new AnchorPane();
         Scene mainScene = new Scene(mainPane, WIDTH, HEIGHT);

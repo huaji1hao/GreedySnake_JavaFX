@@ -1,6 +1,6 @@
 package com.megasnake.model;
 
-import com.megasnake.utils.audio.MusicPlayer;
+import com.megasnake.utils.audio.SoundEffectPlayer;
 import com.megasnake.controller.SpeedController;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,7 +23,7 @@ class AISnakeTest {
     private AISnake aiSnake;
     private Food[] foods;
     private MySnake mySnake;
-    private MockedStatic<MusicPlayer> mockedMusicPlayer;
+    private MockedStatic<SoundEffectPlayer> mockedMusicPlayer;
 
     @BeforeEach
     void setUp() {
@@ -34,7 +34,7 @@ class AISnakeTest {
         // set the initial position of the snake
         List<Point> fakeSnakeBody = new ArrayList<>(Arrays.asList(new Point(5, 10), new Point(5, 9)));
 
-        mockedMusicPlayer = Mockito.mockStatic(MusicPlayer.class);
+        mockedMusicPlayer = Mockito.mockStatic(SoundEffectPlayer.class);
         setPrivateField(aiSnake, "snakeHead", fakeSnakeBody.get(0));
         setPrivateField(aiSnake, "snakeBody", fakeSnakeBody);
         setPrivateField(mySnake, "score", 10);
@@ -73,7 +73,7 @@ class AISnakeTest {
         // verify snake may grow
         assertTrue(aiSnake.getBodySize() >= 2);
         // verify the music is played
-        mockedMusicPlayer.verify(() -> MusicPlayer.playMusic("/audio/laugh.mp3"));
+        mockedMusicPlayer.verify(() -> SoundEffectPlayer.playMusic("/audio/laugh.mp3"));
     }
 
     @Test
@@ -89,7 +89,7 @@ class AISnakeTest {
         assertEquals(aiSnake.getScore(), originalAIScore - aiSnakeSpeedController.getSpeedLevel());
         assertEquals(mySnake.getScore(), originalMyScore - aiSnakeSpeedController.getSpeedLevel());
         // verify the music is played
-        mockedMusicPlayer.verify(() -> MusicPlayer.playMusic("/audio/hit.mp3"));
+        mockedMusicPlayer.verify(() -> SoundEffectPlayer.playMusic("/audio/hit.mp3"));
     }
 
     @AfterEach

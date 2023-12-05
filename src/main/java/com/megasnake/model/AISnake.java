@@ -2,7 +2,7 @@ package com.megasnake.model;
 
 import com.megasnake.controller.SpeedController;
 import com.megasnake.utils.ImageLoader;
-import com.megasnake.utils.audio.MusicPlayer;
+import com.megasnake.utils.audio.SoundEffectPlayer;
 import javafx.scene.image.Image;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -162,7 +162,7 @@ public class AISnake extends Snake {
             if(Math.random() > 0.5){
                 snakeBody.add(new Point(snakeBody.get(snakeBody.size()-1).getX(), snakeBody.get(snakeBody.size()-1).getY()));
             }
-            MusicPlayer.playMusic("/audio/laugh.mp3");
+            SoundEffectPlayer.playMusic("/audio/laugh.mp3");
             food.generateFood(mySnake);
             score += 5 * speedController.getSpeedLevel();
         }
@@ -210,7 +210,7 @@ public class AISnake extends Snake {
      */
     public void hitMySnake(MySnake mySnake) {
         if (isAISnakeBodyCollidingWithMySnakeHead(mySnake) || isAISnakeHeadCollidingWithMySnakeBody(mySnake)) {
-            MusicPlayer.playMusic("/audio/hit.mp3");
+            SoundEffectPlayer.playMusic("/audio/hit.mp3");
             // remove the tail of the AI snake
             if(snakeBody.size() > 2 ) removeTail();
             // remove the tail of the player's snake

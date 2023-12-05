@@ -2,7 +2,7 @@ package com.megasnake.model;
 
 import com.megasnake.controller.SpeedController;
 import com.megasnake.utils.KeyEventHandler;
-import com.megasnake.utils.audio.MusicPlayer;
+import com.megasnake.utils.audio.SoundEffectPlayer;
 import javafx.animation.Animation;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -24,14 +24,14 @@ class MySnakeTest {
     private Meteor meteor;
     private Gem gem;
     private Coin coin;
-    private MockedStatic<MusicPlayer> mockedMusicPlayer;
+    private MockedStatic<SoundEffectPlayer> mockedMusicPlayer;
 
     @BeforeEach
     void setUp(){
-        // Mock static methods of MusicPlayer
-        mockedMusicPlayer = mockStatic(MusicPlayer.class);
+        // Mock static methods of SoundEffectPlayer
+        mockedMusicPlayer = mockStatic(SoundEffectPlayer.class);
         // Stub playMusic() method
-        mockedMusicPlayer.when(() -> MusicPlayer.playMusic(anyString())).thenAnswer(invocation -> null);
+        mockedMusicPlayer.when(() -> SoundEffectPlayer.playMusic(anyString())).thenAnswer(invocation -> null);
 
         mySnake = new MySnake();
         food = new Food();

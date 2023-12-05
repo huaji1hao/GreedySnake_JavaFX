@@ -11,8 +11,8 @@ import java.util.List;
  *
  * @author Junfeng ZHU
  */
-public class ScoreReader {
-    private ScoreReader() {}
+public class UserReader {
+    private UserReader() {}
     private static final String SCORE_FILE_PATH = "score.txt";
 
     /**
@@ -20,7 +20,7 @@ public class ScoreReader {
      *
      * @return A list of users with their name and score.
      */
-    public static List<User> readScoresFromFile() {
+    public static List<User> readUsersFromFile() {
         ArrayList<User> usersList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(SCORE_FILE_PATH))) {
             String line;

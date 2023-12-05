@@ -3,7 +3,7 @@ package com.megasnake.controller;
 import com.megasnake.model.*;
 import com.megasnake.utils.ImageLoader;
 import com.megasnake.utils.audio.*;
-import com.megasnake.utils.scoreboard.ScoreWriter;
+import com.megasnake.utils.scoreboard.UserWriter;
 import com.megasnake.utils.KeyEventHandler;
 import com.megasnake.view.component.*;
 import javafx.animation.Animation;
@@ -222,7 +222,7 @@ public class SnakeGameController extends GameController{
         gameTimer.stop();
         BackgroundMusicPlayer.stopMusic();
         gameview.drawGameOver();
-        MusicPlayer.playMusic("/audio/game-over.mp3");
+        SoundEffectPlayer.playMusic("/audio/game-over.mp3");
 
         // Pause for 3 seconds for waiting the game over music to finish
         PauseTransition pause = new PauseTransition(Duration.seconds(3));
@@ -267,7 +267,7 @@ public class SnakeGameController extends GameController{
             } else {
                 // write the score to the file
                 User newUser = new User(username, mySnake.getScore());
-                ScoreWriter.writeScoreToFile(newUser);
+                UserWriter.writeUserToFile(newUser);
             }
             gameStage.close();
             menuStage.show();

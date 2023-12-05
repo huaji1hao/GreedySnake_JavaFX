@@ -1,7 +1,7 @@
 package com.megasnake.model;
 
 import com.megasnake.utils.ImageLoader;
-import com.megasnake.utils.audio.MusicPlayer;
+import com.megasnake.utils.audio.SoundEffectPlayer;
 import com.megasnake.controller.SpeedController;
 import com.megasnake.utils.KeyEventHandler;
 import javafx.scene.image.Image;
@@ -43,7 +43,7 @@ public class MySnake extends Snake {
      */
     public void eatFood(Food food) {
         if (snakeHead.getX() == food.getX() && snakeHead.getY() == food.getY()) {
-            MusicPlayer.playMusic("/audio/eat.mp3");
+            SoundEffectPlayer.playMusic("/audio/eat.mp3");
             snakeBody.add(new Point(snakeBody.get(snakeBody.size()-1).getX(), snakeBody.get(snakeBody.size()-1).getY()));
             food.generateFood(this);
             addScore(5 * speedController.getSpeedLevel());
@@ -58,7 +58,7 @@ public class MySnake extends Snake {
      */
     public void hitByMeteor(Meteor meteor){
         if(meteor.isCollidingWithSnake(this)){
-            MusicPlayer.playMusic("/audio/hit.mp3");
+            SoundEffectPlayer.playMusic("/audio/hit.mp3");
             if(Math.random() > 0.5) speedDown();
             removeTail();
             meteor.setRandomPosition();
@@ -74,7 +74,7 @@ public class MySnake extends Snake {
      */
     public void touchGem(Gem gem) {
         if (gem.isCollidingWithSnake(this)) {
-            MusicPlayer.playMusic("/audio/gem.mp3");
+            SoundEffectPlayer.playMusic("/audio/gem.mp3");
             gem.setRandomPosition();
             speedUp();
             addScore(8 * speedController.getSpeedLevel());
@@ -89,7 +89,7 @@ public class MySnake extends Snake {
      */
     public void eatCoin(Coin coin) {
         if (coin.isCollidingWithSnake(this)) {
-            MusicPlayer.playMusic("/audio/coin.mp3");
+            SoundEffectPlayer.playMusic("/audio/coin.mp3");
             coin.setRandomPosition();
             addScore(6 * speedController.getSpeedLevel());
         }

@@ -3,7 +3,7 @@ package com.megasnake.view.ui;
 import com.megasnake.controller.SnakeGameController;
 import com.megasnake.model.User;
 import com.megasnake.utils.ImageLoader;
-import com.megasnake.utils.scoreboard.ScoreReader;
+import com.megasnake.utils.scoreboard.UserReader;
 import com.megasnake.model.THEME;
 import com.megasnake.view.component.*;
 import javafx.geometry.Pos;
@@ -200,7 +200,7 @@ public class SubSceneManager {
         scoreLayout.getChildren().add(titleBar);
 
         // Read scores from file and sort them
-        List<User> usersList = ScoreReader.readScoresFromFile();
+        List<User> usersList = UserReader.readUsersFromFile();
         Collections.sort(usersList);
 
         // Only show the top 5 scores
