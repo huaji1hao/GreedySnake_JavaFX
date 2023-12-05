@@ -8,6 +8,12 @@ import java.util.Random;
 import static com.megasnake.controller.SnakeGameController.COLUMNS;
 import static com.megasnake.controller.SnakeGameController.ROWS;
 
+/**
+ * Abstract class for all movable objects (except the snake) in the game.
+ *
+ * @author Sigurður Sigurðardóttir
+ * @author Junfeng ZHU-modified
+ */
 public abstract class SnakeObject implements Movable {
     protected int x;
     protected int y;
@@ -15,22 +21,42 @@ public abstract class SnakeObject implements Movable {
     protected Image image;
     protected SpeedController speedController;
     protected Random random = new Random();
-    protected int horizontalDirection = 0;
+    protected static final int HORIZONTAL_LEFT = -1;
+    protected static final int HORIZONTAL_RIGHT = 1;
+    protected static final int NO_HORIZONTAL_MOVEMENT = 0;
+    protected int horizontalDirection = NO_HORIZONTAL_MOVEMENT;
 
+    /**
+     * Returns the image of the object.
+     *
+     * @return The image of the object.
+     */
     public Image getImage(){
         return image;
     }
 
+    /**
+     * Sets the position of the object to a random position in the columns and above the screen.
+     */
     public void setRandomPosition(){
         this.x = random.nextInt(COLUMNS);
         this.y = -random.nextInt((int) (ROWS * 0.5));
     }
 
+    /**
+     * Returns the horizontal direction of the object.
+     *
+     * @return The horizontal direction of the object.
+     */
     public int getHorizontalDirection() {
         return horizontalDirection;
     }
 
+    /**
+     * default move method for all objects
+     */
     public void move(){
+        // we only move the object if the speed controller says so
         if(speedController.isMoveFrame()){
             this.y++;
             this.rotationAngle += 10;
@@ -39,19 +65,34 @@ public abstract class SnakeObject implements Movable {
         speedController.updateFrame();
     }
 
+    /**
+     * Returns the rotation angle of the object.
+     *
+     * @return The rotation angle of the object.
+     */
     public double getRotationAngle(){
         return this.rotationAngle;
     }
 
+    /**
+     * Checks if the object is out of the screen and sets a new random position if it is.
+     */
     public void checkIfIsOutOfScreen(){
         if(this.y > ROWS){
             this.setRandomPosition();
         }
     }
 
-    public boolean isCollidingWithSnake(Snake snake){
-        for(int i = 0; i < snake.getBodySize(); i++){
-            if(snake.getBodyPart(i).getX() == this.x && snake.getBodyPart(i).getY() == this.y){
+    /**
+     * Checks if the object is colliding with the mySnake.
+     *
+     * @param mySnake The mySnake to check collision with.
+     * @return True if the object is colliding with the mySnake, false otherwise.
+     */
+    public boolean isCollidingWithSnake(MySnake mySnake){
+        // check if the object is colliding with any part of the mySnake
+        for(int i = 0; i < mySnake.getBodySize(); i++){
+            if(mySnake.getBodyPart(i).getX() == this.x && mySnake.getBodyPart(i).getY() == this.y){
                 return true;
             }
         }
@@ -66,7 +107,11 @@ public abstract class SnakeObject implements Movable {
         return this.y;
     }
 
-
+    /**
+     * Returns the move frame of the object.
+     *
+     * @return The move frame of the object.
+     */
     public double getMoveFrame() {
         return speedController.getFrameRate();
     }

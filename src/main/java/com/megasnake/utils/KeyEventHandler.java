@@ -13,6 +13,11 @@ import java.util.Objects;
 
 import static com.megasnake.controller.SnakeGameController.HEIGHT;
 
+/**
+ * Handles key events for the game.
+ * @author Sigurður Sigurðardóttir
+ * @author Junfeng ZHU-modified
+ */
 public class KeyEventHandler implements EventHandler<KeyEvent> {
     Animation gameTimer;
     GraphicsContext gc;
@@ -23,6 +28,13 @@ public class KeyEventHandler implements EventHandler<KeyEvent> {
     public static final int UP = 2;
     public static final int DOWN = 3;
 
+    /**
+     * Initializes a new instance of the KeyEventHandler class.
+     *
+     * @param initialDirection The initial direction of the snake.
+     * @param gameTimer        The game timer.
+     * @param gc               The graphics context.
+     */
     public KeyEventHandler(int initialDirection, Animation gameTimer, GraphicsContext gc) {
         currentDirection = initialDirection;
         nextDirection = initialDirection;
@@ -30,14 +42,23 @@ public class KeyEventHandler implements EventHandler<KeyEvent> {
         this.gc = gc;
     }
 
+    /**
+     * Handles key events.
+     * <p>
+     * Change the direction of the snake if the arrow keys are pressed.
+     * @author Sigurður Sigurðardóttir
+     * @author Junfeng ZHU-modified
+     */
     @Override
     public void handle(KeyEvent event) {
         KeyCode code = event.getCode();
 
+        // Pause or resume the game when space is pressed
         if(code == KeyCode.SPACE) pauseGame();
 
         if(gameTimer.getStatus() == Animation.Status.PAUSED){
-            drawPause(gc, gameTimer);
+            drawPause(gc);
+            // Don't handle key events if the game is paused
             return;
         }
 
@@ -72,6 +93,9 @@ public class KeyEventHandler implements EventHandler<KeyEvent> {
         return nextDirection;
     }
 
+    /**
+     * Pauses or resumes the game.
+     */
     public void pauseGame(){
         if(gameTimer.getStatus() == Animation.Status.RUNNING){
             gameTimer.pause();
@@ -82,9 +106,12 @@ public class KeyEventHandler implements EventHandler<KeyEvent> {
         }
     }
 
-    public void drawPause(GraphicsContext gc, Animation gameTimer) {
-        // Check if the game is paused
-        if(gameTimer.getStatus() == Animation.Status.PAUSED){
+    /**
+     * Draws the pause text.
+     *
+     * @param gc The graphics context.
+     */
+    public void drawPause(GraphicsContext gc) {
             String text = "Press space to continue the game"; // Text to display
             double x = 40; // X position for the text
             double y = HEIGHT / 2.0; // Y position for the text (centered vertically)
@@ -104,7 +131,6 @@ public class KeyEventHandler implements EventHandler<KeyEvent> {
             // Draw the filled text in white at the same position
             gc.setFill(Color.WHITE); // Set the fill color to white
             gc.fillText(text, x, y); // Draw the filled text
-        }
     }
 
 

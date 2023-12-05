@@ -12,16 +12,31 @@ import java.util.Objects;
 
 import static com.megasnake.controller.SnakeGameController.*;
 
+/**
+ * The view class for the game screen.
+ *
+ * @author Junfeng ZHU
+ */
 public class GameView {
     private final GraphicsContext gc;
     private final ScrollingBackground scrollingBackground;
 
+    /**
+     * Creates a new GameView object.
+     * @param gc The graphics context of the game screen.
+     */
     public GameView(GraphicsContext gc) {
         this.gc = gc;
         scrollingBackground = new ScrollingBackground();
     }
-    public void drawBackground(int difficulty){
+
+    /**
+     * Draws the game screen.
+     * @param difficulty The difficulty of the game.
+     */
+    private void drawBackground(int difficulty){
         if(difficulty == 0){
+            // Draw the background squares in alternating colors to create a checkerboard pattern
             for (int i = 0; i < ROWS; i++) {
                 for (int j = 0; j < COLUMNS; j++) {
                     if ((i + j) % 2 == 0) {
@@ -41,15 +56,27 @@ public class GameView {
         }
     }
 
-    public void drawFood(Food[] foods){
+    /**
+     * Draws the food on the game screen.
+     * @param foods The food to be drawn.
+     */
+    private void drawFood(Food[] foods){
         for (Food food : foods)
             gc.drawImage(food.getFoodImage(), 1.0 * food.getX() * SQUARE_SIZE, 1.0 * food.getY() * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
     }
 
-    public void drawSnakeBase(SnakeBase snake, int currentDirection){
-        if(snake.getBodySize() <= 1) return;// Don't draw the snake if it has no body parts
+    /**
+     * Draws the snake on the game screen.
+     * @param snake The snake to be drawn.
+     * @param currentDirection The current direction of the snake.
+     */
+    private void drawSnakeBase(Snake snake, int currentDirection){
+        // Don't draw the snake if it has no body parts
+        if(snake.getBodySize() <= 1) return;
+
         // Calculate the movement frame which determines how much the snake has progressed towards the next cell
         double moveFrame = snake.getMoveFrame();
+
         // Draw each body part of the snake, starting from the tail and moving towards the head
         for (int i = snake.getBodySize() - 1; i > 1; i--) {
             // Get the current body part
@@ -79,12 +106,17 @@ public class GameView {
             case KeyEventHandler.DOWN -> headY += moveFrame;
             default -> System.out.println("Invalid direction: " + currentDirection);
         }
+
         gc.drawImage(snake.getHeadImage(currentDirection), headX * SQUARE_SIZE, headY * SQUARE_SIZE, SQUARE_SIZE - 1.0, SQUARE_SIZE - 1.0);
 
     }
 
 
 
+    /**
+     * Draws the score on the game screen.
+     * @param score The score to be drawn.
+     */
     private void drawScore(int score) {
         setFont(35);
 
@@ -98,6 +130,10 @@ public class GameView {
         gc.fillText("Your Score: " + score, 10, 35); // Draw the filled text
     }
 
+    /**
+     * Draws the AI score on the game screen.
+     * @param aiScore The AI score to be drawn.
+     */
     private void drawAIScore(int aiScore){
         setFont(35);
 
@@ -111,26 +147,44 @@ public class GameView {
         gc.fillText("AI Score: " + aiScore, 402, 35); // Draw the filled text
     }
 
-    public void drawAll(Snake mySnake, Food[] foods, int difficulty, Meteor meteor, Gem gem, Coin coin, AISnake eater){
+    /**
+     * Draws all the game objects on the game screen.
+     * @param mySnake The player's snake.
+     * @param foods The food to be drawn.
+     * @param difficulty The difficulty of the game.
+     * @param meteor The meteor to be drawn.
+     * @param gem The gem to be drawn.
+     * @param coin The coin to be drawn.
+     * @param aiSnake The AI snake.
+     */
+    public void drawAll(MySnake mySnake, Food[] foods, int difficulty, Meteor meteor, Gem gem, Coin coin, AISnake aiSnake){
         drawBackground(difficulty);
+
+        // Draw the score under the other game objects
         drawScore(mySnake.getScore());
-        if(SnakeGameController.getIsAISnake()) drawAIScore(eater.getScore());
+        if(SnakeGameController.getIsAISnake()) drawAIScore(aiSnake.getScore());
 
         drawFood(foods);
         drawSnakeBase(mySnake, KeyEventHandler.getCurrentDirection());
 
+        // Draw the meteor, gem, and coin if the playable feature is enabled
         if(SnakeGameController.getIsPlayableFeature()){
             drawSnakeObject(meteor);
             drawSnakeObject(gem);
             drawSnakeObject(coin);
         }
 
-        if(SnakeGameController.getIsAISnake()) drawSnakeBase(eater, eater.getCurrentDirection());
+        // Draw the AI snake if the AI snake feature is enabled
+        if(SnakeGameController.getIsAISnake()) drawSnakeBase(aiSnake, aiSnake.getCurrentDirection());
     }
 
 
-
+    /**
+     * Draws a snake object on the game screen.
+     * @param snakeObject The snake object to be drawn.
+     */
     private void drawSnakeObject(SnakeObject snakeObject) {
+        // Calculate the position with the moveFrame applied
         double moveFrame = snakeObject.getMoveFrame();
         double objectX = (snakeObject.getX() + moveFrame * snakeObject.getHorizontalDirection()) * SQUARE_SIZE;
         double objectY = (snakeObject.getY() + moveFrame) * SQUARE_SIZE;
@@ -140,26 +194,24 @@ public class GameView {
         gc.save();
 
         // Translate the rotation center to the center of the meteor
-        // This is done by moving the origin of the graphics context to the meteor's center
         gc.translate(objectX + SQUARE_SIZE / 2.0, objectY + SQUARE_SIZE / 2.0);
 
         // Apply the rotation around the new origin (meteor's center)
         gc.rotate(rotationAngle);
 
         // Translate the graphics context back to its original position
-        // This ensures that the rotation only affects the meteor image
         gc.translate(-objectX - SQUARE_SIZE / 2.0, -objectY - SQUARE_SIZE / 2.0);
 
         // Draw the meteor image at its position
         gc.drawImage(snakeObject.getImage(), objectX, objectY, SQUARE_SIZE, SQUARE_SIZE);
 
         // Restore the graphics context to its original state
-        // This is important to not affect other elements that will be drawn later
         gc.restore();
     }
 
-
-
+    /**
+     * Draws the game over screen.
+     */
     public void drawGameOver() {
         setFont(70);
 
@@ -171,6 +223,9 @@ public class GameView {
         gc.fillText("Game Over", WIDTH / 5.0, HEIGHT / 2.0);
     }
 
+    /**
+     * sets the font of the game screen.
+     */
     private void setFont(int fontSize) {
         // Load the custom font
         Font customFont = Font.loadFont(getClass().getResourceAsStream("/font/kenvector_future.ttf"), fontSize);

@@ -7,10 +7,21 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class ScoreWriter {
-    private ScoreWriter() {}
+/**
+ * Writes the user's name and score to a file.
+ *
+ * @author Junfeng ZHU
+ */
+public class UserWriter {
+    private UserWriter() {}
     private static final String SCORE_FILE_PATH = "score.txt";
-    public static void writeScoreToFile(User user) {
+
+    /**
+     * Writes the user's name and score to a file.
+     *
+     * @param user The user whose name and score will be written to the file.
+     */
+    public static void writeUserToFile(User user) {
         
         try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(SCORE_FILE_PATH, true)))) {
             out.println("\n" + user.getUsername() + ", " + user.getScore());
