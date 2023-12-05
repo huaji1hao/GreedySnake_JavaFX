@@ -5,6 +5,11 @@ import javafx.scene.text.Font;
 
 import java.util.Objects;
 
+/**
+ * A custom label class that allows for easy customization of the font.
+ *
+ * @author Junfeng ZHU
+ */
 public class CustomLabel extends Label {
 
     /**
@@ -31,6 +36,12 @@ public class CustomLabel extends Label {
         this.setFont(Objects.requireNonNullElseGet(customFont, () -> new Font("Arial", fontSize)));
     }
 
+    /**
+     * Sets the position of the label.
+     *
+     * @param x The x-coordinate of the label.
+     * @param y The y-coordinate of the label.
+     */
     public void setPos(double x, double y) {
         this.setLayoutX(x);
         this.setLayoutY(y);

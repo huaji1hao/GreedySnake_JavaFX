@@ -1,5 +1,10 @@
 package com.megasnake.model;
 
+/**
+ * This class is used to store the coordinates of the points in the game.
+ *
+ * @author Junfeng ZHU
+ */
 public class Point {
     private int x;
     private int y;

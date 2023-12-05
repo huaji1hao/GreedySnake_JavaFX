@@ -1,4 +1,5 @@
 module com.megasnake {
+    // JavaFX modules
     requires javafx.graphics;
     requires javafx.controls;
     requires javafx.media;
