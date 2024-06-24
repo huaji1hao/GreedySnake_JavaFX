@@ -4,6 +4,8 @@
 
 ### Author: Junfeng ZHU👓
 
+[中文版 zh-CN](README.zh-CN.md)
+
 
 ## 🌟 Brief Project Description
 MegaSnake is an exciting twist on the classic snake game, developed using JavaFX. This project enhances the traditional snake game with numerous additional fun features, including multiple themes, unique battle music, and various gameplay elements.
