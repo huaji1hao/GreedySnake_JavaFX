@@ -2,8 +2,6 @@
 
 ## 项目标题: MegaSnake
 
-### 作者: Junfeng ZHU👓
-
 [English Version](README.md)
 
 ## 🌟 项目简介

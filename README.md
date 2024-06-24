@@ -2,8 +2,6 @@
 
 ## Project Title: MegaSnake
 
-### Author: Junfeng ZHU👓
-
 [中文版 zh-CN](README.zh-CN.md)
 
 
